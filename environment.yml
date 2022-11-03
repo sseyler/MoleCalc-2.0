@@ -1,0 +1,12 @@
+name: molecalc
+dependencies:
+  - pip
+  - numpy
+  - scipy
+  - tqdm
+  - rdkit
+  - flask
+  - jinja2
+  - werkzeug
+#  - pip:
+#    -
