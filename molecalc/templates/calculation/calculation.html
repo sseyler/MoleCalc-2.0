@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>MoleCalc</title>
+  <link rel="icon" type="image/x-icon" href="../static/img/favicon.ico">
+
+  {% include 'section_header.html' %}
+
+  {% include 'jsmol_head.html' %}
+
+  <script type="text/javascript" src="{{ request.static_url('molecalc:static/js/page_calculation.js') }}"></script>
+
+</head>
+<body>
+
+<section class="molcalc calculation">
+
+    {% include 'section_icon.html' %}
+
+    <section class="mc-mobile-navigation toggle700 btnHeader left">
+        <a class="button icon btnSidebar" href="#calcmenu">
+            <i class="fas fa-bars"></i>
+        </a>
+    </section>
+
+    {% include 'section_menu.html' %}
+
+    {% include 'section_footer.html' %}
+
+    <!-- content -->
+
+    <section class="mc-content calculation">
+
+        <section class="calc-menu sidebar" id="calcmenu">
+
+            <section class="sidebar-cover"></section>
+            <section class="sidebar-background btnCloseSidebar" href="#calcmenu"></section>
+
+            <section class="sidebar-wrapper"> <!-- sidebar wrapper -->
+
+                <section class="toolset toggle700">
+                    <a class="button icon btnCloseSidebar" href="#calcmenu">
+                        <i class="fas fa-times"></i>
+                    </a>
+                    <a class="button btnSidebar menu" href="#nav">Menu</a>
+                </section>
+
+                <ul>
+                    <li><a href="#/energies"  class="energies active">Thermochemistry</a></li>
+                    <li><a href="#/vibrations" class="vibrations">Vibrational Modes</a></li>
+                    <li><a href="#/orbitals" class="orbitals">Molecular Orbitals</a></li>
+                    <!--<li><a href="#/solvation" class="solvation">Polarity and Solvation</a></li>-->
+                </ul>
+
+                <section class="molinfo">
+	                    <p id="molinfo-container">
+                            {{smiles}} ({{theorylvl}})
+                        </p>
+                </section>
+
+
+            </section> <!-- sidebar wrapper -->
+        </section>
+
+        <section class="calc calc-energies active tab-energies onecol">
+            <h2>Thermochemistry</h2>
+              <!-- <h3>at 298.15 K and standard pressure</h3> -->
+
+            {% include 'section_calcview_thermo.html' %}
+
+            <section class="data">
+                <div>
+                    <a
+                      class="button"
+                      download="optimization.inp"
+                      href="../data/{{hashkey}}/{{hashkey}}.inp"
+                      media_type="text">
+                      <i class="fa fa-download"></i>
+                      GAMESS Input File
+                    </a>
+                    <a
+                      class="button"
+                      download="optimization.out"
+                      href="../data/{{hashkey}}/{{hashkey}}.out"
+                      media_type="text">
+                      <i class="fa fa-download"></i>
+{#                      GAMESS Output#}
+                      {{ enthalpy }}
+                    </a>
+{#                    <a#}
+{#                      class="button"#}
+{#                      download="optimization.out"#}
+{#                      href="{{ url_for('download', filename='downloadFile.txt') }}"#}
+{#                      media_type="text">#}
+{#                      <i class="fa fa-download"></i>#}
+{#                      GAMESS Output#}
+{#                    </a>#}
+                </div>
+            </section>
+        </section>
+
+<!--      <section class="calc calc-sdf">-->
+<!--        <pre>{{sdf}}</pre>-->
+<!--      </section>-->
+
+
+        <section class="calc calc-vibration tab-vibrations">
+            <h2>Vibrational Modes</h2>
+
+            {% include 'section_calcview_vibrations.html' %}
+
+            <section class="data">
+                <div>
+                    <a
+                      class="button"
+                      download="vibrations.inp"
+                      href="../data/{{hashkey}}/{{hashkey}}_calculate_vibrations.inp"
+                      media_type="text">
+                      <i class="fa fa-download"></i>
+                      GAMESS Input File
+                    </a>
+                    <a
+                      class="button"
+                      download="vibrations.out"
+                      href="../data/{{hashkey}}/{{hashkey}}_calculate_vibrations.out"
+                      media_type="text">
+                      <i class="fa fa-download"></i>
+                      GAMESS Output
+                    </a>
+                </div>
+            </section>
+        </section>
+
+
+        <section class="calc calc-orbitals tab-orbitals">
+            <h2>Molecular Orbitals</h2>
+
+            {% include 'section_calcview_orbitals.html' %}
+
+            <section class="data">
+                <div>
+                    <a
+                      class="button"
+                      download="orbitals.inp"
+                      href="../data/{{hashkey}}/{{hashkey}}_calculate_orbitals.inp"
+                      media_type="text">
+                      <i class="fa fa-download"></i>
+                      GAMESS Input File
+                    </a>
+                    <a
+                      class="button"
+                      download="orbitals.out"
+                      href="../data/{{hashkey}}/{{hashkey}}_calculate_orbitals.out"
+                      media_type="text">
+                      <i class="fa fa-download"></i>
+                      GAMESS Output
+                    </a>
+                </div>
+            </section>
+        </section>
+
+
+        <section class="calc calc-orbitals tab-solvation">
+            <h2>Polarity and Solvation</h2>
+
+            {% include 'section_calcview_solvation.html' %}
+        </section>
+
+        <!--<section class="data">-->
+        <!--    <div>-->
+        <!--        <button-->
+        <!--          type="button" class="button"-->
+        <!--          onclick="window.open('../data/{{hashkey}}/{{hashkey}}.out')">-->
+        <!--          onclick="window.location.href='../data/{{hashkey}}/{{hashkey}}.out';">-->
+        <!--          <i class="fa fa-download"></i>-->
+        <!--          GAMESS Input File-->
+        <!--        </button>-->
+        <!--    </div>-->
+        <!--</section>-->
+
+    </section>
+    <!-- end content -->
+
+</section>
+
+<section class="hidden"></section>
+
+</body>
+</html>
