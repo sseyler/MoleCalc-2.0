@@ -1,0 +1,429 @@
+@media only screen and (max-width: 767px) {
+
+    body {
+        background: #fff;
+    }
+
+}
+
+
+@media only screen and (max-width: 767px) {
+
+    .prompt-container {
+        z-index: 500;
+
+        grid-template-columns: auto;
+        grid-template-areas: "prompt";
+
+        /* TODO just set the background completly white? */
+        background: #fff;
+    }
+
+    .prompt-box {
+        margin: 0 20px;
+        padding: 0 5px;
+        overflow-x:hidden;
+        padding: 0px;
+    }
+
+}
+
+
+@media only screen and (max-width: 767px) {
+
+    .molcalc.calculation .mc-content {
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas: "view";
+    }
+    .molcalc.calculation .mc-content h1 {
+        display: none;
+    }
+    .molcalc.calculation .mc-content h2 {
+        display: none;
+    }
+    .molcalc.calculation .mc-content .calc {
+        /* display: none !important; */
+        grid-area: view;
+        margin: 0;
+        padding: 0;
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas: "view";
+    }
+    .molcalc.calculation .mc-content .calc-menu {
+        /* display: none; */
+    }
+    .molcalc.calculation .mc-content .calc-menu ul {
+        margin-top: 20px;
+    }
+    .molcalc.calculation .mc-content .calc-menu ul li {
+        display: block;
+        float: none;
+        padding: 0 20px;
+    }
+
+
+    .molcalc.calculation .mc-content .calc .view {
+        z-index: 1;
+        grid-area: view;
+        display: block;
+    }
+    .molcalc.calculation .mc-content .calc .options table {
+        width: inherit;
+    }
+    .molcalc.calculation .mc-content .calc .options .data {
+        width: inherit;
+        height: inherit;
+        overflow: visible;
+        margin: 20px 0;
+    }
+    .molcalc.calculation .mc-content .calc .options .data li {
+        height: 50px;
+    }
+    .molcalc.calculation .mc-content .calc .options .data li .energy {
+        padding: 0 20px;
+        position: absolute;
+        left:0;
+
+    }
+    .molcalc.calculation .mc-content .calc .options .data a {
+        /* color: rgb(0, 121, 211); */
+        color: rgb(102, 187, 251);
+    }
+
+    .molcalc.calculation .mc-content .calc .tbls_container {
+        grid-area: content;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+
+    }
+
+    .molcalc.calculation .mc-content .calc .calcOptionMenu {
+        z-index: 5;
+        position: absolute;
+        bottom: 0;
+    }
+}
+
+
+@media only screen and (max-width: 1100px) {
+
+    .molcalc.editor {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+
+    .molcalc.calculation {
+		grid-template-columns: 1fr;
+	}
+
+    .molcalc.page {
+		grid-template-columns: 1fr;
+	}
+
+}
+
+
+@media only screen and (max-width: 767px) {
+
+    .toggle-desktop {display: none !important;}
+
+    .toggle700 {display: block !important;}
+
+	.molcalc.editor {
+		grid-template-columns: 50% 50%;
+		grid-template-rows: 10px 40px auto 47px;
+		grid-template-areas:
+            "room room"
+			"header header"
+			"view view"
+            "footer footer";
+	}
+
+    .mc-footer{
+        display: none;
+    }
+
+    /* or move to header, expand on touch */
+    .mc-editor-searchbar {
+
+        position: absolute;
+        display: block;
+        margin: 0;
+        padding: 10px;
+
+        visibility: hidden;
+        transition: all .1s ease-in-out;
+        width: calc(100% - 20px);
+
+    }
+    .mc-editor-searchbar:focus,
+    .mc-editor-searchbar.active {
+        visibility: visible;
+    }
+    .mc-editor-searchbar input {
+        border: 0;
+        width: calc(100% - 20px);
+        padding: 0 10px;
+
+        /* width: 0px; */
+        /* visibility: hidden; */
+        /* opacity: 0; */
+        /*  */
+        text-align: left;
+
+    }
+    .mc-editor-searchbar input.active,
+    .mc-editor-searchbar input:focus {
+
+        visibility: visible;
+        opacity: 1;
+
+    }
+    .mc-editor-searchbar a.button {
+        border: transparent;
+        background: transparent;
+        color: #222;
+    }
+
+
+    .mc-editor-searchbar .button.searchbar-close {
+        top: 10px;
+    }
+
+    .btnHeader {
+        line-height: 40px;
+        gid-area: header;
+        position: absolute;
+        top: 10px;
+    }
+    .btnHeader.left {
+        left: 10px;
+    }
+    .btnHeader.right {
+        right: 10px;
+    }
+
+    .btnHeader .button.icon {
+        font-size: 22px;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+
+        background: transparent;
+        border-color: transparent;
+    }
+    .btnHeader .button.icon:hover {
+        color: rgb(0, 121, 211);
+    }
+
+
+    .mc-header {
+        text-align: center;
+        line-height: 40px;
+        padding:0;
+    }
+    .mc-header h1 {line-height: 42px;font-size: 25px;}
+
+    .sidebar {
+
+        /* from grid-area */
+        grid-area: none;
+
+        width: 100vw;
+        height: 100vh;
+
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        /* left: -300px; */
+
+
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+
+        z-index:10;
+
+        background: rgba(255,255,255,0.5);
+        background: #eeeff1;
+
+        visibility: hidden;
+        /* transition: all .1s ease-in-out; */
+        /* transition: visibility 0s, opacity 0.2s ease-in-out; */
+        /* display: NONE; */
+        /* opacity: 0; */
+        /* pointer-events: none; */
+
+        width: 100%;
+        border-right: 50px solid transparent;
+
+
+    }
+
+    .sidebar .sidebar-wrapper {
+        display: none;
+    }
+    .sidebar.active .sidebar-wrapper {
+        display: block;
+        -webkit-transform: translate(0px, 0px); /* iphone hack */
+        width: 90%;
+    }
+
+    .mc-navigation.sidebar {
+        z-index: 15;
+    }
+
+    /* .sidebar > * { */
+    /*     padding: 10px; */
+    /* } */
+
+    .iphone-display-bugfix {
+        display: none;
+    }
+
+    .sidebar.active,
+    #nav:target {
+        /* transform: translateX(300px); */
+        /* opacity:1; */
+        visibility: visible;
+        display: block;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .mc-navigation ul {
+        text-align: left;
+    }
+    .mc-navigation ul li {
+        display: block;
+        margin: 0;
+    }
+    .mc-navigation ul li a {
+
+        border-bottom: 1px solid #ddd;
+        /* border-color: rgb(0, 121, 211); */
+    }
+
+    .sidebar .toolset,
+    .sidebar .section {
+        padding: 10px;
+        margin: 10px;
+    }
+    .section.toggle700,
+    .toolset.toggle700 {
+        padding: 0;
+    }
+
+    .sidebar .section .btnCloseSidebar,
+    .sidebar .toolset .btnCloseSidebar {
+        font-size: 22px;
+        background: transparent;
+        border-color: transparent;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+    }
+    .sidebar .section .btnCloseSidebar:hover,
+    .sidebar .toolset .btnCloseSidebar:hover {
+        color: #333;
+    }
+
+    .sidebar .btnSidebar.menu {
+        margin:5px 0 0 15px;
+        position: absolute;
+    }
+
+    .sidebar .toolset h2 {
+        margin: 0 0 10px 0;
+    }
+
+    .toolset ul.bottombar {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: -20;
+
+        width: 100%;
+        margin: 0;
+        text-align: center;
+
+        /* background: #f7f7f7; */
+        /* background: #fff; */
+    }
+    .toolset ul.bottombar li {
+        /* padding:10px 5px 10px 5px; */
+    }
+    .toolset ul.bottombar li .button {
+        /* height: 35px; */
+        /* width: 35px; */
+        line-height: 35px;
+        /* font-size: 18px; */
+    }
+
+    .toolset ul.rightbar {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        position: fixed;
+        bottom: 60px;
+        right: 0;
+
+        top: 50%;
+        transform: translateY(-50%);
+
+        z-index: -20;
+
+        width: 57px;
+        margin: 0;
+        text-align: center;
+
+        background: transparent;
+    }
+    .toolset ul.rightbar a.button {
+    }
+
+    .sidebar-cover {
+        background: #f7f7f7;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -10;
+
+        width: 90%;
+    }
+
+    .sidebar-background {
+        background: rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -12;
+    }
+
+
+
+    /* */
+    .toolset.tool-choice {
+        padding: 0;
+        position: absolute;
+        top: -5px;
+        right: 10px;
+        height: 32px;
+        margin:0;
+    }
+
+    .toolset.chemdoodle,
+    .toolset.jsmol {
+        padding-top: 35px;
+    }
+
+
+}

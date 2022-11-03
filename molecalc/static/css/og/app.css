@@ -1,0 +1,164 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* fonts ************************************************************/
+
+
+/* default **********************************************************/
+
+
+* {
+	/* box-sizing: border-box; */
+	padding: 0;
+	margin: 0;
+}
+
+
+/* Stops Mobile Safari from auto-adjusting font-sizes */
+body,
+select,
+input,
+textarea {
+    -moz-appearance: none !important;
+	-webkit-text-size-adjust: none;
+	-webkit-text-size-adjust: 100%;
+}
+
+/* Reset some styles */
+::-webkit-input-placeholder,
+:-moz-placeholder {
+    color:#999;
+}
+
+::-moz-selection {
+    color:white;
+    background:#222;
+    text-shadow:none;
+}
+::selection {
+    color:white;
+    background:#222;
+    text-shadow:none;
+}
+
+::-moz-focus-inner {
+    border: 0;
+}
+
+input[type=submit]:focus {
+    outline: 0;
+}
+
+
+body {
+/* 
+    https://fonts.google.com/specimen/Nunito
+    https://fonts.google.com/specimen/Montserrat
+*/
+
+    /* font-family: "Fira Sans", sans-serif; */
+    /*  "Varela Round", "century gothic", verdana; */
+    font-family: Nunito, Montserrat, sans-serif;
+    font-size: 14px;
+    line-height: 30px;
+
+	width: 100vw;
+	height: 100vh;
+
+	position: absolute;
+
+    background: #eeeff1;
+    background: #f5f5f5;
+    background: #efefef;
+    background: #f7f7f7;
+    color: #222;
+	cursor: default;
+}
+
+
+.hidden {display: none;}
+
+p {}
+
+p strong {
+    font-weight:bold;
+}
+p em {
+    font-style: italic;
+}
+
+p a {
+    text-decoration:none;
+    color: inherit;
+    /* box-shadow: inset 0px -4px 0px 0px rgb(0, 121, 211); */
+    /* box-shadow: inset 0px -4px 0px 0px rgb(255,255,255); */
+    box-shadow: inset 0px -4px 0px 0px rgb(126, 181, 222);
+}
+p a:hover {
+    /* color: #0373bb; */
+    /* color: rgb(0, 121, 211); */
+    background: white;
+    box-shadow: none;
+}
+
+
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}

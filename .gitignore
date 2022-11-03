@@ -1,0 +1,71 @@
+# Development
+note.md
+.vim
+
+# configuration
+development.ini
+configuration.ini
+production.ini
+molcalc_configuration.ini
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Distribution / packaging
+build/
+dist/
+lib64/
+sdist/
+*.egg
+*.egg-info/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+coverage/
+
+# Webapp stuff
+*.log
+*.pid
+*.db
+*.sqlite
+*.zip
+
+# Sphinx documentation
+docs/_build/
+
+# Misc
+pserve
+.python-version
+
+# Enviroment
+env*/
+logs/
+
+ppqm
+ppqm_src
+ppqm.git
+chemhelp
+molecalc/chemhelp
+.test
+.tmptest
+
+# ignore downloaded packages
+molecalc/static/js/*jquery*
+molecalc/static/fontawesome
+molecalc/static/jquery
+molecalc/static/chemdoodleweb
+molecalc/static/jsmol
+molecalc/static/demo
+molecalc/static/rdkit
+
+# ignore calculated data
+molecalc/data/

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>MoleCalc</title>
+    <link rel="icon" type="image/x-icon" href="../../static/img/favicon.ico">
+
+    {# _header.html, JS, and CSS #}
+    {% include 'shared/_header.html' %}
+
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/og/app_og.js') }}?v=1.4"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700,800" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app_elements.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app_forms.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app_layout.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app_mobile.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.css') }}" />
+
+    {% include 'jsmol/head.html' %}
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/rdkit/rdkit.js') }}"></script>
+
+    <script type="text/javascript">
+
+    let sdfBenzene = `
+
+
+      6  6  0  0  0  0            999 V2000
+        0.0000    1.0000    0.0000 C   0  0  0  0  0  0
+        0.8660    0.5000    0.0000 C   0  0  0  0  0  0
+        0.8660   -0.5000    0.0000 C   0  0  0  0  0  0
+        0.0000   -1.0000    0.0000 C   0  0  0  0  0  0
+       -0.8660   -0.5000    0.0000 C   0  0  0  0  0  0
+       -0.8660    0.5000    0.0000 C   0  0  0  0  0  0
+      1  2  1  0  0  0  0
+      2  3  2  0  0  0  0
+      3  4  1  0  0  0  0
+      4  5  2  0  0  0  0
+      5  6  1  0  0  0  0
+      6  1  2  0  0  0  0
+    M  END
+    $$$$
+    `;
+
+    </script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/og/editor_og.js') }}"></script>
+
+
+</head>
+<body>
+
+<section class="molecalc editor" id="molecalc-view">
+
+    {% include 'shared/_appicon.html' %}
+
+    <section class="mc-mobile-navigation toggle700 btnHeader left">
+        <a class="button icon btnSidebar" href="#sidebarEditor">
+            <!-- <i class="fas fa&#45;angle&#45;right"></i> -->
+            <i class="fas fa-bars"></i>
+        </a>
+    </section>
+
+    <section class="mc-navigation sidebar" id="nav">
+        <section class="toggle700 section">
+            <a class="button icon btnCloseSidebar" href="#nav">
+                <i class="fas fa-times"></i>
+            </a>
+        </section>
+
+        <section class="sidebar-cover"></section>
+        <section class="sidebar-background btnCloseSidebar" href="#nav"></section>
+
+        <section class="sidebar-wrapper"> <!-- sidebar wrapper -->
+            <section class="section">
+                <ul>
+                    <li><a class="" href="/">New Molecule</a></li>
+                    <li><a class="" href="/help">Help</a></li>
+                    <li><a class="" href="/about">About</a></li>
+                </ul>
+            </section>
+        </section> <!-- sidebar wrapper -->
+    </section>
+
+    {% include 'shared/_footer.html' %}
+
+
+    {# content #}
+
+    <section class="mc-mobile-search toggle700 btnHeader right">
+        <a class="button icon" href="#searchbar">
+            <i class="fas fa-search"></i>
+        </a>
+    </section>
+
+    <section class="mc-editor-searchbar">
+        <form>
+            <input type="text" placeholder="Search using molecule name or SMILES definition" autocomplete="off" id="searchbar" />
+            <a class="button icon">
+                <i class="fas fa-search"></i>
+            </a>
+            <span class="toggle700 searchbar-close button icon">
+            <i class="fas fa-times"></i>
+        </span>
+        </form>
+    </section>
+
+
+    <section class="mc-editor-tools sidebar" id="sidebarEditor">
+
+        <section class="sidebar-cover"></section>
+        <section class="sidebar-background btnCloseSidebar" href="#sidebarEditor"></section>
+
+        <section class="sidebar-wrapper"> {# sidebar wrapper #}
+            <section class="toolset toggle700">
+                <a class="button icon btnCloseSidebar" href="#sidebarEditor">
+                    <i class="fas fa-times"></i>
+                </a>
+                <a class="button btnSidebar menu" href="#nav">Menu</a>
+            </section>
+
+
+            <h1>Molecule Builder</h1>
+
+            <section class="toolset jsmol">
+                {% include 'jsmol/toolbar.html' %}
+            </section>
+        </section> {# sidebar wrapper #}
+
+
+        <h1>Electronic Structure Calculation</h1>
+
+        <section class="toolset quantum">
+            <h2>Theory level</h2>
+
+            <ul>
+                <li><a rel="am1" href="#!" class="button theory">AM1</a></li>
+                <li><a rel="rm1" href="#!" class="button theory">RM1</a></li>
+                <li><a rel="pm3" href="#!" class="button theory active">PM3</a></li>
+                <li><a rel="pm6" href="#!" class="button theory">PM6</a></li>
+            </ul>
+
+            <h2>Run GAMESS</h2>
+
+            <ul class="bottombar">
+                <li><a href="#!" class="button quantum highlight">Calculate Properties</a></li>
+                {# <li><a#}
+                {#         download="nice_download_name.png"#}
+                {#         href="../static/img/benzene_v1_5.png"#}
+                {#         class="button">#}
+                {#     <i class="fa fa-download"></i>#}
+                {#     Download Inputs</a>#}
+                {# </li>#}
+            </ul>
+            {{ test }}
+        </section>
+
+
+    </section>
+
+    <section class="mc-content">
+        <div id="editor-jsmol">
+            {% include 'jsmol/content.html' %}
+        </div>
+    </section>
+
+</section>
+
+<section class="hidden">
+
+</section>
+
+</body>
+</html>

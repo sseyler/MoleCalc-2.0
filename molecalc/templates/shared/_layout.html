@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}MoleCalc{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="../../static/img/favicon.ico">
+
+    {% block additional_css %}{% endblock %}
+</head>
+<body> {### <body> ###########################################################}
+
+
+{# Navigation Bar #}
+
+
+{# Main Content #}
+<div class="main_content">
+    {% block main_content %}{% endblock %}
+</div>
+
+
+{# Footer #}
+<footer>
+    {% include 'shared/_footer.html' %}
+</footer>
+
+
+{# Additional JavaScript #}
+{% block additional_js %}{% endblock %}
+
+
+</body> {### </body> #########################################################}
+</html>

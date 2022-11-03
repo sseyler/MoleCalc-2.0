@@ -1,0 +1,521 @@
+.spinloadgif {
+    background:
+        url('data:image/gif;base64,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')
+        center center no-repeat;
+}
+
+/* loading spinner */
+/* https://loading.io/ */
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  margin: 6px;
+  border: 4px solid #333;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #333 transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* mobile menu */
+/* https://jonsuh.com/hamburgers/ */
+.border-menu {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 24px;
+    /* height: 14px; */
+    /* height: 40px; */
+
+    position: absolute;
+    z-index: 5;
+}
+.border-menu-inner:after,
+.border-menu-inner:before,
+.border-menu-inner {
+    top: 2px;
+    background-color: #222;
+    position: absolute;
+    width: 40px;
+    height: 4px;
+    transition-timing-function: ease;
+    transition-duration: .15s;
+    transition-property: transform;
+    border-radius: 10px;
+}
+
+.border-menu-inner:after,
+.border-menu-inner:before{
+    position: absolute;
+    width: 40px;
+    height: 4px;
+    transition-timing-function: ease;
+    transition-duration: .15s;
+    transition-property: transform;
+
+	display: block;
+    content: "";
+}
+
+.border-menu-inner {
+    display: block;
+    margin-top: -2px;
+    top: 2px;
+}
+.border-menu-inner:before {
+    top: 10px;
+    transition-timing-function: ease;
+    transition-duration: .15s;
+    transition-property: transform,opacity;
+}
+.border-menu-inner:after {
+	top: 20px;
+    transition-timing-function: ease;
+    transition-duration: .15s;
+    transition-property: transform,opacity;
+}
+
+
+/* .border-menu:hover .border-menu-inner, */
+a.active > .border-menu .border-menu-inner,
+.border-menu.active .border-menu-inner {
+    transform: translate3d(0,10px,0) rotate(45deg);
+}
+/* .border-menu:hover .border-menu-inner:before, */
+a.active > .border-menu .border-menu-inner:before,
+.border-menu.active .border-menu-inner:before {
+	transform: rotate(-45deg) translate3d(-5.71429px,-6px,0);
+    opacity: 0;
+}
+/* .border-menu:hover .border-menu-inner:after, */
+a.active > .border-menu .border-menu-inner:after,
+.border-menu.active .border-menu-inner:after {
+    transform: translate3d(0,-20px,0) rotate(-90deg);
+}
+
+/* table */
+table {
+    border-collapse: separate;
+    border-spacing: 2px;
+    width:100%;
+    margin:0 0 20px 0;
+}
+
+table tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+table tr td {
+    background:#fff;
+    padding:10px 10px;
+    line-height:30px;
+
+    vertical-align:top;
+
+	border: 0;
+}
+
+table tr td p {margin:0;}
+table tr td img {float:none;display:inline;}
+table tr td.right {text-align:right;white-space: nowrap;}
+table tr td.center {text-align:center;}
+
+
+/* No button */
+.nobutton {
+    display: inline-block;
+
+    line-height:inherit;
+    user-select: none;
+    /* cursor:pointer; */
+
+    padding: 0px 70px;
+
+    border: 1px transparent;
+    border-color: #dadada;
+    border-radius: 3px;
+
+    text-decoration: none;
+    color: #222;
+    background: #ddd;
+    background: #dadada;
+
+    font-weight: 700;
+}
+
+.nobutton.noicon {
+    height: 20px;  /* Leaving this at 30px causes vertical spacing issues... */
+    width: 30px;
+    line-height: 30px;
+    padding: 0;
+    text-align: center;
+
+    font-size: 15px;
+
+    /* color: #222; */
+    /* background: #ddd; /* alt #e7e6ef */
+    /* border-color: #ddd; */
+    background: transparent;
+    border-color: transparent;
+}
+
+/* Button */
+.button {
+    display: inline-block;
+
+    line-height:inherit;
+    user-select: none;
+    cursor:pointer;
+
+    padding: 0px 7px;
+
+    border: 1px solid #ddd;
+    border-color: #dadada;
+    border-radius: 3px;
+
+    text-decoration: none;
+    color: #222;
+    background: #ddd;
+    background: #dadada;
+
+    font-weight: 700;
+}
+
+.button:hover {
+    background: #fff;
+    border-color: #fff;
+    color:#fff;
+    background: rgb(0, 121, 211);
+    border-color: rgb(0, 121, 211);
+}
+.button:focus:hover,
+.button:focus,
+.button.focus {
+    cursor:default;
+    background: rgb(0, 121, 211);
+    border-color: rgb(0, 121, 211);
+    color: #fff;
+}
+.button:active {
+    cursor: default;
+    background: rgb(0, 121, 211);
+    border-color: rgb(0, 121, 211);
+    color: #fff;
+}
+.button.active {
+    cursor: default;
+    background: rgb(0, 121, 211);
+    border-color: rgb(0, 121, 211);
+    color: #fff;
+}
+.button.icon {
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    padding: 0;
+    text-align: center;
+
+    font-size: 15px;
+
+    /* color: #222; */
+    /* background: #ddd; /* alt #e7e6ef */
+    /* border-color: #ddd; */
+
+    font-weight:bold;
+}
+
+.button.icon:hover {
+    background: white;
+    border-color: white;
+    color: #222;
+    color:#fff;
+    background: rgb(0, 121, 211);
+    border-color: rgb(0, 121, 211);
+}
+
+.button.icon:focus {
+    background: rgb(0, 121, 211);
+    border-border: rgb(0, 121, 211);
+    color: #fff;
+}
+
+.button.highlight {
+    color:#fff;
+    background: #333;
+    border-color: #333;
+}
+.button.highlight:hover {
+    color:#fff;
+    background: rgb(0, 121, 211);
+    border-color: rgb(0, 121, 211);
+}
+
+.button.disabled {
+}
+
+
+.button.inactive {
+    color:#aaa;
+    cursor:default;
+}
+.button.inactive:active,
+.button.inactive:focus {
+    background:
+        rgba(255,255,255,0.75);
+    box-shadow:
+        0 0 1px rgba(0,0,0,0.2),
+        1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.button.icon img {
+	vertical-align: middle;
+	width: 18px;
+	height: 18px;
+}
+.button.icon.active img,
+.button.icon:focus img,
+.button.icon:hover img {
+    filter: invert(100%);
+}
+
+.button.large {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    font-size: 25px;
+    padding: 0;
+    text-align: center;
+
+}
+
+
+/*a[download] {
+  color: hsla(216, 70%, 53%, 1);
+  text-decoration: underline;
+}*/
+
+
+/* loading meter */
+/* https://css-tricks.com/css3-progress-bars/ */
+
+.meter {
+	height: 10px;
+	position: relative;
+	background: #ddd;
+	border-radius: 25px;
+	padding: 5px;
+
+}
+.meter > span {
+	display: block;
+	height: 100%;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+	border-top-left-radius: 20px;
+	border-bottom-left-radius: 20px;
+	position: relative;
+	overflow: hidden;
+    background: #222;
+}
+.meter > span:after,
+.animate > span > span {
+	content: "";
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+	background-image:
+		-webkit-gradient(linear, 0 0, 100% 100%,
+			color-stop(.25, rgba(255, 255, 255, .2)),
+			color-stop(.25, transparent), color-stop(.5, transparent),
+			color-stop(.5, rgba(255, 255, 255, .2)),
+			color-stop(.75, rgba(255, 255, 255, .2)),
+			color-stop(.75, transparent), to(transparent)
+		);
+	background-image:
+		-moz-linear-gradient(
+			-45deg,
+			rgba(255, 255, 255, .2) 25%,
+			transparent 25%,
+			transparent 50%,
+			rgba(255, 255, 255, .2) 50%,
+			rgba(255, 255, 255, .2) 75%,
+			transparent 75%,
+			transparent
+		);
+	z-index: 1;
+	-webkit-background-size: 50px 50px;
+	-moz-background-size: 50px 50px;
+	background-size: 50px 50px;
+	-webkit-animation: move 2s linear infinite;
+	-moz-animation: move 2s linear infinite;
+		-webkit-border-top-right-radius: 8px;
+	-webkit-border-bottom-right-radius: 8px;
+			-moz-border-radius-topright: 8px;
+		-moz-border-radius-bottomright: 8px;
+				border-top-right-radius: 8px;
+			border-bottom-right-radius: 8px;
+		-webkit-border-top-left-radius: 20px;
+		-webkit-border-bottom-left-radius: 20px;
+			-moz-border-radius-topleft: 20px;
+			-moz-border-radius-bottomleft: 20px;
+				border-top-left-radius: 20px;
+				border-bottom-left-radius: 20px;
+	overflow: hidden;
+}
+
+.animate > span:after {
+	display: none;
+}
+
+@-webkit-keyframes move {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 50px 50px;
+	}
+}
+
+@-moz-keyframes move {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 50px 50px;
+	}
+}
+
+
+/* hover help hvrlp */
+
+.hvrHlp {display: none;}
+
+
+/* */
+
+
+
+/* form */
+input[type=text] {
+    width: 90%;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ddd;
+    border-radius: 2px;
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+	height: 40px;
+	line-height: 40px;
+    padding: 0 10px;
+    font: inherit;
+}
+input[type=text]:focus {
+    border-color: rgb(0, 121, 211);
+    outline:0;
+}
+
+input[type=text].error {
+    border-color: #ef5476;
+}
+input[type=text].accept {
+    border-color: #2da776;
+}
+
+
+/* popup promp */
+
+.prompt-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+	width: 100vw;
+	height: 100vh;
+	max-width:100%;
+	overflow-x:hidden;
+
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto 512px auto;
+ 	grid-template-rows: auto;
+    grid-template-areas:
+        "yy prompt xx";
+
+    background: rgba(255,255,255,0.5);
+    background: rgba(247,247,247,0.8);
+    /* background: rgba(0,0,0,0.05); */
+    /* background: rgba(150,150,150,0.2); */
+
+}
+
+.prompt-box {
+    grid-area:prompt;
+    align-self: center;
+
+    display: block;
+
+    background: #fff;
+    background: rgba(255,255,255);
+    text-align: left;
+
+    /* border: 1px solid #ddd; */
+    /* border: 1px solid rgba(0,0,0,0.1); */
+
+    padding:20px 30px;
+
+    border-radius: 5px;
+}
+.prompt-box.transparent {
+    background: transparent;
+}
+.prompt-box .prompt-header {
+    height: 40px;
+    line-height: 40px;
+    font-size: 17px;
+    font-weight: bold;
+    padding: 5px 10px 0 10px;
+    text-align: center;
+}
+.prompt-box .prompt-message {
+    padding: 10px 10px 10px 10px;
+    text-align: center;
+}
+.prompt-box .prompt-message strong {font-weight:bold;}
+.prompt-box .prompt-respond {
+    text-align: center;
+}
+
+.prompt-box .prompt-respond ul {
+}
+.prompt-box .prompt-respond ul li {
+    display: inline-block;
+    margin: 10px 5px 10px 5px;
+}
+
+/* prompt loading */
+.prompt-box .meter {
+	width: 100%;
+	display: block;
+    margin: 0 0 0 -5px;
+}

@@ -1,0 +1,673 @@
+.molcalc {
+	width: 100vw;
+	height: 100vh;
+	max-width:100%;
+	overflow-x:hidden;
+
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 350px 350px 350px;
+ 	grid-template-rows: 10px 50px 10px auto 70px;
+    grid-template-areas:
+		"push push push"
+        "header navigation navigation"
+		"line2 line2 line2"
+        "view view view"
+        "footer footer footer";
+
+    /* TODO */
+    position: relative;
+}
+
+
+.molcalc.editor {
+	width: 100vw;
+	height: 100vh;
+	max-width:100%;
+	overflow-x:hidden;
+
+    justify-content: center;
+    display: grid;
+    /* align-items: center; */
+    grid-template-columns: 350px 350px 350px;
+ 	grid-template-rows: 10px 50px 10px 41px 10px auto 70px;
+    grid-template-areas:
+		"push push push"
+        "header navigation navigation"
+        "line line line"
+        "search search search"
+		"line2 line2 line2"
+        "editor view view"
+        "footer footer footer";
+}
+
+
+.molcalc.loading {
+
+    grid-template-columns: auto 64px auto;
+ 	grid-template-rows: auto 64px auto;
+    grid-template-areas:
+		"space space space"
+		"space2 loading space3"
+		"bottom bottom bottom"
+
+	;
+}
+.molcalc.loading-bar {
+
+    grid-template-columns: 1fr;
+ 	grid-template-rows: auto 40px 30px 20px 60px auto;
+    grid-template-areas:
+		"space "
+		"header"
+		"space2"
+		"loading"
+		"space3"
+		"bottom "
+
+	;
+}
+
+.mc-loading {display: none;}
+.mc-loading-bar {display: none; padding:0; text-align:center;font-weight:bold;}
+.molcalc.loading .mc-loading {
+	display: block;
+	grid-area: loading;
+}
+.molcalc.loading-bar .mc-loading-bar {
+	display: inline-block;
+	grid-area: loading;
+}
+.molcalc.loading-bar .mc-loading-bar .meter {
+	width: 100px;
+	display: inline-block;
+}
+.molcalc.loading .mc-header,
+.molcalc.loading-bar .mc-header {
+	text-align: center;
+}
+
+.mc-header {
+    grid-area: header;
+    padding: 0 10px;
+}
+
+.mc-header h1 {
+    font-size: 25px;
+	line-height: 50px;
+    font-weight: bold;
+    letter-spacing: 0px;
+
+}
+.mc-header h1 a {
+    text-decoration: none;
+    color: #333;
+}
+
+.mc-navigation {
+	grid-area: navigation;
+	display:block;
+}
+
+.mc-navigation ul {
+	text-align: right;
+}
+.mc-navigation li {
+	display: inline-block;
+	line-height: 50px;
+	margin: 0 10px 0 10px;
+}
+
+.mc-navigation li a {
+	display: block;
+	height: 50px;
+	line-height: 50px;
+	font-weight: bold;
+	text-decoration: none;
+
+	color: #222;
+}
+.mc-navigation li a:hover {
+    color: rgb(0, 121, 211);
+}
+
+.mc-footer {
+    grid-area: footer;
+	line-height: 0px;
+	position: relative;
+
+    /* background: */
+        /* url('../img/lwm2_mg.png') no-repeat right 10px center; */
+        /* https://www.asu.edu/ */
+        /* url('../img/unibas_logo.jpg') no-repeat right 200px center; */
+    /* background-size: 200px; */
+}
+.mc-footer p {
+	margin: 10px 10px 10px 10px;
+}
+
+/* Tuned to approximately match spacing of horiz. border on top of calc. grid */
+#mc-footer-container {
+    margin: 0 1%;
+    padding: 10px;
+    position: relative;
+    border-top: 2px solid #bbb;
+}
+#github {
+    float: left;
+    margin-top: 35px;
+}
+#asulogo {
+    float: right;
+    margin-top: 10px;
+}
+
+
+/* sections */
+
+.mc-editor-searchbar {
+    padding: 0 10px;
+	grid-area: search;
+
+    display: grid;
+    grid-template-columns: auto;
+ 	grid-template-rows: 50px;
+    grid-template-areas:
+        "search-bar";
+
+}
+
+.mc-editor-searchbar .button.icon {
+    height: 42px;
+    width: 42px;
+    line-height: 42px;
+	font-size: 20px;
+
+    background: none;
+    border: none;
+
+    position: absolute;
+    right: 10px;
+    top: 0;
+
+    display: none;
+
+}
+.mc-editor-searchbar a.button:hover {
+    background: none;
+    border: none;
+    /* color: rgb(0, 121, 211); */
+}
+.mc-editor-searchbar input {
+    grid-area: search-bar;
+    display: block;
+    width: 98%;
+    padding: 0 1%;
+
+    display: block;
+    background: white;
+    border-color: white;
+    border-color: #e0e0e0;
+
+    border-radius: 4px;
+    border-width: 2px;
+    text-align: center;
+}
+
+.mc-editor-searchbar input[type=text].loading {
+
+
+	background-image:
+		-webkit-gradient(linear, 0 0, 100% 100%,
+			color-stop(.25, rgba(255, 255, 255, .2)),
+			color-stop(.25, transparent), color-stop(.5, transparent),
+			color-stop(.5, rgba(255, 255, 255, .2)),
+			color-stop(.75, rgba(255, 255, 255, .2)),
+			color-stop(.75, transparent), to(transparent)
+		);
+	background-image:
+		-moz-linear-gradient(
+			-45deg,
+			rgba(255, 255, 255, .2) 25%,
+			transparent 25%,
+			transparent 50%,
+			rgba(255, 255, 255, .2) 50%,
+			rgba(255, 255, 255, .2) 75%,
+			transparent 75%,
+			transparent
+		);
+	-webkit-background-size: 50px 50px;
+	-moz-background-size: 50px 50px;
+	background-size: 50px 50px;
+	-webkit-animation: move 2s linear infinite;
+	-moz-animation: move 2s linear infinite;
+
+    background-color: rgb(0, 121, 211);
+    color: white;
+
+}
+
+.mc-content {
+	grid-area: view;
+	background: white;
+	margin: 10px;
+	/* max-height: 100px; */
+
+	overflow:hidden;
+
+    z-index: 0;
+
+    border-radius: 4px;
+}
+
+.mc-editor-tools {
+	margin: 0 0 0 10px;
+}
+
+.mc-editor-tools h1 {
+    font-size: 125%;
+	font-weight: bold;
+	margin: 25px 0 0 0;
+}
+
+.mc-editor-tools {
+	grid-area: editor;
+}
+.mc-editor-tools .toolset {
+	margin: 10px;
+}
+.mc-editor-tools .toolset h2 {
+	margin:0 0 10px 0;
+}
+.mc-editor-tools .toolset h3 {
+	margin:0 0 20px 0;
+    font-weight: bold;
+}
+.mc-editor-tools .toolset ul {
+	margin: 0 0 10px 0;
+}
+.mc-editor-tools .toolset ul li {
+	display: inline-block;
+	padding: 0 5px 7px 0;
+}
+.mc-editor-tools .toolset.quantum {
+	margin: 10px 10px;
+}
+.mc-editor-tools .toolset.quantum h2 {
+	text-align: left;
+}
+
+.mc-editor-tools ul li .element-row {
+	display: inline-block;
+	padding: 0 5px 5px 0;
+}
+
+
+/* chemdoodle */
+
+#editor-chemdoodle div:first-of-type {
+    display: none;
+}
+
+#editor-jsmol {
+    width: 100%;
+    height: 100%;
+}
+
+.canvas_jsmol {
+    width: 100%;
+    height: 100%;
+
+    /* TODO Add loader */
+}
+
+#editor-chemdoodle {
+    position: relative;
+}
+
+.chemdoodle-hack1 {
+    position: absolute;
+    top:10px;
+    right:10px;
+    width: 20px;
+    height: 20px;
+    display: block;
+    background: white;
+}
+
+
+/*a[download]::before {*/
+/*  !*content: url('../static/img/benzene_v1_5.png');*!*/
+/*  height: 10em;*/
+/*  position: relative;*/
+/*  top: 0.75em;*/
+/*  right: 0.5em;*/
+/*  width: 1em;*/
+/*}*/
+
+/*a[download]:hover,*/
+/*a[download]:focus {*/
+/*  text-decoration: none;*/
+/*}*/
+
+/* calculations */
+
+.molcalc.calculation .mc-content {
+    background: transparent;
+    overflow: visible;
+    position: relative;
+
+    display: grid;
+ 	grid-template-rows: 60px 10px 1fr 10px;  /* 50px */
+    grid-template-columns: auto;
+    grid-template-areas:
+        "menu"
+        "pad"
+        "calc"
+        /*"data"*/
+        "pad2";
+    margin: 0 10px 0 10px;
+}
+.mc-content.calculation h1 {
+    display: none;
+    grid-area: name;
+    font-size: 30px;
+    line-height: 40px;
+    font-weight: bold;
+    z-index: 10;
+    text-align: left;
+}
+.mc-content.calculation h2 {
+    font-size: 25px;
+    line-height: 35px;
+    font-weight: bold;
+    text-align: center;
+}
+.mc-content.calculation h3 {
+    font-size: 15px;
+    line-height: 35px;
+    font-weight: bold;
+    text-align: center;
+}
+.molcalc.calculation .mc-content pre {
+    font-family: mononoki, Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console",
+    "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
+    "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+
+    font-size: 15px;
+    line-height: 20px;
+
+    overflow-x: auto;
+    tab-width: 4;
+
+    border: #333;
+    background: #fff;
+    padding: 20px;
+}
+.molcalc.calculation .mc-content .calc-menu {
+    grid-area: menu;
+    border-bottom: 2px solid #bbb;
+    /* background: blue; */
+}
+.molcalc.calculation .mc-content .calc-menu ul {}
+.molcalc.calculation .mc-content .calc-menu ul li {
+    float: left;
+    display: block;
+}
+.molcalc.calculation .mc-content .calc-menu ul li a {
+    color: #222;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    line-height: 58px;  /* this value lines up highlight w/ horizontal border */
+    margin-right: 20px;
+    border-bottom: 2px solid #bbb;
+}
+.molcalc.calculation .mc-content .calc-menu ul li a.active,
+.molcalc.calculation .mc-content .calc-menu ul li a:hover {
+    border-color: #000;
+    border-color: rgb(0, 121, 211);
+    /*border-color: rgb(140, 29, 64);  !*ASU maroon*!*/
+    /*border-color: rgb(255, 198, 39);  !*ASU gold*!*/
+    outline-style:none;
+}
+
+/* Adding molecule name(s) and electronic structure method to calc options bar */
+.molcalc.calculation .mc-content .calc-menu .molinfo {
+    float: right;
+    display: block;
+    position: relative;
+    vertical-align: top;
+    text-transform: uppercase;
+    font-size: 15px;
+    line-height: 35px;
+    font-weight: bold;
+    text-align: center;
+}
+#molinfo-container {
+    line-height: 4em;
+}
+
+/* Area below calc for data download button */
+.molcalc.calculation .mc-content .data {
+    grid-area: data;
+    background: white;
+    /*border-bottom: 2px solid #bbb;*/
+    padding: 5px 5px; /* Use 15px for "single-button" solution */
+    /*margin: 5px 15px;*/
+}
+
+.molcalc.calculation .mc-content .calc {
+    grid-area: calc;
+    background: white;
+    min-height: 100px;
+    padding: 15px;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+ 	grid-template-rows: 40px 10px 1fr 50px;
+    grid-template-areas:
+        "title title"
+        "pad pad"
+        "options view"
+        "data .";
+
+    DISPLAY: NONE; /* Without this, JSmol viewer takes over... */
+}
+.molcalc.calculation .mc-content .calc.active {display: grid;}
+
+.molcalc.calculation .mc-content .calc h2 {
+    grid-area: title;
+}
+/* "onecol" is specifically for thermochem calc tab, so this overrides
+    ".molecalc.calculation .mc-content .calc" above
+*/
+.molcalc.calculation .mc-content .calc.onecol {
+    grid-template-columns: 1fr 2fr;
+ 	grid-template-rows: 40px 10px 1fr 50px;
+    grid-template-areas:
+        "title title"
+        "pad pad"
+        "content content"
+        "data .";
+}
+.molcalc.calculation .mc-content .calc .tbls_container {
+    grid-area: content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 250px 250px auto;
+    grid-gap: 1em;
+    grid-auto-flow: dense;
+    grid-auto-flow: row;
+    /*display: NONE;*/
+}
+.molcalc.calculation .mc-content .calc .tbl_container {
+    display: block;
+}
+
+.molcalc.calculation .mc-content svg {
+    /* transform: scale(0.4); */
+    /* -webkit-transform:scale(0.6); */
+    /* -moz-transform:scale(0.6); */
+    /* -ms-transform:scale(0.6); */
+    /* -o-transform:scale(0.6); */
+}
+.molcalc.calculation .mc-content .calc table {
+    border-collapse: separate;
+    border-spacing: 2px;
+    margin: 0 0 20px 0;
+}
+.molcalc.calculation .mc-content .calc table td {
+    background: #f7f7f7;
+    padding: 10px 10px;
+    line-height: 20px;
+    vertical-align: top;
+    /* border-width: 0 1px 1px 0; */
+    /* border-style: solid; */
+    /* border-color: #bbb; */
+}
+
+
+
+.molcalc.calculation .mc-content .calc .options {
+    grid-area: options;
+    /* grid-area: options; */
+    /* min-height: 400px; */
+    /* padding: 20px; */
+}
+.molcalc.calculation .mc-content .calc .view {
+    grid-area: view;
+    /* grid-area: view; */
+    /* padding: 20px; */
+}
+
+.molcalc.calculation .mc-content .calc .options .choices {
+
+
+
+}
+.molcalc.calculation .mc-content .calc ul.data {
+
+    width: 100%;
+    line-height: 50px;
+
+    /* min-height: 500px; */
+    max-height: 500px;
+    overflow-y: scroll;
+    direction: rtl;
+
+    border-top: 1px solid #fff;
+    border-top: 1px solid #f4f4f4;
+}
+.molcalc.calculation .mc-content .calc ul.data li {
+    background: #f7f7f7;
+    background: white;
+    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #f4f4f4;;
+    display:block;
+    padding: 0 20px;
+    position: relative;
+}
+.molcalc.calculation .mc-content .calc ul.data li:hover {
+    background: rgb(0, 121, 211);
+    background: #fbfbfb;
+    /* color: #fff; */
+}
+.molcalc.calculation .mc-content .calc ul.data li .txt {
+    font-weight: bold;
+}
+.molcalc.calculation .mc-content .calc ul.data li .index {
+    display: none;
+}
+.molcalc.calculation .mc-content .calc ul.data li .energy {
+    display: inline-block;
+    padding:0 40px 0 40px;
+    text-align: right;
+    direction: ltr;
+}
+.molcalc.calculation .mc-content .calc ul.data .action {
+    /* display: none; */
+    position: absolute;
+    right: 0;
+}
+.molcalc.calculation .mc-content .calc ul.data li:hover .action a.active,
+.molcalc.calculation .mc-content .calc ul.data li:hover .action a {
+    color: rgb(0, 121, 211);
+}
+.molcalc.calculation .mc-content .calc ul.data a:hover,
+.molcalc.calculation .mc-content .calc ul.data a {
+    display: block;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+    /* color: rgba(255,255,255,0.8); */
+    cursor: pointer;
+    outline-style:none;
+}
+/* Color of arrows (inside circles) in lists of modes/orbitals */
+.molcalc.calculation .mc-content .calc ul.data a {
+    color: rgba(255,255,255, 0.8);
+    /*color: rgb(140, 29, 64);  !*ASU maroon*!*/
+    /*color: rgb(255, 198, 39);  !*ASU gold*!*/
+}
+
+
+
+/* page */
+.molcalc.page .mc-content {
+    background: transparent;
+    padding: 60px 0 60px 0;
+    overflow: visible;
+}
+.molcalc.page .mc-content h1 {
+    font-size: 30px;
+    margin: 0px 0 20px 0;
+}
+.molcalc.page .mc-content h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 30px 0 20px 0;
+}
+.molcalc.page .mc-content p {
+    line-height: 35px;
+    margin: 10px 0 0 0;
+}
+.molcalc.page .mc-content ul {
+    display: block;
+    list-style-type: disc;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 40px;
+}
+.molcalc.page .mc-content ul li {
+}
+
+
+.molcalc.page .mc-content.about h1 {
+    font-size: 30px;
+    margin: 40px 0 20px 0;
+}
+
+.molcalc.page .mc-content.about h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 25px 0 15px 0;
+}
+.molcalc.page .mc-content.about p {
+    line-height: 25px;
+    margin: 0 100px 0 15px;
+    text-align: justify;
+}
+
+
+.toggle700 {display: none !important; }
+.toggle-desktop {}
+
+
+#mc-editor-2d div:first-child {
+    display: none;
+}
