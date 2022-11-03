@@ -1,4 +1,4 @@
-.molcalc {
+.molecalc {
 	width: 100vw;
 	height: 100vh;
 	max-width:100%;
@@ -20,7 +20,7 @@
 }
 
 
-.molcalc.editor {
+.molecalc.editor {
 	width: 100vw;
 	height: 100vh;
 	max-width:100%;
@@ -42,7 +42,7 @@
 }
 
 
-.molcalc.loading {
+.molecalc.loading {
 
     grid-template-columns: auto 64px auto;
  	grid-template-rows: auto 64px auto;
@@ -53,7 +53,7 @@
 
 	;
 }
-.molcalc.loading-bar {
+.molecalc.loading-bar {
 
     grid-template-columns: 1fr;
  	grid-template-rows: auto 40px 30px 20px 60px auto;
@@ -70,20 +70,20 @@
 
 .mc-loading {display: none;}
 .mc-loading-bar {display: none; padding:0; text-align:center;font-weight:bold;}
-.molcalc.loading .mc-loading {
+.molecalc.loading .mc-loading {
 	display: block;
 	grid-area: loading;
 }
-.molcalc.loading-bar .mc-loading-bar {
+.molecalc.loading-bar .mc-loading-bar {
 	display: inline-block;
 	grid-area: loading;
 }
-.molcalc.loading-bar .mc-loading-bar .meter {
+.molecalc.loading-bar .mc-loading-bar .meter {
 	width: 100px;
 	display: inline-block;
 }
-.molcalc.loading .mc-header,
-.molcalc.loading-bar .mc-header {
+.molecalc.loading .mc-header,
+.molecalc.loading-bar .mc-header {
 	text-align: center;
 }
 
@@ -352,7 +352,7 @@
 
 /* calculations */
 
-.molcalc.calculation .mc-content {
+.molecalc.calculation .mc-content {
     background: transparent;
     overflow: visible;
     position: relative;
@@ -389,7 +389,7 @@
     font-weight: bold;
     text-align: center;
 }
-.molcalc.calculation .mc-content pre {
+.molecalc.calculation .mc-content pre {
     font-family: mononoki, Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console",
     "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
     "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
@@ -404,17 +404,17 @@
     background: #fff;
     padding: 20px;
 }
-.molcalc.calculation .mc-content .calc-menu {
+.molecalc.calculation .mc-content .calc-menu {
     grid-area: menu;
     border-bottom: 2px solid #bbb;
     /* background: blue; */
 }
-.molcalc.calculation .mc-content .calc-menu ul {}
-.molcalc.calculation .mc-content .calc-menu ul li {
+.molecalc.calculation .mc-content .calc-menu ul {}
+.molecalc.calculation .mc-content .calc-menu ul li {
     float: left;
     display: block;
 }
-.molcalc.calculation .mc-content .calc-menu ul li a {
+.molecalc.calculation .mc-content .calc-menu ul li a {
     color: #222;
     font-weight: bold;
     text-decoration: none;
@@ -423,8 +423,8 @@
     margin-right: 20px;
     border-bottom: 2px solid #bbb;
 }
-.molcalc.calculation .mc-content .calc-menu ul li a.active,
-.molcalc.calculation .mc-content .calc-menu ul li a:hover {
+.molecalc.calculation .mc-content .calc-menu ul li a.active,
+.molecalc.calculation .mc-content .calc-menu ul li a:hover {
     border-color: #000;
     border-color: rgb(0, 121, 211);
     /*border-color: rgb(140, 29, 64);  !*ASU maroon*!*/
@@ -433,7 +433,7 @@
 }
 
 /* Adding molecule name(s) and electronic structure method to calc options bar */
-.molcalc.calculation .mc-content .calc-menu .molinfo {
+.molecalc.calculation .mc-content .calc-menu .molinfo {
     float: right;
     display: block;
     position: relative;
@@ -449,7 +449,7 @@
 }
 
 /* Area below calc for data download button */
-.molcalc.calculation .mc-content .data {
+.molecalc.calculation .mc-content .data {
     grid-area: data;
     background: white;
     /*border-bottom: 2px solid #bbb;*/
@@ -457,7 +457,7 @@
     /*margin: 5px 15px;*/
 }
 
-.molcalc.calculation .mc-content .calc {
+.molecalc.calculation .mc-content .calc {
     grid-area: calc;
     background: white;
     min-height: 100px;
@@ -474,15 +474,15 @@
 
     DISPLAY: NONE; /* Without this, JSmol viewer takes over... */
 }
-.molcalc.calculation .mc-content .calc.active {display: grid;}
+.molecalc.calculation .mc-content .calc.active {display: grid;}
 
-.molcalc.calculation .mc-content .calc h2 {
+.molecalc.calculation .mc-content .calc h2 {
     grid-area: title;
 }
 /* "onecol" is specifically for thermochem calc tab, so this overrides
     ".molecalc.calculation .mc-content .calc" above
 */
-.molcalc.calculation .mc-content .calc.onecol {
+.molecalc.calculation .mc-content .calc.onecol {
     grid-template-columns: 1fr 2fr;
  	grid-template-rows: 40px 10px 1fr 50px;
     grid-template-areas:
@@ -491,7 +491,7 @@
         "content content"
         "data .";
 }
-.molcalc.calculation .mc-content .calc .tbls_container {
+.molecalc.calculation .mc-content .calc .tbls_container {
     grid-area: content;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -501,23 +501,23 @@
     grid-auto-flow: row;
     /*display: NONE;*/
 }
-.molcalc.calculation .mc-content .calc .tbl_container {
+.molecalc.calculation .mc-content .calc .tbl_container {
     display: block;
 }
 
-.molcalc.calculation .mc-content svg {
+.molecalc.calculation .mc-content svg {
     /* transform: scale(0.4); */
     /* -webkit-transform:scale(0.6); */
     /* -moz-transform:scale(0.6); */
     /* -ms-transform:scale(0.6); */
     /* -o-transform:scale(0.6); */
 }
-.molcalc.calculation .mc-content .calc table {
+.molecalc.calculation .mc-content .calc table {
     border-collapse: separate;
     border-spacing: 2px;
     margin: 0 0 20px 0;
 }
-.molcalc.calculation .mc-content .calc table td {
+.molecalc.calculation .mc-content .calc table td {
     background: #f7f7f7;
     padding: 10px 10px;
     line-height: 20px;
@@ -529,24 +529,24 @@
 
 
 
-.molcalc.calculation .mc-content .calc .options {
+.molecalc.calculation .mc-content .calc .options {
     grid-area: options;
     /* grid-area: options; */
     /* min-height: 400px; */
     /* padding: 20px; */
 }
-.molcalc.calculation .mc-content .calc .view {
+.molecalc.calculation .mc-content .calc .view {
     grid-area: view;
     /* grid-area: view; */
     /* padding: 20px; */
 }
 
-.molcalc.calculation .mc-content .calc .options .choices {
+.molecalc.calculation .mc-content .calc .options .choices {
 
 
 
 }
-.molcalc.calculation .mc-content .calc ul.data {
+.molecalc.calculation .mc-content .calc ul.data {
 
     width: 100%;
     line-height: 50px;
@@ -559,7 +559,7 @@
     border-top: 1px solid #fff;
     border-top: 1px solid #f4f4f4;
 }
-.molcalc.calculation .mc-content .calc ul.data li {
+.molecalc.calculation .mc-content .calc ul.data li {
     background: #f7f7f7;
     background: white;
     border-bottom: 1px solid #fff;
@@ -568,34 +568,34 @@
     padding: 0 20px;
     position: relative;
 }
-.molcalc.calculation .mc-content .calc ul.data li:hover {
+.molecalc.calculation .mc-content .calc ul.data li:hover {
     background: rgb(0, 121, 211);
     background: #fbfbfb;
     /* color: #fff; */
 }
-.molcalc.calculation .mc-content .calc ul.data li .txt {
+.molecalc.calculation .mc-content .calc ul.data li .txt {
     font-weight: bold;
 }
-.molcalc.calculation .mc-content .calc ul.data li .index {
+.molecalc.calculation .mc-content .calc ul.data li .index {
     display: none;
 }
-.molcalc.calculation .mc-content .calc ul.data li .energy {
+.molecalc.calculation .mc-content .calc ul.data li .energy {
     display: inline-block;
     padding:0 40px 0 40px;
     text-align: right;
     direction: ltr;
 }
-.molcalc.calculation .mc-content .calc ul.data .action {
+.molecalc.calculation .mc-content .calc ul.data .action {
     /* display: none; */
     position: absolute;
     right: 0;
 }
-.molcalc.calculation .mc-content .calc ul.data li:hover .action a.active,
-.molcalc.calculation .mc-content .calc ul.data li:hover .action a {
+.molecalc.calculation .mc-content .calc ul.data li:hover .action a.active,
+.molecalc.calculation .mc-content .calc ul.data li:hover .action a {
     color: rgb(0, 121, 211);
 }
-.molcalc.calculation .mc-content .calc ul.data a:hover,
-.molcalc.calculation .mc-content .calc ul.data a {
+.molecalc.calculation .mc-content .calc ul.data a:hover,
+.molecalc.calculation .mc-content .calc ul.data a {
     display: block;
     height: 50px;
     width: 50px;
@@ -607,7 +607,7 @@
     outline-style:none;
 }
 /* Color of arrows (inside circles) in lists of modes/orbitals */
-.molcalc.calculation .mc-content .calc ul.data a {
+.molecalc.calculation .mc-content .calc ul.data a {
     color: rgba(255,255,255, 0.8);
     /*color: rgb(140, 29, 64);  !*ASU maroon*!*/
     /*color: rgb(255, 198, 39);  !*ASU gold*!*/
@@ -616,25 +616,25 @@
 
 
 /* page */
-.molcalc.page .mc-content {
+.molecalc.page .mc-content {
     background: transparent;
     padding: 60px 0 60px 0;
     overflow: visible;
 }
-.molcalc.page .mc-content h1 {
+.molecalc.page .mc-content h1 {
     font-size: 30px;
     margin: 0px 0 20px 0;
 }
-.molcalc.page .mc-content h2 {
+.molecalc.page .mc-content h2 {
     font-size: 20px;
     font-weight: bold;
     margin: 30px 0 20px 0;
 }
-.molcalc.page .mc-content p {
+.molecalc.page .mc-content p {
     line-height: 35px;
     margin: 10px 0 0 0;
 }
-.molcalc.page .mc-content ul {
+.molecalc.page .mc-content ul {
     display: block;
     list-style-type: disc;
     margin-top: 1em;
@@ -643,21 +643,21 @@
     margin-right: 0;
     padding-left: 40px;
 }
-.molcalc.page .mc-content ul li {
+.molecalc.page .mc-content ul li {
 }
 
 
-.molcalc.page .mc-content.about h1 {
+.molecalc.page .mc-content.about h1 {
     font-size: 30px;
     margin: 40px 0 20px 0;
 }
 
-.molcalc.page .mc-content.about h2 {
+.molecalc.page .mc-content.about h2 {
     font-size: 20px;
     font-weight: bold;
     margin: 25px 0 15px 0;
 }
-.molcalc.page .mc-content.about p {
+.molecalc.page .mc-content.about p {
     line-height: 25px;
     margin: 0 100px 0 15px;
     text-align: justify;

@@ -31,18 +31,18 @@
 
 @media only screen and (max-width: 767px) {
 
-    .molcalc.calculation .mc-content {
+    .molecalc.calculation .mc-content {
         grid-template-rows: 1fr;
         grid-template-columns: 1fr;
         grid-template-areas: "view";
     }
-    .molcalc.calculation .mc-content h1 {
+    .molecalc.calculation .mc-content h1 {
         display: none;
     }
-    .molcalc.calculation .mc-content h2 {
+    .molecalc.calculation .mc-content h2 {
         display: none;
     }
-    .molcalc.calculation .mc-content .calc {
+    .molecalc.calculation .mc-content .calc {
         /* display: none !important; */
         grid-area: view;
         margin: 0;
@@ -51,48 +51,48 @@
         grid-template-columns: 1fr;
         grid-template-areas: "view";
     }
-    .molcalc.calculation .mc-content .calc-menu {
+    .molecalc.calculation .mc-content .calc-menu {
         /* display: none; */
     }
-    .molcalc.calculation .mc-content .calc-menu ul {
+    .molecalc.calculation .mc-content .calc-menu ul {
         margin-top: 20px;
     }
-    .molcalc.calculation .mc-content .calc-menu ul li {
+    .molecalc.calculation .mc-content .calc-menu ul li {
         display: block;
         float: none;
         padding: 0 20px;
     }
 
 
-    .molcalc.calculation .mc-content .calc .view {
+    .molecalc.calculation .mc-content .calc .view {
         z-index: 1;
         grid-area: view;
         display: block;
     }
-    .molcalc.calculation .mc-content .calc .options table {
+    .molecalc.calculation .mc-content .calc .options table {
         width: inherit;
     }
-    .molcalc.calculation .mc-content .calc .options .data {
+    .molecalc.calculation .mc-content .calc .options .data {
         width: inherit;
         height: inherit;
         overflow: visible;
         margin: 20px 0;
     }
-    .molcalc.calculation .mc-content .calc .options .data li {
+    .molecalc.calculation .mc-content .calc .options .data li {
         height: 50px;
     }
-    .molcalc.calculation .mc-content .calc .options .data li .energy {
+    .molecalc.calculation .mc-content .calc .options .data li .energy {
         padding: 0 20px;
         position: absolute;
         left:0;
 
     }
-    .molcalc.calculation .mc-content .calc .options .data a {
+    .molecalc.calculation .mc-content .calc .options .data a {
         /* color: rgb(0, 121, 211); */
         color: rgb(102, 187, 251);
     }
 
-    .molcalc.calculation .mc-content .calc .tbls_container {
+    .molecalc.calculation .mc-content .calc .tbls_container {
         grid-area: content;
         display: grid;
         grid-template-columns: 1fr;
@@ -100,7 +100,7 @@
 
     }
 
-    .molcalc.calculation .mc-content .calc .calcOptionMenu {
+    .molecalc.calculation .mc-content .calc .calcOptionMenu {
         z-index: 5;
         position: absolute;
         bottom: 0;
@@ -110,15 +110,15 @@
 
 @media only screen and (max-width: 1100px) {
 
-    .molcalc.editor {
+    .molecalc.editor {
 		grid-template-columns: 1fr 1fr 1fr;
 	}
 
-    .molcalc.calculation {
+    .molecalc.calculation {
 		grid-template-columns: 1fr;
 	}
 
-    .molcalc.page {
+    .molecalc.page {
 		grid-template-columns: 1fr;
 	}
 
@@ -131,7 +131,7 @@
 
     .toggle700 {display: block !important;}
 
-	.molcalc.editor {
+	.molecalc.editor {
 		grid-template-columns: 50% 50%;
 		grid-template-rows: 10px 40px auto 47px;
 		grid-template-areas:
