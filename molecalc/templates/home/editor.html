@@ -64,27 +64,7 @@
         </a>
     </section>
 
-    <section class="mc-navigation sidebar" id="nav">
-        <section class="toggle700 section">
-            <a class="button icon btnCloseSidebar" href="#nav">
-                <i class="fas fa-times"></i>
-            </a>
-        </section>
-
-        <section class="sidebar-cover"></section>
-        <section class="sidebar-background btnCloseSidebar" href="#nav"></section>
-
-        <section class="sidebar-wrapper"> <!-- sidebar wrapper -->
-            <section class="section">
-                <ul>
-                    <li><a class="" href="/">New Molecule</a></li>
-                    <li><a class="" href="/help">Help</a></li>
-                    <li><a class="" href="/about">About</a></li>
-                </ul>
-            </section>
-        </section> <!-- sidebar wrapper -->
-    </section>
-
+    {% include 'shared/_menu.html' %}
     {% include 'shared/_footer.html' %}
 
 

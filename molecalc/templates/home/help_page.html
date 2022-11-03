@@ -3,52 +3,45 @@
 <head>
 
     <title>MoleCalc</title>
-    <link rel="icon" type="image/x-icon" href="../static/img/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../../static/img/favicon.ico">
 
-    {% include 'section_header.html' %}
+    {% include 'shared/_header.html' %}
 
 </head>
 <body>
 
-    <section class="molcalc page">
+<section class="molecalc page">
 
-        {% include 'section_icon.html' %}
+    {% include 'shared/_appicon.html' %}
 
-        <section class="mc-mobile-navigation toggle700 btnHeader left">
-            <a class="button icon btnSidebar" href="#nav">
-				<i class="fas fa-angle-right"></i>
-            </a>
-        </section>
-
-        {% include 'section_menu.html' %}
-
-        {% include 'section_footer.html' %}
-
-        <!-- content -->
-
-        <section class="mc-content">
-
-
-            <h1>Help</h1>
-
-            <h2>How do I measure distances in MoleCalc?</h2>
-            <p>You double-click on atom 1 and then double-click on atom 2, in the JSmol window.</p>
-
-            <h2>How do I measure angles in MoleCalc?</h2>
-            <p></p>You double-click on atom 1, single click on atom 2, and then double-click on atom 3, in the JSmol window.</p>
-
-            <h2>Why does the molecule look blurry or broken in the JSmol window?</h2>
-            <p>Touch it with your cursor and it will look great again.</p>
-
-
-        </section>
-
-
+    <section class="mc-mobile-navigation toggle700 btnHeader left">
+        <a class="button icon btnSidebar" href="#nav">
+            <i class="fas fa-angle-right"></i>
+        </a>
     </section>
 
-	<section class="hidden">
+    {% include 'shared/_menu.html' %}
+    {% include 'shared/_footer.html' %}
 
-	</section>
+    <!-- content -->
+
+    <section class="mc-content">
+        <h1>Help</h1>
+
+        <h2>How do I measure distances in MoleCalc?</h2>
+        <p>You double-click on atom 1 and then double-click on atom 2, in the JSmol window.</p>
+
+        <h2>How do I measure angles in MoleCalc?</h2>
+        <p></p>You double-click on atom 1, single click on atom 2, and then double-click on atom 3, in the JSmol window.</p>
+
+        <h2>Why does the molecule look blurry or broken in the JSmol window?</h2>
+        <p>Touch it with your cursor and it will look great again.</p>
+    </section>
+
+
+</section>
+
+<section class="hidden"></section>
 
 </body>
 </html>
