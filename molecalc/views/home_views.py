@@ -13,11 +13,11 @@ def editor():
 
 @bp.route('/about')
 @response(template_file="home/about.html")
-def about(request):
+def about():
     return {}
 
 
 @bp.route('/help')
 @response(template_file="home/help_page.html")
-def help_page(request):
+def help_page():
     return {}
