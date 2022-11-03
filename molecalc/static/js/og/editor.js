@@ -209,11 +209,11 @@ $('.toolset .load_benzene').click(function () {
 //     setCurrentSDF(sdfMethane);
 //     return false;
 // });
-// $('.toolset .load_water').click(function () {
-//
-//     setCurrentSDF(sdfWater);
-//     return false;
-// });
+$('.toolset .load_water').click(function () {
+
+    setCurrentSDF(sdfWater);
+    return false;
+});
 // $('.toolset .load_carbon_dioxide').click(function () {
 //
 //     setCurrentSDF(sdfCarbonDioxide);
