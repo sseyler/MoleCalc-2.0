@@ -3,38 +3,28 @@
 <head>
 
     <title>MoleCalc</title>
-{#    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">#}
-    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
     {# _header.html, JS, and CSS #}
     {% include 'shared/_header.html' %}
 
-{#    <script type="text/javascript" src="{{ url_for('static', filename='jquery/jquery.min.js') }}"></script>#}
-{#    <script type="text/javascript" src="{{ url_for('static', filename='js/og/app_og.js') }}?v=1.4"></script>#}
-    <script type="text/javascript" src="/static/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/static/js/og/app_og.js?v=1.4"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/og/app.js') }}?v=1.4"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700,800" rel="stylesheet">
-{#    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app.css') }}" />#}
-{#    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app_elements.css') }}" />#}
-{#    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app_forms.css') }}" />#}
-{#    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app_layout.css') }}" />#}
-{#    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app_mobile.css') }}" />#}
-{#    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.css') }}" />#}
-    <link rel="stylesheet" href="/static/css/og/app.css"/>
-    <link rel="stylesheet" href="/static/css/og/app_elements.css"/>
-    <link rel="stylesheet" href="/static/css/og/app_forms.css"/>
-    <link rel="stylesheet" href="/static/css/og/app_layout.css"/>
-    <link rel="stylesheet" href="/static/css/og/app_mobile.css"/>
-    <link rel="stylesheet" href="/static/fontawesome/css/all.css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app_elements.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app_forms.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app_layout.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app_mobile.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.css') }}" />
 
     {% include 'jsmol/head.html' %}
 
-{#    <script type="text/javascript" src="{{ url_for('static', filename='rdkit/rdkit.js') }}"></script>#}
-    <script type="text/javascript" src="/static/rdkit/rdkit.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='rdkit/rdkit.js') }}"></script>
 
     <script type="text/javascript">
-        let sdfBenzene = `
+        var sdfBenzene = `
 
 
           6  6  0  0  0  0            999 V2000
@@ -55,7 +45,7 @@
         `;
     </script>
 
-    <script type="text/javascript" src="{{ url_for('static', filename='js/og/editor_og.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/og/editor.js') }}"></script>
 
 
 </head>
