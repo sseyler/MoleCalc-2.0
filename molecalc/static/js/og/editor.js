@@ -198,37 +198,37 @@ swithBtns = $('.toolset.tool-choice .button').click(function () {
 });
 
 // Load molecules
-$('.toolset .load_methane').click(function () {
-
-    // Structure defined in html template
-    setCurrentSDF(sdfMethane);
-    return false;
-});
 $('.toolset .load_benzene').click(function () {
 
     setCurrentSDF(sdfBenzene);
     return false;
 });
-$('.toolset .load_water').click(function () {
-
-    setCurrentSDF(sdfWater);
-    return false;
-});
-$('.toolset .load_carbon_dioxide').click(function () {
-
-    setCurrentSDF(sdfCarbonDioxide);
-    return false;
-});
-$('.toolset .load_ozone').click(function () {
-
-    setCurrentSDF(sdfOzone);
-    return false;
-});
-$('.toolset .load_nitrous_oxide').click(function () {
-
-    setCurrentSDF(sdfNitrousOxide);
-    return false;
-});
+// $('.toolset .load_methane').click(function () {
+//
+//     // Structure defined in html template
+//     setCurrentSDF(sdfMethane);
+//     return false;
+// });
+// $('.toolset .load_water').click(function () {
+//
+//     setCurrentSDF(sdfWater);
+//     return false;
+// });
+// $('.toolset .load_carbon_dioxide').click(function () {
+//
+//     setCurrentSDF(sdfCarbonDioxide);
+//     return false;
+// });
+// $('.toolset .load_ozone').click(function () {
+//
+//     setCurrentSDF(sdfOzone);
+//     return false;
+// });
+// $('.toolset .load_nitrous_oxide').click(function () {
+//
+//     setCurrentSDF(sdfNitrousOxide);
+//     return false;
+// });
 
 ///////////////////////////////////////////////////////////////////////////////
 // Select theory level for quantum chemistry
@@ -252,46 +252,7 @@ $('.button.theory').click(function() {
     return false;
 });
 
-//-----------------------------------------------------------------------------
-//var $theoryBtns = $('.action.theory .button')
-//var $theoryBtns = $('.button.theory')
-//$theoryBtns.click(function () {
-//
-//    $that = $(this);
-//
-//    if( $that.hasClass('active') ) {
-//        return false;
-//    }
-//
-//    var lvl = $that.attr('rel');  // theory level of active button
-//
-////    $(this).removeClass('active');
-////    $('.toolset.quantum .action.theory .button.active').removeClass('active');
-//    $theoryBtns.removeClass('active');
-//
-//    switch(lvl) {
-//        case 'am1':
-//            // Do any necessary stuff for AM1
-//            $that.addClass('active');
-//            break;
-//        case 'pm3':
-//            // Do any necessary stuff for PM3
-//            $that.addClass('active');
-//            break;
-//        case 'pm6':
-//            // Do any necessary stuff for PM6
-//            $that.addClass('active');
-//            break;
-//        default:
-//            // Do any necessary stuff
-//            $that.addClass('active');
-//    }
-//
-//    return false;
-//
-//});
 
-//-----------------------------------------------------------------------------
 
 ///////////////////////////////////////////////////////////////////////////////
 // Get IUPAC name for current structure
@@ -300,7 +261,6 @@ function getIUPACName() {
     var lvl = $('.toolset.quantum .button.theory.active').attr('rel');
     return lvl;
 }
-
 
 
 ///////////////////////////////////////////////////////////////////////////////

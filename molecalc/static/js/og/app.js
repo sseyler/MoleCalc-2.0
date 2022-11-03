@@ -1,4 +1,4 @@
-// Check storage compability
+// Check storage compatibility
 
 var storage;
 var fail;
