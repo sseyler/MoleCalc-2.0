@@ -6,11 +6,11 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/env" />
-      <excludeFolder url="file://$MODULE_DIR$/molecalc/static/chemdoodleweb" />
-      <excludeFolder url="file://$MODULE_DIR$/molecalc/static/fontawesome" />
-      <excludeFolder url="file://$MODULE_DIR$/molecalc/static/jquery" />
-      <excludeFolder url="file://$MODULE_DIR$/molecalc/static/jsmol" />
-      <excludeFolder url="file://$MODULE_DIR$/molecalc/static/rdkit" />
+      <excludeFolder url="file://$MODULE_DIR$/molecalc/static/external/chemdoodleweb" />
+      <excludeFolder url="file://$MODULE_DIR$/molecalc/static/external/fontawesome" />
+      <excludeFolder url="file://$MODULE_DIR$/molecalc/static/external/jquery" />
+      <excludeFolder url="file://$MODULE_DIR$/molecalc/static/external/jsmol" />
+      <excludeFolder url="file://$MODULE_DIR$/molecalc/static/external/rdkit" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

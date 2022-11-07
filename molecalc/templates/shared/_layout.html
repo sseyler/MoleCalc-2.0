@@ -3,26 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}MoleCalc{% endblock %}</title>
-    <link rel="icon" type="image/x-icon" href="../../static/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    {% include 'shared/_header.html' %}
 
     {% block additional_css %}{% endblock %}
 </head>
 <body> {### <body> ###########################################################}
 
+<section class="molecalc page">
+    {% include 'shared/_appicon.html' %}
 
-{# Navigation Bar #}
+    {# Navigation Bar #}
+    <section class="mc-mobile-navigation toggle700 btnHeader left">
+        <a class="button icon btnSidebar" href="#nav">
+            <i class="fas fa-angle-right"></i>
+        </a>
+    </section>
+
+    {% include 'shared/_menu.html' %}
 
 
-{# Main Content #}
-<div class="main_content">
+    {# Main Content #}
+    {#<div class="main_content"/>#}
     {% block main_content %}{% endblock %}
-</div>
+    {#</div>#}
+</section>
 
 
 {# Footer #}
-<footer>
+{#<footer>#}
     {% include 'shared/_footer.html' %}
-</footer>
+{#</footer>#}
 
 
 {# Additional JavaScript #}

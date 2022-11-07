@@ -7,21 +7,9 @@
 
     {# _header.html, JS, and CSS #}
     {% include 'shared/_header.html' %}
-
-    <script type="text/javascript" src="{{ url_for('static', filename='jquery/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/og/app.js') }}?v=1.4"></script>
-
-    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700,800" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app_elements.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app_forms.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app_layout.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/og/app_mobile.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome/css/all.css') }}" />
-
     {% include 'jsmol/head.html' %}
 
-    <script type="text/javascript" src="{{ url_for('static', filename='rdkit/rdkit.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='external/rdkit/rdkit.js') }}"></script>
 
 {#  Note that the format of these SDF strings DEPENDS ON THE TABBING!!!...  #}
 <script type="text/javascript">
@@ -58,9 +46,6 @@ M  END
 $$$$
 `;
 </script>
-
-    <script type="text/javascript" src="{{ url_for('static', filename='js/og/editor.js') }}"></script>
-
 
 </head>
 <body>
@@ -147,7 +132,6 @@ $$$$
                 {#     Download Inputs</a>#}
                 {# </li>#}
             </ul>
-            {{ test }}
         </section>
 
 
@@ -161,9 +145,13 @@ $$$$
 
 </section>
 
-<section class="hidden">
+<section class="hidden"></section>
 
-</section>
+
+
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/og/editor.js') }}"></script>
+
 
 </body>
 </html>

@@ -59,6 +59,7 @@ molecalc/chemhelp
 .tmptest
 
 # ignore downloaded packages
+molecalc/static/external/*
 molecalc/static/js/*jquery*
 molecalc/static/fontawesome
 molecalc/static/jquery
