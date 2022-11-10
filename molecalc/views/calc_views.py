@@ -18,17 +18,11 @@ _logger = logging.getLogger("molecalc:calc_views")
 bp = flask.Blueprint('calc', __name__, template_folder='../templates')
 
 
-# TODO: This view function *appears* to be used to access calculations through
-#   a URL that looks like "https://molecalc.cloud/calculations/<hashkey>", so
-#   Flask can be used to add a *variable* section to the URL with
-#   "/the/base/url/<variable_name>".
-@bp.route('/calculation/<string:hashkey>')
+@bp.route('/calculations/<string:hashkey>')
 @response(template_file='calculation/calculation.html')
 def calculation(hashkey: str):
-    # hashkey = request.matchdict["one"]  # Get the hashkey
-    #
-    # print(request.matchdict)
-    #
+    print(hashkey)
+
     # # Look up the key
     # calculation = (
     #     request.dbsession.query(models.GamessCalculation)
@@ -47,8 +41,8 @@ def calculation(hashkey: str):
     return {}
 
 
-@bp.route('/submitquantum')
-def ajax_submitquantum():
+@bp.post('/submitquantum')
+def ajax_submit_quantum():
     """
     Setup quantum calculation
     """

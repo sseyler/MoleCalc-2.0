@@ -6,6 +6,8 @@ bp = flask.Blueprint('editor', __name__, template_folder='../templates')
 
 
 @bp.route('/')
+@bp.route('/home')
+@bp.route('/editor')
 @response(template_file='home/editor.html')
 def editor():
     return {}

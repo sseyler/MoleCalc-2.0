@@ -1,0 +1,7 @@
+name: molcalc
+dependencies:
+  - pytest
+  - isort
+  - black
+  - flake8
+  - autoflake

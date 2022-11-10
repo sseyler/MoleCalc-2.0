@@ -18,6 +18,9 @@
   <component name="PackageRequirementsSettings">
     <option name="versionSpecifier" value="Don't specify version" />
   </component>
+  <component name="PyDocumentationSettings">
+    <option name="renderExternalDocumentation" value="true" />
+  </component>
   <component name="PyNamespacePackagesService">
     <option name="namespacePackageFolders">
       <list>
