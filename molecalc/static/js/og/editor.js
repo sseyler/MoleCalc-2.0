@@ -18,8 +18,7 @@ function getEditorDimensions()
 
 function getView()
 {
-    rel = $('.toolset.tool-choice .button.active').attr("rel");
-    return rel;
+    return $('.toolset.tool-choice .button.active').attr("rel");
 }
 
 function setCurrentSDF(sdf)
@@ -331,12 +330,13 @@ $('.button.quantum').click(function () {
             current_view: currentView,
             theory_level: theoryLevel,
             iupac_name: IUPACName,
-            trivial_name: 'trivial name'
+            trivial_name: "trivial_name"
         };
 
-        request("/ajax/submitquantum", sdf_data, function (data)
+        request("/ajax_submit_quantum", sdf_data, function (data)
         {
-            url = window.location.href;
+            let url = window.location.href;
+            console.warn({url});
             url = url.split("#");
             url = url[0]
             url = url.replace('editor', '');

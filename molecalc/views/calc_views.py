@@ -7,6 +7,9 @@ import logging
 import re
 import numpy as np
 
+from rdkit import Chem
+from rdkit.Chem import AllChem
+
 from molecalc.infrastructure.view_modifiers import response
 
 from molecalc.molecalc_lib import gamess_results
@@ -41,13 +44,33 @@ def calculation(hashkey: str):
     return {}
 
 
-@bp.post('/submitquantum')
+@bp.post('/ajax_submit_quantum')
 def ajax_submit_quantum():
-    """
-    Setup quantum calculation
-    """
 
-    settings = request.registry.settings
+    print(20*'>')
+    print('request.method: ', request.method)
+    print('request.args: ', request.args)
+    print('request.form: ', request.form)
+    print('request.values: ', request.values)
+    # print('request.data: ', request.data)
+    # print('request.json: ', request.json)
+    print('request.get_data(): ', request.get_data())
+    # print('request.get_json(): ', request.get_json())
+    print(20 * '>')
+
+    if 'sdf' not in request.form:
+        return {
+                "error": "Error 132 - sdf key error",
+                "message": "Error. Missing information.",
+            }
+
+    if 'theory_level' not in request.form:
+        return {
+                "error": "Error XXX - theory level key error",
+                "message": "Error. Missing information.",
+            }
+
+    # settings = request.registry.settings
 
     # Check if user is someone who is a known misuser
     # user_ip = request.remote_addr
@@ -60,50 +83,39 @@ def ajax_submit_quantum():
     #         "message": "IP address has been blocked for misuse",
     #     }
 
-    if not request.POST:
-        return {
-            "error": "Error 128 - empty post",
-            "message": "Error. Empty post.",
-        }
+    # if not request.POST:
+    #     return {
+    #         "error": "Error 128 - empty post",
+    #         "message": "Error. Empty post.",
+    #     }
 
-    if not request.POST["sdf"]:
-        return {
-            "error": "Error 132 - sdf key error",
-            "message": "Error. Missing information.",
-        }
-
-    if not request.POST["theory_level"]:
-        return {
-            "error": "Error XXX - theory level key error",
-            "message": "Error. Missing information.",
-        }
 
     # Get coordinates from request
-    sdfstr = request.POST["sdf"].encode("utf-8")
+    sdfstr = request.form["sdf"].encode("utf-8")
 
     # Is this 2D or 3D?
-    add_hydrogens = request.POST.get("add_hydrogens", "1")
+    add_hydrogens = request.form.get("add_hydrogens", "1")
     add_hydrogens = add_hydrogens == "1"
 
     # Get theory level
-    theory_level = request.POST.get('theory_level', 'pm3')
+    theory_level = request.form.get('theory_level', 'pm3')
     _logger.info(f'Selected theory level: "{theory_level}"')
 
     print(80*'+')
-    print(request.POST)
+    print(request.form)
     print(80*'+')
 
     # TODO Use ChemSpider and RDKit/MolVS for chemical name things
     # Get IUPAC name (if available)
-    iupac_name = request.POST.get('iupac_name', 'N/A')
+    iupac_name = request.form.get('iupac_name', 'N/A')
     _logger.info(f'IUPAC Name: "{iupac_name}"')
 
     # # Get SMILES name (if available)
-    # smiles_name = request.POST.get('smiles_name', 'N/A')
+    # smiles_name = request.form.get('smiles_name', 'N/A')
     # _logger.info(f'SMILES Name: "{smiles_name}"')
 
     # Get "trivial" name (if available)
-    trivial_name = request.POST.get('trivial_name', 'N/A')
+    trivial_name = request.form.get('trivial_name', 'N/A')
     _logger.info(f'Trivial Name: "{trivial_name}"')
 
     # Get rdkit

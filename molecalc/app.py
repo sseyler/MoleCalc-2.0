@@ -37,10 +37,10 @@ def configure():
 
 def register_blueprints():
     from molecalc.views import home_views
-    # from molecalc.views import calc_views
+    from molecalc.views import calc_views
 
     app.register_blueprint(home_views.bp)
-    # app.register_blueprint(calc_views.blueprint)
+    app.register_blueprint(calc_views.bp)
 
 
 if __name__ == '__main__':

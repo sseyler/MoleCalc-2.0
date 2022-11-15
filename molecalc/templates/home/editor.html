@@ -47,7 +47,12 @@ $$$$
 `;
 </script>
 
-    <script type="text/javascript" src="{{ url_for('static', filename='js/og/editor.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/og/editor.js') }}"></script>
+
+{#<script>#}
+{#  $SCRIPT_ROOT = {{ request.script_root|tojson }};#}
+{#</script>#}
+
 
 </head>
 <body>

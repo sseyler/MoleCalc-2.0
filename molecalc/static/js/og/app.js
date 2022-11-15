@@ -37,7 +37,7 @@ function ciEquals(a, b) {
 
 function request(url, data, successFunction, failedFunction, timeout=6000)
 {
-    var $xhr = $.ajax({
+    let $xhr = $.ajax({
         type: "POST",
         url: url,
         data: data,

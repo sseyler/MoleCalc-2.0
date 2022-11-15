@@ -9,5 +9,6 @@ dependencies:
   - flask
   - jinja2=3.0.3
   - werkzeug
+  - rmsd
 #  - pip:
 #    -
