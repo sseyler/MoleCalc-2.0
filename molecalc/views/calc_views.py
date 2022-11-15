@@ -49,13 +49,13 @@ def ajax_submit_quantum():
 
     print(20*'>')
     print('request.method: ', request.method)
+    print('request.get_data(): ', request.get_data())
+    # print('request.get_json(): ', request.get_json())
     print('request.args: ', request.args)
     print('request.form: ', request.form)
     print('request.values: ', request.values)
     # print('request.data: ', request.data)
     # print('request.json: ', request.json)
-    print('request.get_data(): ', request.get_data())
-    # print('request.get_json(): ', request.get_json())
     print(20 * '>')
 
     if 'sdf' not in request.form:
@@ -71,6 +71,7 @@ def ajax_submit_quantum():
             }
 
     # settings = request.registry.settings
+    # TODO: Need replacement statement for obtaining (app?) settings for Flask
 
     # Check if user is someone who is a known misuser
     # user_ip = request.remote_addr
@@ -100,10 +101,6 @@ def ajax_submit_quantum():
     # Get theory level
     theory_level = request.form.get('theory_level', 'pm3')
     _logger.info(f'Selected theory level: "{theory_level}"')
-
-    print(80*'+')
-    print(request.form)
-    print(80*'+')
 
     # TODO Use ChemSpider and RDKit/MolVS for chemical name things
     # Get IUPAC name (if available)
