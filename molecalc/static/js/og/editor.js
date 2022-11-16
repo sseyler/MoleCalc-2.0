@@ -333,7 +333,7 @@ $('.button.quantum').click(function () {
             trivial_name: "trivial_name"
         };
 
-        request("/ajax_submit_quantum", sdf_data, function (data)
+        request("/ajax/_submit_quantum", sdf_data, function (data)
         {
             let url = window.location.href;
             console.warn({url});

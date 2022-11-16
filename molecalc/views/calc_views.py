@@ -11,8 +11,9 @@ from rdkit import Chem
 from rdkit.Chem import AllChem
 
 from molecalc.infrastructure.view_modifiers import response
+from molecalc.data import gamess_calculation
+from molecalc.lib.gamess import results
 
-from molecalc.molecalc_lib import gamess_results
 from ppqm import chembridge
 
 
@@ -39,12 +40,12 @@ def calculation(hashkey: str):
     # if hashkey == "404":
     #     raise httpexceptions.exception_response(404)
     #
-    # return gamess_results.view_gamess_calculation(calculation)
+    # return results.view_gamess_calculation(calculation)
 
     return {}
 
 
-@bp.post('/ajax_submit_quantum')
+@bp.post('/ajax/_submit_quantum')
 def ajax_submit_quantum():
 
     print(20*'>')
@@ -173,7 +174,7 @@ def ajax_submit_quantum():
     hshobj = hashlib.md5(calc_str.encode())
     hashkey = hshobj.hexdigest()
 
-    # Check if hash/calculation already exists in db
+    # Check if hash/calculation already exists in data
     calculation = (
         request.dbsession.query(models.GamessCalculation)
         .filter_by(hashkey=hashkey)

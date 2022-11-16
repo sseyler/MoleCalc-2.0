@@ -2,6 +2,9 @@ import os
 import sys
 
 import flask
+import molecalc.data.db_session as db_session
+# from molecalc.infrastructure.config import DevConfig, ProdConfig
+# from molecalc.data.extensions import db
 
 folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 sys.path.insert(0, folder)
@@ -21,18 +24,18 @@ def configure():
     register_blueprints()
     print("Registered blueprints")
 
-    # setup_db()
-    # print("DB setup completed.")
-    # print("", flush=True)
+    setup_db()
+    print("DB setup completed.")
+    print("", flush=True)
 
 
-# def setup_db():
-#     db_file = os.path.join(
-#         os.path.dirname(__file__),
-#         'db',
-#         'pypi.sqlite')
-#
-#     db_session.global_init(db_file)
+def setup_db():
+    db_file = os.path.join(
+        os.path.dirname(__file__),
+        'data',
+        'pypi.sqlite')
+
+    db_session.global_init(db_file)
 
 
 def register_blueprints():
