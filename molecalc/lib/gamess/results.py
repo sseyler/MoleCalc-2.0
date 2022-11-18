@@ -3,7 +3,7 @@ import numpy as np
 from ppqm import misc, units
 
 
-def view_gamess_calculation(calculation):
+def view_calculation(calculation):
     """
 
     arg:

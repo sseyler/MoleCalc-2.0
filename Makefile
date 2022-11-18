@@ -17,7 +17,7 @@ autoflakeargs = \
 	--remove-unused-variables \
 	--expand-star-imports
 
-src = molecalc/*.py molecalc_lib/*.py tests/*.py
+src = molecalc/*.py molecalc/lib/*.py tests/*.py
 
 ## Development
 
@@ -73,25 +73,25 @@ dependencies:
 molecalc/data: scripts/setup_datadir.sh
 	bash scripts/setup_datadir.sh
 
-setup_assets: molecalc/static/chemdoodleweb molecalc/static/jsmol molecalc/static/fontawesome molecalc/static/jquery/jquery.min.js molecalc/static/rdkit/rdkit.js
+setup_assets: molecalc/static/external/chemdoodleweb molecalc/static/external/jsmol molecalc/static/external/fontawesome molecalc/static/external/jquery/jquery.min.js molecalc/static/external/rdkit/rdkit.js
 
 ppqm:
 	git clone https://github.com/ppqm/ppqm ppqm.git --depth 1
 	ln -s ./ppqm.git/ppqm ppqm
 
-molecalc/static/chemdoodleweb: scripts/setup_chemdoodle.sh
+molecalc/static/external/chemdoodleweb: scripts/setup_chemdoodle.sh
 	bash scripts/setup_chemdoodle.sh
 
-molecalc/static/jsmol: scripts/setup_jsmol.sh
+molecalc/static/external/jsmol: scripts/setup_jsmol.sh
 	bash scripts/setup_jsmol.sh
 	
-molecalc/static/fontawesome: scripts/setup_fontawesome.sh
+molecalc/static/external/fontawesome: scripts/setup_fontawesome.sh
 	bash scripts/setup_fontawesome.sh
 
-molecalc/static/jquery/jquery.min.js: scripts/setup_jquery.sh
+molecalc/static/external/jquery/jquery.min.js: scripts/setup_jquery.sh
 	bash scripts/setup_jquery.sh
 
-molecalc/static/rdkit/rdkit.js: scripts/setup_rdkit.sh
+molecalc/static/external/rdkit/rdkit.js: scripts/setup_rdkit.sh
 	bash scripts/setup_rdkit.sh
 
 ## Admin
@@ -108,5 +108,5 @@ clean:
 	rm database.sqlite
 
 super-clean:
-	rm -r molecalc/static/jquery/jquery.min.js molecalc/static/fontawesome molecalc/static/jsmol molecalc/static/chemdoodleweb
+	rm -r molecalc/static/external/jquery/jquery.min.js molecalc/static/external/fontawesome molecalc/static/external/jsmol molecalc/static/external/chemdoodleweb
 

@@ -11,8 +11,9 @@ from rdkit import Chem
 from rdkit.Chem import AllChem
 
 from molecalc.infrastructure.view_modifiers import response
-from molecalc.data import gamess_calculation
-from molecalc.lib.gamess import results
+import molecalc.data.db_session as db_session
+from molecalc.data.gamess_calculation import GamessCalculation
+from molecalc.lib import gamess
 
 from ppqm import chembridge
 
@@ -21,28 +22,42 @@ _logger = logging.getLogger("molecalc:calc_views")
 
 bp = flask.Blueprint('calc', __name__, template_folder='../templates')
 
+# TODO Put this global gamess/scratch info somewhere sensible
+SETTINGS = {
+    'gamess.rungms': '/home/cloudlab/Library/gamess/rungms',
+    'gamess.scr': '/home/cloudlab/scratch/gamess/restart/',
+    'gamess.userscr': '/home/cloudlab/scratch/gamess/restart/',
+    'scr.scr': '/home/cloudlab/scratch/molecalc_data/'
+}
 
+
+@bp.route('/calculations')
 @bp.route('/calculations/<string:hashkey>')
 @response(template_file='calculation/calculation.html')
 def calculation(hashkey: str):
-    print(hashkey)
 
-    # # Look up the key
-    # calculation = (
-    #     request.dbsession.query(models.GamessCalculation)
-    #     .filter_by(hashkey=hashkey)
-    #     .first()
-    # )
-    #
-    # if calculation is None:
-    #     raise httpexceptions.exception_response(404)
-    #
-    # if hashkey == "404":
-    #     raise httpexceptions.exception_response(404)
-    #
-    # return results.view_gamess_calculation(calculation)
+    # Look up the key
+    session = db_session.create_session()
+    try:
+        this_calculation = session.query(GamessCalculation) \
+            .filter_by(hashkey=hashkey) \
+            .first()
+    finally:
+        session.close()
 
-    return {}
+    print(20 * '>')
+    print('calculation: ', this_calculation)
+    print('hashkey: ', hashkey)
+    print(20 * '>')
+
+    if this_calculation is None:
+        raise flask.abort(404)
+    if hashkey == "404":
+        raise flask.abort(404)
+
+    results = gamess.results.view_calculation(this_calculation)
+
+    return results
 
 
 @bp.post('/ajax/_submit_quantum')
@@ -51,12 +66,8 @@ def ajax_submit_quantum():
     print(20*'>')
     print('request.method: ', request.method)
     print('request.get_data(): ', request.get_data())
-    # print('request.get_json(): ', request.get_json())
-    print('request.args: ', request.args)
     print('request.form: ', request.form)
     print('request.values: ', request.values)
-    # print('request.data: ', request.data)
-    # print('request.json: ', request.json)
     print(20 * '>')
 
     if 'sdf' not in request.form:
@@ -90,7 +101,6 @@ def ajax_submit_quantum():
     #         "error": "Error 128 - empty post",
     #         "message": "Error. Empty post.",
     #     }
-
 
     # Get coordinates from request
     sdfstr = request.form["sdf"].encode("utf-8")
@@ -175,16 +185,18 @@ def ajax_submit_quantum():
     hashkey = hshobj.hexdigest()
 
     # Check if hash/calculation already exists in data
-    calculation = (
-        request.dbsession.query(models.GamessCalculation)
-        .filter_by(hashkey=hashkey)
-        .first()
-    )
+    session = db_session.create_session()
+    try:
+        this_calculation = session.query(GamessCalculation) \
+            .filter_by(hashkey=hashkey) \
+            .first()
+    finally:
+        session.close()
 
     # If calculation already exists, return
-    if calculation is not None:
+    if this_calculation is not None:
         msg = {"hashkey": hashkey}
-        calculation.created = datetime.datetime.now()
+        this_calculation.created = datetime.datetime.now()
         _logger.info(f"{hashkey} exists")
         return msg
 
@@ -192,11 +204,11 @@ def ajax_submit_quantum():
     _logger.info(f"{hashkey} create")
 
     molecule_info = {"sdfstr": sdfstr, "molobj": molobj, "hashkey": hashkey}
-    settings['theory_level'] = theory_level
+    calc_settings = {'theory_level': theory_level}
 
     try:
-        msg, new_calculation = pipelines.calculation_pipeline(
-            molecule_info, settings
+        msg, new_calculation = gamess.pipelines.calculation_pipeline(
+            molecule_info, calc_settings, SETTINGS
         )
 
     except Exception:
@@ -210,8 +222,15 @@ def ajax_submit_quantum():
             "message": "Internal server error. Uncaught exception",
         }
 
+    print(20 * '>')
+    print(new_calculation)
+    print(20 * '>')
+
     # Add calculation to the database
     if new_calculation is not None:
-        request.dbsession.add(new_calculation)
+        session = db_session.create_session()
+        session.add(new_calculation)
+        session.commit()
+        session.close()
 
     return msg

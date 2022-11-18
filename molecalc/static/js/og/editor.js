@@ -341,6 +341,7 @@ $('.button.quantum').click(function () {
             url = url[0]
             url = url.replace('editor', '');
             url = url + 'calculations/' + data["hashkey"];
+            console.warn({url});
             window.location = url;
             promptCalculation.cancel();
         }, function() {

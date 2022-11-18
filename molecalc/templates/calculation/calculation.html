@@ -3,13 +3,13 @@
 <head>
 
   <title>MoleCalc</title>
-  <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
   {% include 'shared/_header.html' %}
 
   {% include 'jsmol/head.html' %}
 
-  <script type="text/javascript" src="{{ request.static_url('molecalc:static/js/page_calculation.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/og/calculation.js') }}"></script>
 
 </head>
 <body>

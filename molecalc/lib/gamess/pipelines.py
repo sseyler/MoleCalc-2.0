@@ -2,18 +2,18 @@ import datetime
 import logging
 import pathlib
 
-import models
-
 import numpy as np
 
-from molcalc_lib import gamess_calculations
+from molecalc.data.gamess_calculation import GamessCalculation
+from molecalc.data.__misc import Counter
+from molecalc.lib import gamess
 from ppqm import chembridge, misc
 from ppqm.constants import COLUMN_COORDINATES, COLUMN_ENERGY
 
 _logger = logging.getLogger("molcalc:pipe")
 
 
-def calculation_pipeline(molinfo, settings):
+def calculation_pipeline(molinfo, calc_settings, settings):
     """
 
     Assumed that rdkit understands the molecule
@@ -28,8 +28,8 @@ def calculation_pipeline(molinfo, settings):
     molobj = molinfo["molobj"]
     sdfstr = molinfo["sdfstr"]
     hashkey = molinfo["hashkey"]
+    theory_level = calc_settings['theory_level']
 
-    theory_level = settings['theory_level']
     scratch_dir = settings["scr.scr"]
     scratch_dir = pathlib.Path(scratch_dir)
 
@@ -48,7 +48,7 @@ def calculation_pipeline(molinfo, settings):
     _logger.info(f"{hashkey} '{smiles}' {atoms}")
 
     # Create new calculation
-    calculation = models.GamessCalculation()
+    calculation = GamessCalculation()
 
     # Switch to scrdir / hashkey
     hashdir = scratch_dir / hashkey
@@ -70,7 +70,7 @@ def calculation_pipeline(molinfo, settings):
     n_atoms = len(atoms)
     if n_atoms >= 2:
         try:
-            properties = gamess_calculations.optimize_coordinates(
+            properties = gamess.calculators.optimize_coordinates(
                 molobj, gamess_options
             )
         except Exception:
@@ -126,7 +126,7 @@ def calculation_pipeline(molinfo, settings):
         properties_vib,
         properties_orb,
         # properties_sol,
-    ) = gamess_calculations.calculate_all_properties(molobj, gamess_options)
+    ) = gamess.calculators.calculate_all_properties(molobj, gamess_options)
 
 
     # Check results
@@ -218,13 +218,13 @@ def update_smiles_counter(request, smiles):
 
     # Add smiles to counter
     countobj = (
-        request.dbsession.query(models.Counter)
+        request.dbsession.query(Counter)
         .filter_by(smiles=smiles)
         .first()
     )
 
     if countobj is None:
-        counter = models.Counter()
+        counter = Counter()
         counter.smiles = smiles
         counter.count = 1
         request.dbsession.add(counter)

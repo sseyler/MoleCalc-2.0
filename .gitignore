@@ -61,12 +61,12 @@ molecalc/chemhelp
 # ignore downloaded packages
 molecalc/static/external/*
 molecalc/static/js/*jquery*
-molecalc/static/fontawesome
-molecalc/static/jquery
-molecalc/static/chemdoodleweb
-molecalc/static/jsmol
+molecalc/static/external/fontawesome
+molecalc/static/external/jquery
+molecalc/static/external/chemdoodleweb
+molecalc/static/external/jsmol
 molecalc/static/demo
-molecalc/static/rdkit
+molecalc/static/external/rdkit
 
 # ignore calculated data
 molecalc/data/
