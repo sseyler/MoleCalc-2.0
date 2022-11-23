@@ -95,7 +95,7 @@ sudo systemctl enable ${APP_NAME}
 sudo apt install nginx
 
 # CAREFUL HERE. If you are using default, maybe skip this
-rm /etc/nginx/sites-enabled/default
+sudo rm /etc/nginx/sites-enabled/default
 
 sudo cp ${REPO_PATH}/server/${APP_NAME}.nginx /etc/nginx/sites-enabled/${APP_NAME}.nginx
 sudo update-rc.d nginx enable
