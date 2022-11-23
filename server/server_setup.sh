@@ -88,7 +88,7 @@ make setup_assets
 sudo cp ${REPO_PATH}/server/${APP_NAME}.service /etc/systemd/system/${APP_NAME}.service
 
 sudo systemctl start ${APP_NAME}
-sudo systemctl status ${APP_NAME}
+sudo systemctl status ${APP_NAME} | tee -a molecalc.status
 sudo systemctl enable ${APP_NAME}
 
 # Setup the public facing server (NGINX)
@@ -97,8 +97,8 @@ sudo apt install nginx
 # CAREFUL HERE. If you are using default, maybe skip this
 rm /etc/nginx/sites-enabled/default
 
-cp ${REPO_PATH}/server/${APP_NAME}.nginx /etc/nginx/sites-enabled/${APP_NAME}.nginx
-update-rc.d nginx enable
+sudo cp ${REPO_PATH}/server/${APP_NAME}.nginx /etc/nginx/sites-enabled/${APP_NAME}.nginx
+sudo update-rc.d nginx enable
 sudo service nginx restart
 
 
