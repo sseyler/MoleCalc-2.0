@@ -2,7 +2,7 @@
 
 VERSION=3.4.1
 
-cd molecalc/static/
+cd molecalc/static/external
 mkdir -p jquery
 
 wget https://code.jquery.com/jquery-$VERSION.min.js

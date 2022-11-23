@@ -50,7 +50,13 @@ serve: serve_development
 
 ## Setup enviroment
 
-env: conda pip setup_molecalc_in_env
+env: conda ppqm setup_molecalc_in_env setup_assets
+
+mambaforge:
+	mkdir "${HOME}"/Library
+	curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
+	scripts/autoinstall_mambaforge.sh "$(uname)-$(uname -m)" "${HOME}"/Library/mambaforge
+	mv ./"Mambaforge-$(uname)-$(uname -m).sh" "${HOME}"/Downloads/
 
 conda:
 	${conda} env create -f environment.yml -p env
@@ -59,7 +65,7 @@ pip:
 	${python} -m pip install -r requirements.txt --ignore-installed
 
 setup_molecalc_in_env:
-	${python} -m pip install -e .
+	${python} -m pip install -e . --no-build-isolation --no-deps
 
 env-dev:
 	${python} -m pip install -r requirements.dev.txt --ignore-installed
@@ -68,15 +74,18 @@ env-egg:
 	${python} setup.py develop
 
 dependencies:
-	sudo apt install -y libxrender-dev
+	sudo apt install -y build-essential git unzip zip nload tree libxrender-dev nginx fail2ban
 
-molecalc/data: scripts/setup_datadir.sh
-	bash scripts/setup_datadir.sh
+gzip/support:
+	sudo apt install --no-install-recommends -y -q libpcre3-dev libz-dev
 
-setup_assets: molecalc/static/external/chemdoodleweb molecalc/static/external/jsmol molecalc/static/external/fontawesome molecalc/static/external/jquery/jquery.min.js molecalc/static/external/rdkit/rdkit.js
+molecalc/dirs: scripts/setup_dirs.sh
+	bash scripts/setup_dirs.sh
+
+setup_assets: molecalc/dirs molecalc/static/external/chemdoodleweb molecalc/static/external/jsmol molecalc/static/external/fontawesome molecalc/static/external/jquery/jquery.min.js molecalc/static/external/rdkit/rdkit.js
 
 ppqm:
-	git clone https://github.com/ppqm/ppqm ppqm.git --depth 1
+	git clone -b main https://github.com/mscloudlab/ppqm ppqm.git
 	ln -s ./ppqm.git/ppqm ppqm
 
 molecalc/static/external/chemdoodleweb: scripts/setup_chemdoodle.sh

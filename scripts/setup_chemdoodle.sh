@@ -2,7 +2,7 @@
 
 VERSION=9.4.0
 
-cd molecalc/static/
+cd molecalc/static/external
 
 wget https://web.chemdoodle.com/downloads/ChemDoodleWeb-${VERSION}.zip
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd molecalc/static/
+cd molecalc/static/external
 
 mkdir -p rdkit
 cd rdkit

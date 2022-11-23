@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd molecalc/static
+cd molecalc/static/external
 
 wget https://sourceforge.net/projects/jmol/files/Jmol/Version%2014.29/Jmol%2014.29.31/Jmol-14.29.31-binary.zip
 

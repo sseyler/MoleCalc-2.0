@@ -10,5 +10,5 @@ dependencies:
   - jinja2=3.0.3
   - werkzeug
   - rmsd
-#  - pip:
-#    -
+  - pip:
+    - uwsgi

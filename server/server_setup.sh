@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
 WORKDIR="$PWD"
+REPO_NAME=MoleCalc
+APP_NAME=molecalc
+REPO_PATH=/apps/${REPO_NAME}
+#APP_PATH=${REPO_PATH}/${APP_NAME}
+MOLECALC_GITHUB=https://github.com/sseyler/MoleCalc-2.0.git
+PPQM_GITHUB=https://github.com/mscloudlab/ppqm
 
 # Consider running these two commands separately
 # Do a reboot before continuing.
@@ -30,7 +36,7 @@ git clone https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM"/themes/powe
 mkdir Library
 cd Downloads
 curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
-./autoinstall_mambaforge.sh "$(uname)-$(uname -m)" "${HOME}"/Library/mambaforge
+$REPO_PATH/scripts/autoinstall_mambaforge.sh "$(uname)-$(uname -m)" "${HOME}"/Library/mambaforge
 cd $WORKDIR
 
 
@@ -62,33 +68,24 @@ git config --global user.name "Sean L Seyler"
 sudo mkdir /apps
 chmod 777 /apps
 mkdir /apps/logs
-mkdir /apps/logs/pypi
-mkdir /apps/logs/pypi/app_log
+mkdir /apps/logs/${APP_NAME}
+mkdir /apps/logs/${APP_NAME}/app_log
 cd /apps
 
-# Create a virtual env for the app.
-python3 -m venv venv
 
-# TODO Maybe have the virtual env installed in app directory?
-source /apps/venv/bin/activate
-pip install --upgrade pip setuptools
-pip install --upgrade httpie glances
-pip install --upgrade uwsgi
-
-
-# clone the repo:
-REPO_NAME=MoleCalc
-APP_NAME=molecalc
-REPO_PATH=/apps/${REPO_NAME}
+# Clone the app repository:
 cd /apps
-git clone https://github.com/sseyler/MoleCalc-2.0.git ${REPO_NAME}
+git clone ${MOLECALC_GITHUB} ${REPO_NAME}
 
-# Setup the web app:
+# Set up the web app environment:
 cd ${REPO_PATH}
-pip install -r requirements.txt
+conda env create -p env -f environment.yml
+git clone -b main ${PPQM_GITHUB} ppqm.git
+ln -s ppqm.git/ppqm ppqm
+make setup_assets
 
 # Copy and enable the daemon
-cp ${REPO_PATH}/server/${APP_NAME}.service /etc/systemd/system/${APP_NAME}.service
+sudo cp ${REPO_PATH}/server/${APP_NAME}.service /etc/systemd/system/${APP_NAME}.service
 
 sudo systemctl start ${APP_NAME}
 sudo systemctl status ${APP_NAME}
