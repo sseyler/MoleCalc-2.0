@@ -1,6 +1,7 @@
 name: molecalc
 dependencies:
   - pip
+  - uwsgi
   - numpy
   - scipy
   - tqdm
@@ -10,5 +11,3 @@ dependencies:
   - jinja2=3.0.3
   - werkzeug
   - rmsd
-  - pip:
-    - uwsgi
