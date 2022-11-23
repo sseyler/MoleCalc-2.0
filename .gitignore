@@ -68,5 +68,5 @@ molecalc/static/external/jsmol
 molecalc/static/demo
 molecalc/static/external/rdkit
 
-# ignore calculated data
-molecalc/data/
+# ignore calculated data in database
+molecalc/db/
