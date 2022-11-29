@@ -36,7 +36,7 @@ PPQM_GITHUB=https://github.com/mscloudlab/ppqm
 mkdir ~/Library ~/Downloads
 
 # Install some OS dependencies:
-sudo apt install -y -q build-essential git unzip zip nload tree expect
+sudo apt install -y -q build-essential git unzip zip nload tree httpie expect
 #sudo apt install -y -q python3-pip python3-dev python3-venv
 sudo apt install -y -q nginx
 # for gzip support in uwsgi
