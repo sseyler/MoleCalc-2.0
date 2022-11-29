@@ -2,13 +2,13 @@ import os
 import sys
 
 import flask
-import molecalc.data.db_session as db_session
-# from molecalc.infrastructure.config import DevConfig, ProdConfig
-# from molecalc.data.extensions import db
 
 folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
 sys.path.insert(0, folder)
-# import molecalc.data.db_session as db_session
+
+import molecalc.data.db_session as db_session
+# from molecalc.infrastructure.config import DevConfig, ProdConfig
+# from molecalc.data.extensions import db
 
 app = flask.Flask(__name__)
 
