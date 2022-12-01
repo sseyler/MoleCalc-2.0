@@ -24,10 +24,10 @@ bp = flask.Blueprint('calc', __name__, template_folder='../templates')
 
 # TODO Put this global gamess/scratch info somewhere sensible
 SETTINGS = {
-    'gamess.rungms': '/home/cloudlab/Library/gamess/rungms',
-    'gamess.scr': '/home/cloudlab/scratch/gamess/restart/',
-    'gamess.userscr': '/home/cloudlab/scratch/gamess/restart/',
-    'scr.scr': '/home/cloudlab/scratch/molecalc_data/'
+    'gamess.rungms': '/home/ubuntu/Library/gamess/rungms',
+    'gamess.scr': '/home/ubuntu/scratch/gamess/restart/',
+    'gamess.userscr': '/home/ubuntu/scratch/gamess/restart/',
+    'scr.scr': '/home/ubuntu/scratch/molecalc_data/'
 }
 
 

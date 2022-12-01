@@ -1,4 +1,4 @@
-name: molcalc
+name: molecalc
 dependencies:
   - pytest
   - isort

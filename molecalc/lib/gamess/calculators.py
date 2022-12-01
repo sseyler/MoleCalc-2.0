@@ -4,7 +4,7 @@ from multiprocessing import Pipe, Process
 
 import ppqm
 
-_logger = logging.getLogger("molcalc:calc")
+_logger = logging.getLogger("molecalc:calc")
 
 MAX_TIME = 90  # seconds
 

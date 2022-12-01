@@ -10,7 +10,7 @@ from molecalc.lib import gamess
 from ppqm import chembridge, misc
 from ppqm.constants import COLUMN_COORDINATES, COLUMN_ENERGY
 
-_logger = logging.getLogger("molcalc:pipe")
+_logger = logging.getLogger("molecalc:pipe")
 
 
 def calculation_pipeline(molinfo, calc_settings, settings):
@@ -95,7 +95,7 @@ def calculation_pipeline(molinfo, calc_settings, settings):
     if properties is None:
         return {
             "error": "Error g-80 - gamess optimization error",
-            "message": "Error. Unable to optimize molecule",
+            "message": "Optimization Error: properties is None",
         }, None
 
     if "error" in properties:
@@ -110,7 +110,7 @@ def calculation_pipeline(molinfo, calc_settings, settings):
     ):
         return {
             "error": "Error g-104 - gamess optimization error",
-            "message": "Error. Unable to optimize molecule",
+            "message": "Optimization Error: no coordinates found in properties",
         }, None
 
     _logger.info(f"{hashkey} OptimizationSuccess")
