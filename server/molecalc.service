@@ -3,6 +3,7 @@ Description=uWSGI MoleCalc server instance
 After=syslog.target
 
 [Service]
+User=ubuntu
 ExecStart=/apps/MoleCalc/env/bin/uwsgi -H /apps/MoleCalc/env --master --processes 4 --threads 2 --http :5000 --manage-script-name --python-path /apps/MoleCalc --mount /=wsgi:app
 RuntimeDirectory=/apps/MoleCalc/
 Restart=always
