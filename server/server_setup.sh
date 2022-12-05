@@ -7,7 +7,7 @@ sudo apt upgrade -y
 
 sudo apt install zsh -y
 echo Y | sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-sudo chsh -s $(which zsh) && zsh
+sudo chsh -s $(which zsh) "$USER" && zsh
 git clone https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM"/themes/powerlevel10k
 ### Enable powerlevel10k theme by setting in the ~/.zshrc file:
 # ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -91,7 +91,7 @@ make setup_assets
 # Copy and enable the daemon
 sudo cp ${REPO_PATH}/server/${APP_NAME}.service /etc/systemd/system/${APP_NAME}.service
 sudo systemctl start ${APP_NAME}
-sudo systemctl status ${APP_NAME} | tee -a molecalc.status
+sudo systemctl status ${APP_NAME} | tee -a /apps/logs/${APP_NAME}/${APP_NAME}.status
 sudo systemctl enable ${APP_NAME}
 
 # Set up NGINX as the public-facing server (already installed in Ubuntu 20.04 LTS)
