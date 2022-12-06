@@ -109,12 +109,14 @@ update:
 	cd ppqm.git; git pull
 
 backup:
+	# TODO: make consistent with settings for db name/location
 	# Make backup of database
-	cp database.sqlite database-`date +%m-%d-%Y`.sqlite
+	cp molecalc.sqlite molecalc-`date +%m-%d-%Y`.sqlite
 
 clean:
+	# TODO: make consistent with settings for db name/location
 	# Remove database
-	rm database.sqlite
+	rm molecalc.sqlite
 
 super-clean:
 	rm -r molecalc/static/external/jquery/jquery.min.js molecalc/static/external/fontawesome molecalc/static/external/jsmol molecalc/static/external/chemdoodleweb
