@@ -7,6 +7,7 @@ folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, folder)
 
 import molecalc.data.db_session as db_session
+from molecalc.infrastructure.settings import SETTINGS
 # from molecalc.infrastructure.config import DevConfig, ProdConfig
 # from molecalc.data.extensions import db
 
@@ -32,8 +33,8 @@ def configure():
 def setup_db():
     db_file = os.path.join(
         os.path.dirname(__file__),
-        'db',
-        'molecalc.sqlite')
+        SETTINGS['db.dir'],
+        SETTINGS['db.name'])
 
     db_session.global_init(db_file)
 

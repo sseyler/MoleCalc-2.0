@@ -4,6 +4,7 @@ import pathlib
 
 import numpy as np
 
+from molecalc.infrastructure.settings import SETTINGS
 from molecalc.data.gamess_calculation import GamessCalculation
 from molecalc.data.__misc import Counter
 from molecalc.lib import gamess
@@ -13,7 +14,7 @@ from ppqm.constants import COLUMN_COORDINATES, COLUMN_ENERGY
 _logger = logging.getLogger("molecalc:pipe")
 
 
-def calculation_pipeline(molinfo, calc_settings, settings):
+def calculation_pipeline(molinfo, calc_settings):
     """
 
     Assumed that rdkit understands the molecule
@@ -30,8 +31,7 @@ def calculation_pipeline(molinfo, calc_settings, settings):
     hashkey = molinfo["hashkey"]
     theory_level = calc_settings['theory_level']
 
-    scratch_dir = settings["scr.scr"]
-    scratch_dir = pathlib.Path(scratch_dir)
+    scratch_dir = pathlib.Path(SETTINGS["molecalc.scr"])
 
     # TODO Get molecule names
 
@@ -55,9 +55,9 @@ def calculation_pipeline(molinfo, calc_settings, settings):
     hashdir.mkdir(parents=True, exist_ok=True)
 
     gamess_options = {
-        "cmd": settings["gamess.rungms"],
-        "gamess_scr": settings["gamess.scr"],
-        "gamess_userscr": settings["gamess.userscr"],
+        "cmd": SETTINGS["gamess.rungms"],
+        "gamess_scr": SETTINGS["gamess.scr"],
+        "gamess_userscr": SETTINGS["gamess.userscr"],
         "scr": hashdir,
         "filename": hashkey,
         'theory_level': theory_level

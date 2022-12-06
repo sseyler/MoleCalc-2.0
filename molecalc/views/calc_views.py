@@ -11,6 +11,7 @@ from rdkit import Chem
 from rdkit.Chem import AllChem
 
 from molecalc.infrastructure.view_modifiers import response
+from molecalc.infrastructure.settings import SETTINGS
 import molecalc.data.db_session as db_session
 from molecalc.data.gamess_calculation import GamessCalculation
 from molecalc.lib import gamess
@@ -21,14 +22,6 @@ from ppqm import chembridge
 _logger = logging.getLogger("molecalc:calc_views")
 
 bp = flask.Blueprint('calc', __name__, template_folder='../templates')
-
-# TODO Put this global gamess/scratch info somewhere sensible
-SETTINGS = {
-    'gamess.rungms': '/home/ubuntu/Library/gamess/rungms',
-    'gamess.scr': '/home/ubuntu/scratch/gamess/restart/',
-    'gamess.userscr': '/home/ubuntu/scratch/gamess/restart/',
-    'scr.scr': '/home/ubuntu/scratch/molecalc_data/'
-}
 
 
 @bp.route('/calculations')
@@ -208,9 +201,7 @@ def ajax_submit_quantum():
 
     try:
         msg, new_calculation = gamess.pipelines.calculation_pipeline(
-            molecule_info, calc_settings, SETTINGS
-        )
-
+            molecule_info, calc_settings)
     except Exception:
 
         sdfstr = chembridge.molobj_to_sdfstr(molobj)

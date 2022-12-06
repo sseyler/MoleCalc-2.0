@@ -17,8 +17,8 @@ class Config(object):
     CORS_ORIGIN_WHITELIST = [
         'http://0.0.0.0:6543',
         'http://localhost:6543',
-        'http://0.0.0.0:8000',
-        'http://localhost:8000',
+        'http://0.0.0.0:5000',
+        'http://localhost:5000',
         'http://0.0.0.0:8888',
         'http://localhost:8888',
     ]

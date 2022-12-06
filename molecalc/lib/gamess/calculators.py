@@ -121,8 +121,8 @@ def calculate_all_properties(molobj, gamess_options, async_calc=False):
     if async_calc:
 
         def procfunc(conn, func, *args, **kwargs):
-            properties = func(*args, **kwargs)
-            conn.send(properties)
+            prop = func(*args, **kwargs)
+            conn.send(prop)
             conn.close()
 
         procs = []
