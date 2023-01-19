@@ -56,12 +56,12 @@ def calculation(hashkey: str):
 @bp.post('/ajax/_submit_quantum')
 def ajax_submit_quantum():
 
-    print(20*'>')
-    print('request.method: ', request.method)
-    print('request.get_data(): ', request.get_data())
-    print('request.form: ', request.form)
-    print('request.values: ', request.values)
-    print(20 * '>')
+    # print(20*'>')
+    # print('request.method: ', request.method)
+    # print('request.get_data(): ', request.get_data())
+    # print('request.form: ', request.form)
+    # print('request.values: ', request.values)
+    # print(20 * '>')
 
     if 'sdf' not in request.form:
         return {
