@@ -30,23 +30,12 @@
         <h1>What is MoleCalc?</h1>
 
         <p>
-          MoleCalc is based on <a href="https://molcalc.org/">MolCalc</a>, a web-based
-          chemistry teaching tool built originally by the
-          <a href="propka.ki.ku.dk/~jhjensen">
-            Jensen Group
-          </a> at the University of
-          Copenhagen and being extended by the
-          <a href="https://biopchem.education/news/yarger-research-group/">
-            Yarger Research Group
-          </a>
-          in the
-          <a href="https://sms.asu.edu/">
-            School of Molecular Sciences at Arizona State University
-          </a>
-          that allows chemists to build small molecules and estimate key molecular properties using
-          research-grade quantum chemistry software. Currently, MoleCalc can provide, in
-          a matter of minutes or seconds, a decent sense of the physical and chemical properties
-          of a chosen molecule, such as
+            MoleCalc is a Python-based web app and chemistry teaching tool that
+            allows chemists to build small molecules and estimate key molecular
+            properties using state-of-the-art quantum chemistry software.
+            Currently, MoleCalc can provide, in a matter of minutes or seconds, a
+            decent sense of the physical and chemical properties of a chosen
+            molecule, such as
         </p>
 
         <ul>
@@ -59,42 +48,73 @@
         <h1>Why do we need MoleCalc?</h1>
 
         <p>
-            The original
-          <a href="https://molcalc.org/">MolCalc</a> was originally designed for teaching as
-          opposed to research and, therefore, places an emphasis on running computations
-          <em>quickly</em>. Indeed, so long as qualitative accuracy is sufficient, the speed of
-          calculations is of primary importance since humans learn most effectively when
-          real-time feedback is available. MoleCalc is being developed in this spirit and
-          is currently being stress-tested in the context of the upper-division
-            <a href="https://biopchem.education/biopchem/courses/">CHM 343 lab course
-            at ASU in Fall 2022</a>. However, the ASU MoleCalc project has longer-term ambitions
-            driven by the central goal to improve student engagement with fundamental concepts
-            in chemistry and physics.
+            MoleCalc, which is being developed by the
+            <a href="https://biopchem.education/news/yarger-research-group/">
+            Yarger Research Group</a> at Arizona State University for chemistry
+            "cloud lab" courses in the <a href="https://sms.asu.edu/">
+            School of Molecular Sciences at Arizona State University</a>, is an
+            evolution of the original <a href="https://molcalc.org/">MolCalc</a>
+            web app developed by the <a href="propka.ki.ku.dk/~jhjensen">Jensen
+                Group</a> at the University of Copenhagen using the
+            <a href="https://trypyramid.com/">Pyramid</a> Python web framework.
+
+            MoleCalc has been ported to the Python (micro) web framework
+            <a href="https://flask.palletsprojects.com/en/2.2.x/">Flask</a>,
+            a very popular web framework that is remarkably easy to use and
+            well-suited for a rapidly evolving web applications. In particular,
+            rebuilding MoleCalc in Flask makes it even simpler for new
+            developers to contribute to MoleCalc's ongoing development,
+            including the incorporation of new features and integration with
+            other Flask-based cloud apps used for online chemistry lab courses
+            at ASU.
+        </p>
+        <br>
+        <p>
+            The original <a href="https://molcalc.org/">MolCalc</a> web app was
+            designed for teaching as opposed to research and, therefore, places
+            an emphasis on running computations <em>quickly</em>. Indeed, so
+            long as qualitative accuracy is sufficient, the speed of
+            calculations is of primary importance since humans learn most
+            effectively when real-time feedback is available. <strong>MoleCalc</strong>
+            retains the spirit of the original app and is currently being
+            stress-tested in the context of the upper-division
+            <a href="https://biopchem.education/biopchem/courses/">CHM 343 lab
+                course at ASU starting the Fall 2022 semester</a>. However, the
+            ASU MoleCalc project has broader and longer-term ambitions driven by
+            the central goal of improving student engagement with fundamental
+            concepts in chemistry and physics.
         </p>
 
 
         <h2>Emphasis on physical intuition</h2>
 
-        <p>The broader ASU MoleCalc effort is focused on leveraging computational methods
-          to deeply integrate physical intuition with real or simulated experimental data using
-          clickable explanations, dynamic visualizations, and interactive data. A guiding focus
-          of our development efforts is to <i>make meaning transparent</i> by leveraging a web
-          interface that will provide succinct explanations in a visual context, thereby allowing
-          the user to concentrate on concepts rather than deciphering complicated programs and
-          arcane terminologies.
+        <p>
+            The broader ASU MoleCalc effort is focused on leveraging
+            computational methods to deeply integrate physical intuition with
+            real or simulated experimental data using clickable explanations,
+            dynamic visualizations, and interactive data. A guiding focus of our
+            development efforts is to <i>make meaning transparent</i> by
+            leveraging a web interface that will provide succinct explanations
+            in a visual context, thereby allowing the user to concentrate on
+            concepts rather than deciphering complicated programs and arcane
+            terminologies.
         </p>
 
         <h2>Cloud-based physics and chemistry</h2>
 
-        <p>Like the original MolCalc project, MoleCalc will continue being developed as an
-          open source interactive chemistry teaching tool. MoleCalc serves as the starting
-          point for the development of a more comprehensive visual-centric interface for
-          cloud-based physics and chemistry lab courses. The idea is to have students develop a
-          "chemical intuition" about how molecular structure affects molecular properties, without
-          performing the underlying calculations by hand (which would be near impossible for all
-          but the simplest chemical systems). In particular, we envision developing a tool that
-          establishes concrete conceptual pathways from representative experimental plots and
-          data to the mechanistic physical/chemical picture that directly underlies that data.
+        <p>
+            Like the original MolCalc project, MoleCalc will continue being
+            developed as an open source interactive chemistry teaching tool.
+            MoleCalc serves as the starting point for the development of a more
+            comprehensive visual-centric interface for cloud-based physics and
+            chemistry lab courses. The idea is to have students develop physical
+            and chemical intuition about how molecular structure affects
+            molecular properties, without performing the underlying calculations
+            by hand (which would be near impossible for all but the simplest
+            chemical systems). In particular, we envision developing a tool that
+            establishes concrete conceptual pathways from representative
+            experimental plots and data to the mechanistic physical/chemical
+            picture that directly underlies that data.
         </p>
 
         <h1>What technologies does MoleCalc use?</h1>
@@ -112,7 +132,7 @@
         <h2>Back-end components</h2>
 
         <ul>
-            <li>Python (<a href="https://trypyramid.com/">(Pyramid</a>)</li>
+            <li>Python (<a href="https://trypyramid.com/">Pyramid</a>)</li>
             <li><a href="https://www.sqlalchemy.org/">SQLAlchemy</a></li>
             <li>JavaScript (<a href="https://jquery.com/">jQuery</a>)</li>
             <li><a href="https://www.msg.chem.iastate.edu/gamess/">GAMESS</a></li>
