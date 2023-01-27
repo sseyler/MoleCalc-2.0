@@ -153,6 +153,7 @@ def calculation_pipeline(molinfo, calc_settings):
 
     _logger.info(f"{hashkey} VibrationSuccess")
 
+    # TODO Move the SQL database stuff into functions in data_service.py
     # TODO Make a custom reader and move this out of ppqm
     calculation.islinear = properties_vib["linear"]
     calculation.vibjsmol = properties_vib["jsmol"]

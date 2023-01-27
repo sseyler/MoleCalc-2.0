@@ -31,12 +31,13 @@ def configure():
 
 
 def setup_db():
+    db_name = SETTINGS['db.name']
     db_file = os.path.join(
         os.path.dirname(__file__),
         SETTINGS['db.dir'],
         SETTINGS['db.name'])
 
-    db_session.global_init(db_file)
+    db_session.global_init(db_name, db_file)
 
 
 def register_blueprints():

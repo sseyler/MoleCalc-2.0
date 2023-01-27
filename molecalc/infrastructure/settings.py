@@ -9,5 +9,5 @@ SETTINGS = {
     'gamess.userscr': f'{HOME}/scratch/gamess/restart/',
     'molecalc.scr': f'{HOME}/scratch/molecalc_data/',
     'db.dir': 'db',
-    'db.name': 'molecalc.sqlite'
+    'db.name': 'molecalc'
 }

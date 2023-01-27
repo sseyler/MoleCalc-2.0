@@ -5,5 +5,7 @@
 
 # noinspection PyUnresolvedReferences
 import molecalc.data.gamess_calculation
+# noinspection PyUnresolvedReferences
+import molecalc.data.gamess_ios
 # # noinspection PyUnresolvedReferences
 # import molecalc.data.orca_calculation

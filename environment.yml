@@ -11,3 +11,5 @@ dependencies:
   - jinja2=3.0.3
   - werkzeug
   - rmsd
+  - pymongo
+  - mongoengine

@@ -28,7 +28,7 @@ bp = flask.Blueprint('calc', __name__, template_folder='../templates')
 @bp.route('/calculations/<string:hashkey>')
 @response(template_file='calculation/calculation.html')
 def calculation(hashkey: str):
-
+    # TODO Consolidate SQL database stuff into functions in data_service.py?
     # Look up the key
     session = db_session.create_session()
     try:
@@ -160,6 +160,7 @@ def ajax_submit_quantum():
             "message": f"Stop Casper. Max {max_atoms} heavy atoms.",
         }
 
+    # TODO Consolidate SQL database stuff into functions in data_service.py?
     # Fix sdfstr
     sdfstr = sdfstr.decode("utf8")
     for _ in range(3):
