@@ -5,9 +5,14 @@ import pathlib
 import numpy as np
 
 from molecalc.infrastructure.settings import SETTINGS
+# --- SQLAlchemy ---
 from molecalc.data.gamess_calculation import GamessCalculation
+# --- MongoDB ---
+import infrastructure.state as state
+import services.data_service as svc
+
 from molecalc.data.__misc import Counter
-from molecalc.lib import gamess
+from molecalc.lib.gamess import calculators
 from ppqm import chembridge, misc
 from ppqm.constants import COLUMN_COORDINATES, COLUMN_ENERGY
 
@@ -47,8 +52,15 @@ def calculation_pipeline(molinfo, calc_settings):
     atoms = chembridge.molobj_to_atoms(molobj)
     _logger.info(f"{hashkey} '{smiles}' {atoms}")
 
-    # Create new calculation
+    # --- Create new Gamess calculation ---
     calculation = GamessCalculation()
+
+    # --- Add calculation to the Mongo database
+    old_calculation = svc.find_calculation_by_hashkey(hashkey)
+    if old_calculation:
+        _logger.error(f"ERROR: Calculation with hashkey {hashkey} already exists.")
+        return
+    state.active_calculation = svc.create_gamess_io(smiles, hashkey)
 
     # Switch to scrdir / hashkey
     hashdir = scratch_dir / hashkey
@@ -70,7 +82,7 @@ def calculation_pipeline(molinfo, calc_settings):
     n_atoms = len(atoms)
     if n_atoms >= 2:
         try:
-            properties = gamess.calculators.optimize_coordinates(
+            properties = calculators.optimize_coordinates(
                 molobj, gamess_options
             )
         except Exception:
@@ -123,10 +135,10 @@ def calculation_pipeline(molinfo, calc_settings):
 
     # Optimization is finished, do other calculation async-like
     (
-        properties_vib,
-        properties_orb,
-        # properties_sol,
-    ) = gamess.calculators.calculate_all_properties(molobj, gamess_options)
+        properties_vib, properties_orb  # properties_sol,
+    ), (
+        io_files_vib, io_files_orb  # io_files_sol,
+    ) = calculators.calculate_all_properties(molobj, gamess_options)
 
 
     # Check results
@@ -152,6 +164,11 @@ def calculation_pipeline(molinfo, calc_settings):
         }, None
 
     _logger.info(f"{hashkey} VibrationSuccess")
+
+    # --- Calculation results to Mongo database ---
+
+
+    # --- Calculation results to SQL database ---
 
     # TODO Move the SQL database stuff into functions in data_service.py
     # TODO Make a custom reader and move this out of ppqm

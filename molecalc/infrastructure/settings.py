@@ -11,3 +11,10 @@ SETTINGS = {
     'db.dir': 'db',
     'db.name': 'molecalc'
 }
+
+MONGODB_SETTINGS = {
+    'db': SETTINGS['db.name'],
+    'host': 'localhost',
+    'port': 27017,
+    'alias': 'core',
+}

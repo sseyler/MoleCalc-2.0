@@ -2,16 +2,18 @@ import os
 import sys
 
 import flask
+from flask_mongoengine import MongoEngine
 
 folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, folder)
 
 import molecalc.data.db_session as db_session
-from molecalc.infrastructure.settings import SETTINGS
+from molecalc.infrastructure.settings import SETTINGS, MONGODB_SETTINGS
 # from molecalc.infrastructure.config import DevConfig, ProdConfig
 # from molecalc.data.extensions import db
 
 app = flask.Flask(__name__)
+db_me = MongoEngine()
 
 
 def main():
@@ -31,13 +33,20 @@ def configure():
 
 
 def setup_db():
-    db_name = SETTINGS['db.name']
     db_file = os.path.join(
         os.path.dirname(__file__),
         SETTINGS['db.dir'],
         SETTINGS['db.name'])
 
-    db_session.global_init(db_name, db_file)
+    db_session.global_init(db_file)
+
+    # --- MongoDB ---
+    # import mongoengine as me
+    # me.register_connection(
+    #     alias=MONGODB_SETTINGS['alias'],
+    #     name=MONGODB_SETTINGS['db'])
+    app.config['MONGODB_SETTINGS'] = MONGODB_SETTINGS
+    db_me.init_app(app)
 
 
 def register_blueprints():

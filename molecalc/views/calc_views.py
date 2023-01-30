@@ -12,8 +12,14 @@ from rdkit.Chem import AllChem
 
 from molecalc.infrastructure.view_modifiers import response
 from molecalc.infrastructure.settings import SETTINGS
+# --- SQLAlchemy ---
 import molecalc.data.db_session as db_session
 from molecalc.data.gamess_calculation import GamessCalculation
+# --- MongoDB ---
+# from molecalc.data.gamess_ios import GamessIO
+# import infrastructure.state as state
+# import services.data_service as svc
+
 from molecalc.lib import gamess
 
 from ppqm import chembridge
@@ -218,7 +224,7 @@ def ajax_submit_quantum():
     print(new_calculation)
     print(20 * '>')
 
-    # Add calculation to the database
+    # Add calculation to the SQL database
     if new_calculation is not None:
         session = db_session.create_session()
         session.add(new_calculation)
