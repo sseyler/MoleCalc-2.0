@@ -25,9 +25,20 @@ def find_calculation_by_hashkey(hashkey: str) -> GamessIO:
     return gamess_io
 
 
+def add_gamess_io_files(hashkey: str, inp_file: str, out_file: str, err_file: str) -> GamessIO:
+    gamess_io = GamessIO.objects(hashkey=hashkey)
+    gamess_io.inp_file = inp_file
+    gamess_io.out_file = out_file
+    gamess_io.err_file = err_file
+    gamess_io.save()
+
+    return gamess_io
+
+
 def add_gamess_inp_file(hashkey: str, inp_file: str) -> GamessIO:
     gamess_io = GamessIO.objects(hashkey=hashkey)
     gamess_io.inp_file = inp_file
+
     gamess_io.save()
 
     return gamess_io
@@ -36,6 +47,14 @@ def add_gamess_inp_file(hashkey: str, inp_file: str) -> GamessIO:
 def add_gamess_out_file(hashkey: str, out_file: str) -> GamessIO:
     gamess_io = GamessIO.objects(hashkey=hashkey)
     gamess_io.out_file = out_file
+    gamess_io.save()
+
+    return gamess_io
+
+
+def add_gamess_err_file(hashkey: str, err_file: str) -> GamessIO:
+    gamess_io = GamessIO.objects(hashkey=hashkey)
+    gamess_io.err_file = err_file
     gamess_io.save()
 
     return gamess_io

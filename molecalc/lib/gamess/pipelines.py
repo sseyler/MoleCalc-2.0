@@ -167,6 +167,12 @@ def calculation_pipeline(molinfo, calc_settings):
 
     # --- Calculation results to Mongo database ---
 
+    # Vibrational Modes
+    inp_vib, out_vib, err_vib = io_files_vib
+    svc.add_gamess_io_files(hashkey, inp_vib, out_vib, err_vib)
+    # Molecular Orbitals
+    inp_orb, out_orb, err_orb = io_files_vib
+    svc.add_gamess_io_files(hashkey, inp_orb, out_orb, err_orb)
 
     # --- Calculation results to SQL database ---
 

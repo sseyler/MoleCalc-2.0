@@ -10,6 +10,7 @@ class GamessIO(db_me.Document):
 
     inp_file = db_me.StringField()
     out_file = db_me.StringField()
+    err_file = db_me.StringField()
 
     # TODO perhaps organize calculations by molecule and have lists of both
     #   hashkeys and smiles/sdf
