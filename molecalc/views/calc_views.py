@@ -26,53 +26,6 @@ _logger = logging.getLogger("molecalc:calc_views")
 bp = flask.Blueprint('calc', __name__, template_folder='../templates')
 
 
-# def select_calc_io(hashkey: str, calc: str):
-#     session = db_session.create_session()
-#     try:
-#         this_calc = session.query(GamessCalculation) \
-#             .filter_by(hashkey=hashkey) \
-#             .first()
-#     finally:
-#         session.close()
-#
-#     match calc:
-#         case 'opt':
-#             return {'inp': this_calc.inptxt_opt,
-#                     'out': this_calc.outtxt_opt,
-#                     'err': this_calc.errtxt_opt}
-#         case 'vib':
-#             return {'inp': this_calc.inptxt_vib,
-#                     'out': this_calc.outtxt_vib,
-#                     'err': this_calc.errtxt_vib}
-#         case 'orb':
-#             return {'inp': this_calc.inptxt_orb,
-#                     'out': this_calc.outtxt_orb,
-#                     'err': this_calc.errtxt_orb}
-#         case _:
-#             err_msg = 'Unknown calculation type "{calc}"'
-#             _logger.error(err_msg)
-#             return {
-#                 "error": "998",
-#                 "message": f"Internal server error: {err_msg}",
-#             }
-#
-#
-# def select_calc_io_file(hashkey: str, calc: str, iofile: str):
-#     match iofile:
-#         case 'inp':
-#             s = select_calc_io(hashkey, calc)['inp']
-#         case 'out':
-#             s = select_calc_io(hashkey, calc)['out']
-#         case 'err':
-#             s = select_calc_io(hashkey, calc)['err']
-#         case _:
-#             _logger.error('Unknown I/O filetype "{ext}"')
-#
-#     # CompressedString decompressed on cast to str, utf-8 converts from bytes
-#     f = str(s, 'utf-8')
-#     return f
-
-
 @bp.get('/calculations/<string:hashkey>/download_gamess_io/<string:calc>/<string:iofile>')
 def download_gamess_io(hashkey: str, calc: str, iofile: str):
     match calc:
@@ -92,100 +45,15 @@ def download_gamess_io(hashkey: str, calc: str, iofile: str):
 
     f = get_calc_io_file(hashkey, calc, iofile)
 
-    return flask.Response(f,
-        mimetype='text/plain',
-        direct_passthrough=True,
-        headers={'Content-disposition': f'attachment; filename={filename}'})
+    # return flask.Response(f,
+    #     mimetype='text/plain',
+    #     direct_passthrough=True,
+    #     headers={'Content-disposition': f'attachment; filename={filename}'})
 
-
-# @bp.route('/calculations/<string:hashkey>/download_io_opt/<string:iofile>')
-# def download_io_opt(hashkey: str, iofile: str):
-#     # Look up the key
-#     session = db_session.create_session()
-#     try:
-#         this_calculation = session.query(GamessCalculation) \
-#             .filter_by(hashkey=hashkey) \
-#             .first()
-#     finally:
-#         session.close()
-#
-#     match iofile:
-#         case 'inp':
-#             s, ext = this_calculation.inptxt_opt, 'inp'
-#         case 'out':
-#             s, ext = this_calculation.outtxt_opt, 'out'
-#         case 'err':
-#             s, ext = this_calculation.errtxt_opt, 'err'
-#         case default:
-#             s, ext = this_calculation.outtxt_opt, 'out'
-#
-#     f = str(s, 'utf-8')  # str decompresses CompressedString, utf-8 converts from bytes
-#
-#     return flask.Response(
-#         f,
-#         mimetype='text/plain',
-#         direct_passthrough=True,
-#         headers={'Content-disposition': f'attachment; filename=optimization_{hashkey}.{ext}'})
-#
-#
-# @bp.route('/calculations/<string:hashkey>/download_io_vib/<string:iofile>')
-# def download_io_vib(hashkey: str, iofile: str):
-#     # Look up the key
-#     session = db_session.create_session()
-#     try:
-#         this_calculation = session.query(GamessCalculation) \
-#             .filter_by(hashkey=hashkey) \
-#             .first()
-#     finally:
-#         session.close()
-#
-#     match iofile:
-#         case 'inp':
-#             s, ext = this_calculation.inptxt_vib, 'inp'
-#         case 'out':
-#             s, ext = this_calculation.outtxt_vib, 'out'
-#         case 'err':
-#             s, ext = this_calculation.errtxt_vib, 'err'
-#         case default:
-#             s, ext = this_calculation.outtxt_vib, 'out'
-#
-#     f = str(s, 'utf-8')  # str decompresses CompressedString, utf-8 converts from bytes
-#
-#     return flask.Response(
-#         f,
-#         mimetype='text/plain',
-#         direct_passthrough=True,
-#         headers={'Content-disposition': f'attachment; filename=vibrations_{hashkey}.{ext}'})
-#
-#
-# @bp.route('/calculations/<string:hashkey>/download_io_orb/<string:iofile>')
-# def download_io_orb(hashkey: str, iofile: str):
-#     # Look up the key
-#     session = db_session.create_session()
-#     try:
-#         this_calculation = session.query(GamessCalculation) \
-#             .filter_by(hashkey=hashkey) \
-#             .first()
-#     finally:
-#         session.close()
-#
-#     match iofile:
-#         case 'inp':
-#             s, ext = this_calculation.inptxt_orb, 'inp'
-#         case 'out':
-#             s, ext = this_calculation.outtxt_orb, 'out'
-#         case 'err':
-#             s, ext = this_calculation.errtxt_orb, 'err'
-#         case default:
-#             s, ext = this_calculation.outtxt_orb, 'out'
-#
-#     f = str(s, 'utf-8')  # str decompresses CompressedString, utf-8 converts from bytes
-#
-#     return flask.Response(
-#         f,
-#         mimetype='text/plain',
-#         direct_passthrough=True,
-#         headers={'Content-disposition': f'attachment; filename=orbitals_{hashkey}.{ext}'})
+    return flask.send_file(f,
+                           mimetype='text/plain',
+                           as_attachment=True,
+                           download_name=filename)
 
 
 @bp.route('/calculations')

@@ -1,3 +1,4 @@
+import io
 import logging
 
 import molecalc.data.db_session as db_session
@@ -49,6 +50,8 @@ def get_calc_io_file(hashkey: str, calc: str, iofile: str):
         case _:
             _logger.error('Unknown I/O filetype "{ext}"')
 
-    # CompressedString decompressed on cast to str, utf-8 converts from bytes
-    f = str(s, 'utf-8')
+    # CompressedString decompressed on cast to str, 'utf-8' converts from bytes
+    # f = str(s, 'utf-8')
+    b = bytes(s)  # uncompresses to bytes-like object
+    f = io.BytesIO(b)
     return f
