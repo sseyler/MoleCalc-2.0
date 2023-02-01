@@ -54,15 +54,6 @@ def calculate_vibrations(molobj, gamess_options):
     properties = results[0]
     gamess_io = files[0]
 
-    print('--- results --' + 50 * '>')
-    print(results)
-    print('--- files --' + 50 * '>')
-    print(files)
-    print('--- properties --' + 50 * '>')
-    print(properties)
-    print('--- gamess_io --' + 50 * '>')
-    print(gamess_io)
-
     return properties, gamess_io
 
 
@@ -165,7 +156,6 @@ def calculate_all_properties(molobj, gamess_options, async_calc=False):
         properties, io_files = zip(*properties_and_files)  # unzip
 
     else:
-        print('HELLO, YO')
         properties = []
         io_files = []
         for func in funcs:
