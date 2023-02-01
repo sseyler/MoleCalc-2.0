@@ -27,6 +27,19 @@ class GamessCalculation(SqlAlchemyBase):
     coordinates: str = Column(String)
     theorylvl: str = Column(String)
 
+    # GAMESS optimization input and output files
+    inptxt_opt: CompressedString = Column(CompressedString)
+    outtxt_opt: CompressedString = Column(CompressedString)
+    errtxt_opt: CompressedString = Column(CompressedString)
+    # GAMESS vibrational calculation input and output files
+    inptxt_vib: CompressedString = Column(CompressedString)
+    outtxt_vib: CompressedString = Column(CompressedString)
+    errtxt_vib: CompressedString = Column(CompressedString)
+    # GAMESS orbitals calculation input and output files
+    inptxt_orb: CompressedString = Column(CompressedString)
+    outtxt_orb: CompressedString = Column(CompressedString)
+    errtxt_orb: CompressedString = Column(CompressedString)
+
     # GAMESS Results
     enthalpy: float = Column(Float)
     charges: str = Column(String)

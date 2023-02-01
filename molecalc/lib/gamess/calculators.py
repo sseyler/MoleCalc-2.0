@@ -20,11 +20,12 @@ def optimize_coordinates(molobj, gamess_options):
     gamess_options.get("filename", None)
 
     calc_obj = ppqm.gamess.GamessCalculator(**gamess_options)
-    results = calc_obj.calculate(molobj, calculation_options)
+    results, files = calc_obj.calculate(molobj, calculation_options)
 
     properties = results[0]
+    gamess_io = files[0]
 
-    return properties
+    return properties, gamess_io
 
 
 def calculate_vibrations(molobj, gamess_options):
@@ -49,10 +50,20 @@ def calculate_vibrations(molobj, gamess_options):
         }
 
     calc_obj = ppqm.gamess.GamessCalculator(**gamess_options)
-    results = calc_obj.calculate(molobj, calculation_options)
+    results, files = calc_obj.calculate(molobj, calculation_options)
     properties = results[0]
+    gamess_io = files[0]
 
-    return properties
+    print('--- results --' + 50 * '>')
+    print(results)
+    print('--- files --' + 50 * '>')
+    print(files)
+    print('--- properties --' + 50 * '>')
+    print(properties)
+    print('--- gamess_io --' + 50 * '>')
+    print(gamess_io)
+
+    return properties, gamess_io
 
 
 def calculate_orbitals(molobj, gamess_options):
@@ -71,13 +82,15 @@ def calculate_orbitals(molobj, gamess_options):
 
     calc_obj = ppqm.gamess.GamessCalculator(**gamess_options)
     try:
-        results = calc_obj.calculate(molobj, calculation_options)
+        results, files = calc_obj.calculate(molobj, calculation_options)
         properties = results[0]
+        gamess_io = files[0]
     except TypeError:
         properties = dict()
         properties["error"] = "Failed orbital calculation"
+        gamess_io = {'inp': '', 'out': '', 'err': ''}
 
-    return properties
+    return properties, gamess_io
 
 
 def calculate_solvation(molobj, gamess_options):
@@ -95,17 +108,19 @@ def calculate_solvation(molobj, gamess_options):
 
     calc_obj = ppqm.gamess.GamessCalculator(**gamess_options)
     try:
-        results = calc_obj.calculate(molobj, calculation_options)
+        results, files = calc_obj.calculate(molobj, calculation_options)
         properties = results[0]
+        gamess_io = files[0]
     except TypeError:
         properties = dict()
         properties["error"] = "Solvation calculation failed"
-
+        gamess_io = {'inp': '', 'out': '', 'err': ''}
     if "charges" not in properties:
         properties = dict()
         properties["error"] = "Solvation calculation failed"
+        gamess_io = {'inp': '', 'out': '', 'err': ''}
 
-    return properties
+    return properties, gamess_io
 
 
 def calculate_all_properties(molobj, gamess_options, async_calc=False):
@@ -119,7 +134,6 @@ def calculate_all_properties(molobj, gamess_options, async_calc=False):
     filename = gamess_options.get("filename", "gamess_calc")
 
     if async_calc:
-
         def procfunc(conn, func, *args, **kwargs):
             prop = func(*args, **kwargs)
             conn.send(prop)
@@ -147,15 +161,19 @@ def calculate_all_properties(molobj, gamess_options, async_calc=False):
         for proc in procs:
             proc.join(timeout=MAX_TIME)
 
-        properties = [conns[i].recv() for i in range(len(funcs))]
+        properties_and_files = [conns[i].recv() for i in range(len(funcs))]
+        properties, io_files = zip(*properties_and_files)  # unzip
 
     else:
-
+        print('HELLO, YO')
         properties = []
+        io_files = []
         for func in funcs:
             # Change scr
             gamess_options = copy.deepcopy(gamess_options)
             gamess_options["filename"] = filename + "_" + func.__name__
-            properties.append( func(molobj, gamess_options) )
+            results, files = func(molobj, gamess_options)
+            properties.append(results)
+            io_files.append(files)
 
-    return properties
+    return properties, io_files

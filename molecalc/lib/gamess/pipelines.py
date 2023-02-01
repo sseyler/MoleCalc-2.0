@@ -7,7 +7,7 @@ import numpy as np
 from molecalc.infrastructure.settings import SETTINGS
 from molecalc.data.gamess_calculation import GamessCalculation
 from molecalc.data.__misc import Counter
-from molecalc.lib import gamess
+from molecalc.lib.gamess import calculators
 from ppqm import chembridge, misc
 from ppqm.constants import COLUMN_COORDINATES, COLUMN_ENERGY
 
@@ -70,7 +70,7 @@ def calculation_pipeline(molinfo, calc_settings):
     n_atoms = len(atoms)
     if n_atoms >= 2:
         try:
-            properties = gamess.calculators.optimize_coordinates(
+            properties, io_files_opt = calculators.optimize_coordinates(
                 molobj, gamess_options
             )
         except Exception:
@@ -81,11 +81,13 @@ def calculation_pipeline(molinfo, calc_settings):
             _logger.error(f"{hashkey} OptimizationError", exc_info=True)
             _logger.error(sdfstr)
             properties = None
+            io_files_opt = {'inp': '', 'out': '', 'err': ''}
     elif n_atoms == 1:
         properties = {
             COLUMN_COORDINATES: chembridge.molobj_to_coordinates(molobj),
             COLUMN_ENERGY: 0.0
         }
+        io_files_opt = {'inp': '', 'out': '', 'err': ''}
     else:
         return {
             "error": "Error - misc atom count error",
@@ -121,13 +123,26 @@ def calculation_pipeline(molinfo, calc_settings):
     calculation.enthalpy = properties[COLUMN_ENERGY]
     chembridge.molobj_set_coordinates(molobj, coord)
 
+
     # Optimization is finished, do other calculation async-like
     (
-        properties_vib,
-        properties_orb,
-        # properties_sol,
-    ) = gamess.calculators.calculate_all_properties(molobj, gamess_options)
+        properties_vib, properties_orb  # properties_sol,
+    ), (
+        io_files_vib, io_files_orb  # io_files_sol,
+    ) = calculators.calculate_all_properties(molobj, gamess_options)
 
+    # Store GAMESS I/O files from optimization
+    calculation.inptxt_opt = io_files_opt['inp']
+    calculation.outtxt_opt = io_files_opt['out']
+    calculation.errtxt_opt = io_files_opt['err']
+    # Store GAMESS I/O files from vibrational calculation
+    calculation.inptxt_vib = io_files_vib['inp']
+    calculation.outtxt_vib = io_files_vib['out']
+    calculation.errtxt_vib = io_files_vib['err']
+    # Store GAMESS I/O files from orbital calculation
+    calculation.inptxt_orb = io_files_orb['inp']
+    calculation.outtxt_orb = io_files_orb['out']
+    calculation.errtxt_orb = io_files_orb['err']
 
     # Check results
 

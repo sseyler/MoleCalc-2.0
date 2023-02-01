@@ -1,6 +1,7 @@
 import flask
 from flask import request
 
+import io
 import datetime
 import hashlib
 import logging
@@ -14,6 +15,7 @@ from molecalc.infrastructure.view_modifiers import response
 from molecalc.infrastructure.settings import SETTINGS
 import molecalc.data.db_session as db_session
 from molecalc.data.gamess_calculation import GamessCalculation
+from molecalc.data.__misc import decompress
 from molecalc.lib import gamess
 
 from ppqm import chembridge
@@ -22,6 +24,126 @@ from ppqm import chembridge
 _logger = logging.getLogger("molecalc:calc_views")
 
 bp = flask.Blueprint('calc', __name__, template_folder='../templates')
+
+
+@bp.route('/calculations/<string:hashkey>/download_inptxt_opt')
+def download_inptxt_opt(hashkey: str):
+    # Look up the key
+    session = db_session.create_session()
+    try:
+        this_calculation = session.query(GamessCalculation) \
+            .filter_by(hashkey=hashkey) \
+            .first()
+    finally:
+        session.close()
+
+    f = str(this_calculation.inptxt_opt, 'utf-8')
+
+    return flask.Response(
+        f,
+        mimetype='text/plain',
+        direct_passthrough=True,
+        headers={'Content-disposition': f'attachment; filename=optimization_{hashkey}.inp'})
+
+
+@bp.route('/calculations/<string:hashkey>/download_outtxt_opt')
+def download_outtxt_opt(hashkey: str):
+    # Look up the key
+    session = db_session.create_session()
+    try:
+        this_calculation = session.query(GamessCalculation) \
+            .filter_by(hashkey=hashkey) \
+            .first()
+    finally:
+        session.close()
+
+    f = str(this_calculation.outtxt_opt, 'utf-8')
+
+    return flask.Response(
+        f,
+        mimetype='text/plain',
+        direct_passthrough=True,
+        headers={'Content-disposition': f'attachment; filename=optimization_{hashkey}.out'})
+
+
+@bp.route('/calculations/<string:hashkey>/download_inptxt_vib')
+def download_inptxt_vib(hashkey: str):
+    # Look up the key
+    session = db_session.create_session()
+    try:
+        this_calculation = session.query(GamessCalculation) \
+            .filter_by(hashkey=hashkey) \
+            .first()
+    finally:
+        session.close()
+
+    f = str(this_calculation.inptxt_vib, 'utf-8')
+
+    return flask.Response(
+        f,
+        mimetype='text/plain',
+        direct_passthrough=True,
+        headers={'Content-disposition': f'attachment; filename=vibrations_{hashkey}.inp'})
+
+
+@bp.route('/calculations/<string:hashkey>/download_outtxt_vib')
+def download_outtxt_vib(hashkey: str):
+    # Look up the key
+    session = db_session.create_session()
+    try:
+        this_calculation = session.query(GamessCalculation) \
+            .filter_by(hashkey=hashkey) \
+            .first()
+    finally:
+        session.close()
+
+    f = str(this_calculation.outtxt_vib, 'utf-8')
+
+    return flask.Response(
+        f,
+        mimetype='text/plain',
+        direct_passthrough=True,
+        headers={'Content-disposition': f'attachment; filename=vibrations_{hashkey}.out'})
+
+
+@bp.route('/calculations/<string:hashkey>/download_inptxt_orb')
+def download_inptxt_orb(hashkey: str):
+    # Look up the key
+    session = db_session.create_session()
+    try:
+        this_calculation = session.query(GamessCalculation) \
+            .filter_by(hashkey=hashkey) \
+            .first()
+    finally:
+        session.close()
+
+    f = str(this_calculation.inptxt_orb, 'utf-8')
+
+    return flask.Response(
+        f,
+        mimetype='text/plain',
+        direct_passthrough=True,
+        headers={'Content-disposition': f'attachment; filename=orbitals_{hashkey}.inp'})
+
+
+@bp.route('/calculations/<string:hashkey>/download_outtxt_orb')
+def download_outtxt_orb(hashkey: str):
+    # Look up the key
+    session = db_session.create_session()
+    try:
+        this_calculation = session.query(GamessCalculation) \
+            .filter_by(hashkey=hashkey) \
+            .first()
+    finally:
+        session.close()
+
+    f = str(this_calculation.outtxt_orb, 'utf-8')
+
+    return flask.Response(
+        f,
+        mimetype='text/plain',
+        direct_passthrough=True,
+        headers={'Content-disposition': f'attachment; filename=orbitals_{hashkey}.out'})
 
 
 @bp.route('/calculations')

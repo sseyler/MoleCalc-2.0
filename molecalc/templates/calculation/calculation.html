@@ -72,20 +72,17 @@
                 <div>
                     <a
                       class="button"
-                      download="optimization.inp"
-                      href="../data/{{hashkey}}/{{hashkey}}.inp"
+                      href="{{ url_for('calc.download_inptxt_opt', hashkey=hashkey) }}"
                       media_type="text">
                       <i class="fa fa-download"></i>
                       GAMESS Input File
                     </a>
                     <a
                       class="button"
-                      download="optimization.out"
-                      href="../data/{{hashkey}}/{{hashkey}}.out"
+                      href="{{ url_for('calc.download_outtxt_opt', hashkey=hashkey) }}"
                       media_type="text">
                       <i class="fa fa-download"></i>
-{#                      GAMESS Output#}
-                      {{ enthalpy }}
+                      GAMESS Output File
                     </a>
 {#                    <a#}
 {#                      class="button"#}
@@ -113,19 +110,19 @@
                 <div>
                     <a
                       class="button"
-                      download="vibrations.inp"
-                      href="../data/{{hashkey}}/{{hashkey}}_calculate_vibrations.inp"
+                      download="optimization.inp"
+                      href="{{ url_for('calc.download_inptxt_vib', hashkey=hashkey) }}"
                       media_type="text">
                       <i class="fa fa-download"></i>
                       GAMESS Input File
                     </a>
                     <a
                       class="button"
-                      download="vibrations.out"
-                      href="../data/{{hashkey}}/{{hashkey}}_calculate_vibrations.out"
+                      download="optimization.out"
+                      href="{{ url_for('calc.download_outtxt_vib', hashkey=hashkey) }}"
                       media_type="text">
                       <i class="fa fa-download"></i>
-                      GAMESS Output
+                      GAMESS Output File
                     </a>
                 </div>
             </section>
@@ -141,19 +138,19 @@
                 <div>
                     <a
                       class="button"
-                      download="orbitals.inp"
-                      href="../data/{{hashkey}}/{{hashkey}}_calculate_orbitals.inp"
+                      download="optimization.inp"
+                      href="{{ url_for('calc.download_inptxt_orb', hashkey=hashkey) }}"
                       media_type="text">
                       <i class="fa fa-download"></i>
                       GAMESS Input File
                     </a>
                     <a
                       class="button"
-                      download="orbitals.out"
-                      href="../data/{{hashkey}}/{{hashkey}}_calculate_orbitals.out"
+                      download="optimization.out"
+                      href="{{ url_for('calc.download_outtxt_orb', hashkey=hashkey) }}"
                       media_type="text">
                       <i class="fa fa-download"></i>
-                      GAMESS Output
+                      GAMESS Output File
                     </a>
                 </div>
             </section>
