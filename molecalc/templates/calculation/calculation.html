@@ -72,25 +72,31 @@
                 <div>
                     <a
                       class="button"
-                      href="{{ url_for('calc.download_inptxt_opt', hashkey=hashkey) }}"
+                      href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='opt', iofile='inp') }}"
                       media_type="text">
                       <i class="fa fa-download"></i>
-                      GAMESS Input File
+                      GAMESS .inp
                     </a>
                     <a
                       class="button"
-                      href="{{ url_for('calc.download_outtxt_opt', hashkey=hashkey) }}"
+                      href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='opt', iofile='out') }}"
                       media_type="text">
                       <i class="fa fa-download"></i>
-                      GAMESS Output File
+                      GAMESS .out
                     </a>
 {#                    <a#}
 {#                      class="button"#}
-{#                      download="optimization.out"#}
-{#                      href="{{ url_for('download', filename='downloadFile.txt') }}"#}
+{#                      href="{{ url_for('calc.download_io_opt', hashkey=hashkey, iofile='inp') }}"#}
 {#                      media_type="text">#}
 {#                      <i class="fa fa-download"></i>#}
-{#                      GAMESS Output#}
+{#                      GAMESS .inp#}
+{#                    </a>#}
+{#                    <a#}
+{#                      class="button"#}
+{#                      href="{{ url_for('calc.download_io_opt', hashkey=hashkey, iofile='out') }}"#}
+{#                      media_type="text">#}
+{#                      <i class="fa fa-download"></i>#}
+{#                      GAMESS .out#}
 {#                    </a>#}
                 </div>
             </section>
@@ -110,19 +116,17 @@
                 <div>
                     <a
                       class="button"
-                      download="optimization.inp"
-                      href="{{ url_for('calc.download_inptxt_vib', hashkey=hashkey) }}"
+                      href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='vib', iofile='inp') }}"
                       media_type="text">
                       <i class="fa fa-download"></i>
-                      GAMESS Input File
+                      GAMESS .inp
                     </a>
                     <a
                       class="button"
-                      download="optimization.out"
-                      href="{{ url_for('calc.download_outtxt_vib', hashkey=hashkey) }}"
+                      href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='vib', iofile='out') }}"
                       media_type="text">
                       <i class="fa fa-download"></i>
-                      GAMESS Output File
+                      GAMESS .out
                     </a>
                 </div>
             </section>
@@ -138,19 +142,17 @@
                 <div>
                     <a
                       class="button"
-                      download="optimization.inp"
-                      href="{{ url_for('calc.download_inptxt_orb', hashkey=hashkey) }}"
+                      href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='orb', iofile='inp') }}"
                       media_type="text">
                       <i class="fa fa-download"></i>
-                      GAMESS Input File
+                      GAMESS .inp
                     </a>
                     <a
                       class="button"
-                      download="optimization.out"
-                      href="{{ url_for('calc.download_outtxt_orb', hashkey=hashkey) }}"
+                      href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='orb', iofile='out') }}"
                       media_type="text">
                       <i class="fa fa-download"></i>
-                      GAMESS Output File
+                      GAMESS .out
                     </a>
                 </div>
             </section>
@@ -162,18 +164,6 @@
 
             {% include 'calculation/section_solvation.html' %}
         </section>
-
-        <!--<section class="data">-->
-        <!--    <div>-->
-        <!--        <button-->
-        <!--          type="button" class="button"-->
-        <!--          onclick="window.open('../data/{{hashkey}}/{{hashkey}}.out')">-->
-        <!--          onclick="window.location.href='../data/{{hashkey}}/{{hashkey}}.out';">-->
-        <!--          <i class="fa fa-download"></i>-->
-        <!--          GAMESS Input File-->
-        <!--        </button>-->
-        <!--    </div>-->
-        <!--</section>-->
 
     </section>
     <!-- end content -->
