@@ -72,26 +72,16 @@
                 <div>
                     <a
                       class="button"
-                      href="{{ url_for('calc.download_inptxt_opt', hashkey=hashkey) }}"
-                      media_type="text">
+                      href="{{ url_for('calc.download_inptxt_opt', hashkey=hashkey) }}">
                       <i class="fa fa-download"></i>
-                      GAMESS Input File
+                      GAMESS .inp
                     </a>
                     <a
                       class="button"
-                      href="{{ url_for('calc.download_outtxt_opt', hashkey=hashkey) }}"
-                      media_type="text">
+                      href="{{ url_for('calc.download_outtxt_opt', hashkey=hashkey) }}">
                       <i class="fa fa-download"></i>
-                      GAMESS Output File
+                      GAMESS .out
                     </a>
-{#                    <a#}
-{#                      class="button"#}
-{#                      download="optimization.out"#}
-{#                      href="{{ url_for('download', filename='downloadFile.txt') }}"#}
-{#                      media_type="text">#}
-{#                      <i class="fa fa-download"></i>#}
-{#                      GAMESS Output#}
-{#                    </a>#}
                 </div>
             </section>
         </section>
@@ -110,19 +100,15 @@
                 <div>
                     <a
                       class="button"
-                      download="optimization.inp"
-                      href="{{ url_for('calc.download_inptxt_vib', hashkey=hashkey) }}"
-                      media_type="text">
+                      href="{{ url_for('calc.download_inptxt_vib', hashkey=hashkey) }}">
                       <i class="fa fa-download"></i>
-                      GAMESS Input File
+                      GAMESS .inp
                     </a>
                     <a
                       class="button"
-                      download="optimization.out"
-                      href="{{ url_for('calc.download_outtxt_vib', hashkey=hashkey) }}"
-                      media_type="text">
+                      href="{{ url_for('calc.download_outtxt_vib', hashkey=hashkey) }}">
                       <i class="fa fa-download"></i>
-                      GAMESS Output File
+                      GAMESS .out
                     </a>
                 </div>
             </section>
@@ -138,19 +124,15 @@
                 <div>
                     <a
                       class="button"
-                      download="optimization.inp"
-                      href="{{ url_for('calc.download_inptxt_orb', hashkey=hashkey) }}"
-                      media_type="text">
+                      href="{{ url_for('calc.download_inptxt_orb', hashkey=hashkey) }}">
                       <i class="fa fa-download"></i>
-                      GAMESS Input File
+                      GAMESS .inp
                     </a>
                     <a
                       class="button"
-                      download="optimization.out"
-                      href="{{ url_for('calc.download_outtxt_orb', hashkey=hashkey) }}"
-                      media_type="text">
+                      href="{{ url_for('calc.download_outtxt_orb', hashkey=hashkey) }}">
                       <i class="fa fa-download"></i>
-                      GAMESS Output File
+                      GAMESS .out
                     </a>
                 </div>
             </section>
