@@ -491,11 +491,21 @@
         "content content"
         "data .";
 }
+/*.molecalc.calculation .mc-content .calc .tbls_container {*/
+/*    grid-area: content;*/
+/*    display: grid;*/
+/*    grid-template-columns: 1fr 1fr;*/
+/*    grid-template-rows: 250px 250px auto;*/
+/*    grid-gap: 1em;*/
+/*    grid-auto-flow: dense;*/
+/*    grid-auto-flow: row;*/
+/*    !*display: NONE;*!*/
+/*}*/
 .molecalc.calculation .mc-content .calc .tbls_container {
     grid-area: content;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 250px 250px auto;
+    grid-template-columns: 350px;
+    grid-template-rows: 250px 250px 250px 100px auto;
     grid-gap: 1em;
     grid-auto-flow: dense;
     grid-auto-flow: row;
