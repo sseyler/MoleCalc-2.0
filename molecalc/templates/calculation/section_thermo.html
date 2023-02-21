@@ -22,9 +22,12 @@
     };
 
     waitForElement('#jmolOpt_appletdiv', function() {
-        jsmolSetMol(jmolOpt, sdf);
+        {#jsmolSetMol(jmolOpt, sdf);#}
+        {#Jmol.script(jmolOpt, 'set appendNew true');#}
+        {#Jmol.script(jmolOpt, "load append trajectory '"+optMolecule+"';");#}
+        jsmolSetMol(jmolOpt, optMolecule);
+
         Jmol.script(jmolOpt, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
-        Jmol.script(jmolOpt, "load append '"+optMolecule+"';");
         Jmol.script(jmolOpt, 'centerAt average 0.0 0.0 0.0');
         Jmol.script(jmolOpt, 'animation on');
         Jmol.script(jmolOpt, 'animation fps 15');
