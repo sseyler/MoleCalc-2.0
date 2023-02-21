@@ -8,7 +8,7 @@
 <script type="text/javascript">
 
     var sdf = `{{sdf}}`;
-    var optMolecule = `{{vibjsmol}}`;
+    var optMolecule = `{{outtxt_opt}}`;
 
     var jmolOpt;
     var optInfo1 = {
@@ -22,23 +22,32 @@
     };
 
     waitForElement('#jmolOpt_appletdiv', function() {
-        jsmolSetMol(jmolOpt, optMolecule);
+        jsmolSetMol(jmolOpt, sdf);
         Jmol.script(jmolOpt, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
-        // Jmol.script(jmolOpt, 'mo TITLEFORMAT ""');
+        Jmol.script(jmolOpt, "load append '"+optMolecule+"';");
         Jmol.script(jmolOpt, 'centerAt average 0.0 0.0 0.0');
+        Jmol.script(jmolOpt, 'animation on');
+        Jmol.script(jmolOpt, 'animation fps 15');
+        Jmol.script(jmolOpt, 'animation mode palindrome 0.75 0.25');
     });
 
 $(function() {
     $sidebars = $(".sidebar");
 
-    // View Molecule
-    $('.optmol_level a').click(function()
+    // Animation on off
+    $('#optimization_switch').change(function()
     {
-        // Check for getProperty fileName
-        var optmol = $(this).attr('rel');
-        Jmol.script(jmolOpt, 'mo '+optmol);
-        $sidebars.removeClass("active");
-        return false;
+        var checked = $(this).prop('checked');
+        var rel;
+        if(checked)
+        {
+            rel = 'on';
+        }
+        else
+        {
+            rel = 'off';
+        }
+        Jmol.script(jmolOpt, 'animation '+rel);
     });
 
     // Balls on off
@@ -57,6 +66,15 @@ $(function() {
         Jmol.script(jmolOpt, 'cpk '+rel);
     });
 
+    // View optimization animation
+    $('.optmol_level a').click(function()
+    {
+        // Check for getProperty fileName
+        var optmol = $(this).attr('rel');
+        Jmol.script(jmolOpt, 'animation '+optmol);
+        $sidebars.removeClass("active");
+        return false;
+    });
 });
 
 </script>
@@ -85,12 +103,35 @@ $(function() {
     <table>
     <tbody>
     <tr>
+      <td width="50%">Optimization trajectory</td>
+      <td class="center">
+
+        <div class="onoffswitch">
+            <input autocomplete="off"
+                   type="checkbox"
+                   class="onoffswitch-checkbox"
+                   id="optimization_switch"
+                   name="optimization_switch"
+                   checked="">
+            <label class="onoffswitch-label" for="optimization_switch">
+                <div class="onoffswitch-inner"></div>
+                <div class="onoffswitch-switch"></div>
+            </label>
+        </div>
+
+      </td>
+    </tr>
+    <tr>
       <td>Sticks and balls</td>
       <td class="center">
 
         <div class="onoffswitch">
-            <input autocomplete="off" type="checkbox" class="onoffswitch-checkbox" id="spacefill_switch" name="spacefill_switch" checked="">
-            <label class="onoffswitch-label" for="spacefill_switch">
+            <input autocomplete="off"
+                   type="checkbox"
+                   class="onoffswitch-checkbox"
+                   id="spacefill_switch_opt"
+                   name="spacefill_switch_opt" checked="">
+            <label class="onoffswitch-label" for="spacefill_switch_opt">
                 <div class="onoffswitch-inner"></div>
                 <div class="onoffswitch-switch"></div>
             </label>
@@ -111,7 +152,7 @@ $(function() {
         <tr><td>Translational</td><td class="right">{{h_trans}}</td><td class="right">kJ mol<sup>-1</sup> </td><tr>
         <tr><td>Rotational</td><td class="right">{{h_rotat}}</td><td class="right">kJ mol<sup>-1</sup> </td><tr>
         <tr><td>Vibrational</td><td class="right">{{h_vibra}}</td><td class="right">kJ mol<sup>-1</sup></td><tr>
-        <tr><td>Total (Trans. + Rot. + Vib.)</td><td class="right">{{h_total}}</td><td class="right">kJ mol<sup>-1</sup></td><tr>
+        <tr><td>Total</td><td class="right">{{h_total}}</td><td class="right">kJ mol<sup>-1</sup></td><tr>
       </table>
     </div>
 
@@ -122,7 +163,7 @@ $(function() {
         <tr><td>Translational</td><td class="right">{{cp_trans}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
         <tr><td>Rotational</td><td class="right">{{cp_rotat}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
         <tr><td>Vibrational</td><td class="right">{{cp_vibra}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
-        <tr><td>Total (Trans. + Rot. + Vib.)</td><td class="right">{{cp_total}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
+        <tr><td>Total</td><td class="right">{{cp_total}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
       </table>
     </div>
 
@@ -133,7 +174,7 @@ $(function() {
         <tr><td>Translational</td><td class="right">{{s_trans}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
         <tr><td>Rotational</td><td class="right">{{s_rotat}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
         <tr><td>Vibrational</td><td class="right">{{s_vibra}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
-        <tr><td>Total (Trans. + Rot. + Vib.)</td><td class="right">{{s_total}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
+        <tr><td>Total</td><td class="right">{{s_total}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
       </table>
     </div>
 
