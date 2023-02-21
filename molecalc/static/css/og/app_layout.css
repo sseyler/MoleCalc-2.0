@@ -482,15 +482,15 @@
 /* "onecol" is specifically for thermochem calc tab, so this overrides
     ".molecalc.calculation .mc-content .calc" above
 */
-.molecalc.calculation .mc-content .calc.onecol {
-    grid-template-columns: 1fr 2fr;
- 	grid-template-rows: 40px 10px 1fr 50px;
-    grid-template-areas:
-        "title title"
-        "pad pad"
-        "content content"
-        "data .";
-}
+/*.molecalc.calculation .mc-content .calc.onecol {*/
+/*    grid-template-columns: 1fr 2fr;*/
+/* 	grid-template-rows: 40px 10px 1fr 50px;*/
+/*    grid-template-areas:*/
+/*        "title title"*/
+/*        "pad pad"*/
+/*        "content content"*/
+/*        "data .";*/
+/*}*/
 /*.molecalc.calculation .mc-content .calc .tbls_container {*/
 /*    grid-area: content;*/
 /*    display: grid;*/

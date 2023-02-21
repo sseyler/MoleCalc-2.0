@@ -5,51 +5,159 @@
 <!--</p>-->
   <!-- <h3>at 298.15 K and standard pressure</h3> -->
 
-<div class="tbls_container">
+<script type="text/javascript">
+
+    var sdf = `{{sdf}}`;
+    var optMolecule = `{{vibjsmol}}`;
+
+    var jmolOpt;
+    var optInfo1 = {
+        height: '100%',
+        width: '100%',
+        j2sPath: "/static/external/jsmol/j2s",
+        use: 'HTML5',
+        disableInitialConsole: true,
+        allowJavaScript: true,
+        debug: false,
+    };
+
+    waitForElement('#jmolOpt_appletdiv', function() {
+        jsmolSetMol(jmolOpt, optMolecule);
+        Jmol.script(jmolOpt, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
+        // Jmol.script(jmolOpt, 'mo TITLEFORMAT ""');
+        Jmol.script(jmolOpt, 'centerAt average 0.0 0.0 0.0');
+    });
+
+$(function() {
+    $sidebars = $(".sidebar");
+
+    // View Molecule
+    $('.optmol_level a').click(function()
+    {
+        // Check for getProperty fileName
+        var optmol = $(this).attr('rel');
+        Jmol.script(jmolOpt, 'mo '+optmol);
+        $sidebars.removeClass("active");
+        return false;
+    });
+
+    // Balls on off
+    $('#spacefill_switch_opt').change(function()
+    {
+        var checked = $(this).prop('checked');
+        var rel;
+        if(checked)
+        {
+            rel = 'on; spacefill 24%;';
+        }
+        else
+        {
+            rel = 'off';
+        }
+        Jmol.script(jmolOpt, 'cpk '+rel);
+    });
+
+});
+
+</script>
 
 
-<div class="tbl_container">
-  <table>
-    <tr><td class="center" colspan="3" style="font-weight:bold">Enthalpy</td></tr>
-    <!-- <tr><td class="center" style="width:50%">Property</td><td style="width:25%" class="center">Value</td><td style="width:25%" class="center">Unit</td></tr> -->
-    <tr><td>Translational</td><td class="right">{{h_trans}}</td><td class="right">kJ mol<sup>-1</sup> </td><tr>
-    <tr><td>Rotational</td><td class="right">{{h_rotat}}</td><td class="right">kJ mol<sup>-1</sup> </td><tr>
-    <tr><td>Vibrational</td><td class="right">{{h_vibra}}</td><td class="right">kJ mol<sup>-1</sup></td><tr>
-    <tr><td>Total (Trans. + Rot. + Vib.)</td><td class="right">{{h_total}}</td><td class="right">kJ mol<sup>-1</sup></td><tr>
-  </table>
+<div class="toggle700 calcOptionMenu">
+    <a class="button highlight btnSidebar" href="#calcOptimization">
+        Optimization
+        <!-- <i class="fas fa&#45;plus"></i> -->
+    </a>
 </div>
 
-<div class="tbl_container">
-  <table>
-    <tr><td class="center" colspan="3" style="font-weight:bold">Heat Capacity at Constant Pressure</td></tr>
-    <!-- <tr><td class="center" style="width:50%">Property</td><td style="width:25%" class="center">Value</td><td style="width:25%" class="center">Unit</td></tr> -->
-    <tr><td>Translational</td><td class="right">{{cp_trans}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
-    <tr><td>Rotational</td><td class="right">{{cp_rotat}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
-    <tr><td>Vibrational</td><td class="right">{{cp_vibra}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
-    <tr><td>Total (Trans. + Rot. + Vib.)</td><td class="right">{{cp_total}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
-  </table>
-</div>
+<section class="options sidebar" id="calcOptimization">
 
-<div class="tbl_container">
-  <table>
-    <tr><td class="center" colspan="3" style="font-weight:bold">Entropy</td></tr>
-    <!-- <tr><td class="center" style="width:50%">Property</td><td style="width:25%" class="center">Value</td><td style="width:25%" class="center">Unit</td></tr> -->
-    <tr><td>Translational</td><td class="right">{{s_trans}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
-    <tr><td>Rotational</td><td class="right">{{s_rotat}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
-    <tr><td>Vibrational</td><td class="right">{{s_vibra}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
-    <tr><td>Total (Trans. + Rot. + Vib.)</td><td class="right">{{s_total}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
-  </table>
-</div>
+    <section class="sidebar-cover"></section>
+    <section class="sidebar-background btnCloseSidebar" href="#calcOptimization"></section>
+
+    <section class="sidebar-wrapper"> <!-- sidebar wrapper -->
+
+        <section class="toolset toggle700">
+            <a class="button icon btnCloseSidebar" href="#calcOptimization">
+                <i class="fas fa-times"></i>
+            </a>
+        </section>
+
+    <table>
+    <tbody>
+    <tr>
+      <td>Sticks and balls</td>
+      <td class="center">
+
+        <div class="onoffswitch">
+            <input autocomplete="off" type="checkbox" class="onoffswitch-checkbox" id="spacefill_switch" name="spacefill_switch" checked="">
+            <label class="onoffswitch-label" for="spacefill_switch">
+                <div class="onoffswitch-inner"></div>
+                <div class="onoffswitch-switch"></div>
+            </label>
+        </div>
+
+      </td>
+    </tr>
+    </tbody>
+    </table>
+
+    <div class="tbls_container">
 
 
-<div class="tbl_container">
-  <table>
-    <tr><td class="center" colspan="3" style="font-weight:bold">Standard Enthalpy of Formation</td></tr>
-    <!-- <tr><td class="center" style="width:50%">Property</td><td style="width:25%" class="center">Value</td><td style="width:25%" class="center">Unit</td></tr> -->
-    <tr><td>Heat of Formation</td><td class="right">{{enthalpy}}</td><td class="right">kJ mol<sup>-1</sup></td><tr>
-  </table>
-</div>
+    <div class="tbl_container">
+      <table>
+        <tr><td class="center" colspan="3" style="font-weight:bold">Enthalpy</td></tr>
+        <!-- <tr><td class="center" style="width:50%">Property</td><td style="width:25%" class="center">Value</td><td style="width:25%" class="center">Unit</td></tr> -->
+        <tr><td>Translational</td><td class="right">{{h_trans}}</td><td class="right">kJ mol<sup>-1</sup> </td><tr>
+        <tr><td>Rotational</td><td class="right">{{h_rotat}}</td><td class="right">kJ mol<sup>-1</sup> </td><tr>
+        <tr><td>Vibrational</td><td class="right">{{h_vibra}}</td><td class="right">kJ mol<sup>-1</sup></td><tr>
+        <tr><td>Total (Trans. + Rot. + Vib.)</td><td class="right">{{h_total}}</td><td class="right">kJ mol<sup>-1</sup></td><tr>
+      </table>
+    </div>
 
-</div>
+    <div class="tbl_container">
+      <table>
+        <tr><td class="center" colspan="3" style="font-weight:bold">Heat Capacity at Constant Pressure</td></tr>
+        <!-- <tr><td class="center" style="width:50%">Property</td><td style="width:25%" class="center">Value</td><td style="width:25%" class="center">Unit</td></tr> -->
+        <tr><td>Translational</td><td class="right">{{cp_trans}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
+        <tr><td>Rotational</td><td class="right">{{cp_rotat}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
+        <tr><td>Vibrational</td><td class="right">{{cp_vibra}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
+        <tr><td>Total (Trans. + Rot. + Vib.)</td><td class="right">{{cp_total}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
+      </table>
+    </div>
+
+    <div class="tbl_container">
+      <table>
+        <tr><td class="center" colspan="3" style="font-weight:bold">Entropy</td></tr>
+        <!-- <tr><td class="center" style="width:50%">Property</td><td style="width:25%" class="center">Value</td><td style="width:25%" class="center">Unit</td></tr> -->
+        <tr><td>Translational</td><td class="right">{{s_trans}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
+        <tr><td>Rotational</td><td class="right">{{s_rotat}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
+        <tr><td>Vibrational</td><td class="right">{{s_vibra}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
+        <tr><td>Total (Trans. + Rot. + Vib.)</td><td class="right">{{s_total}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
+      </table>
+    </div>
 
 
+    <div class="tbl_container">
+      <table>
+        <tr><td class="center" colspan="3" style="font-weight:bold">Standard Enthalpy of Formation</td></tr>
+        <!-- <tr><td class="center" style="width:50%">Property</td><td style="width:25%" class="center">Value</td><td style="width:25%" class="center">Unit</td></tr> -->
+        <tr><td>Heat of Formation</td><td class="right">{{enthalpy}}</td><td class="right">kJ mol<sup>-1</sup></td><tr>
+      </table>
+    </div>
+
+    </div>
+
+    </section> <!-- sidebar wrapper -->
+</section>
+
+<section class="view">
+
+    <div class="jsmol" style="width: 100%;height: 100%;">
+        <script type="text/javascript">
+            jmolOpt = Jmol.getApplet("jmolOpt", optInfo1);
+            Jmol.script(jmolOpt, 'background "#ffffff"');
+        </script>
+    </div>
+
+</section>
