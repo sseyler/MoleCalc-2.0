@@ -54,7 +54,7 @@
 
                 <section class="molinfo">
 	                    <p id="molinfo-container">
-                            {{smiles}} ({{theorylvl}})
+                            {{ iupac_name }} ({{theorylvl}})
                         </p>
                 </section>
 
@@ -72,12 +72,14 @@
                 <div>
                     <a
                       class="button"
+{#                      onclick="window.location.reload()"#}
                       href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='opt', iofile='inp') }}">
                       <i class="fa fa-download"></i>
                       GAMESS .inp
                     </a>
                     <a
                       class="button"
+{#                      onclick="window.location.reload()"#}
                       href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='opt', iofile='out') }}">
                       <i class="fa fa-download"></i>
                       GAMESS .out

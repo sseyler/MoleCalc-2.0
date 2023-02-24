@@ -1,5 +1,5 @@
 import flask
-from flask import request
+from flask import request, send_file
 
 import io
 import datetime
@@ -16,6 +16,7 @@ from molecalc.infrastructure.settings import SETTINGS
 import molecalc.data.db_session as db_session
 from molecalc.data.gamess_calculation import GamessCalculation
 from molecalc.services.io_file_service import get_calc_io_file
+from molecalc.services.iupac_name_service import smiles_to_iupac
 from molecalc.lib import gamess
 
 from ppqm import chembridge
@@ -26,7 +27,9 @@ _logger = logging.getLogger("molecalc:calc_views")
 bp = flask.Blueprint('calc', __name__, template_folder='../templates')
 
 
-@bp.get('/calculations/<string:hashkey>/download_gamess_io/<string:calc>/<string:iofile>')
+@bp.route('/calculations_download/<string:hashkey>/<string:calc>/<string:iofile>',
+          methods=['GET', 'POST'])
+# @response(template_file='calculation/calculation.html')
 def download_gamess_io(hashkey: str, calc: str, iofile: str):
     match calc:
         case 'opt':
@@ -50,10 +53,10 @@ def download_gamess_io(hashkey: str, calc: str, iofile: str):
     #     direct_passthrough=True,
     #     headers={'Content-disposition': f'attachment; filename={filename}'})
 
-    return flask.send_file(f,
-                           mimetype='text/plain',
-                           as_attachment=True,
-                           download_name=filename)
+    return send_file(f,
+                     mimetype='text/plain',
+                     as_attachment=True,
+                     download_name=filename)
 
 
 @bp.route('/calculations')
@@ -81,8 +84,10 @@ def calculation(hashkey: str):
         raise flask.abort(404)
 
     results = gamess.results.view_calculation(this_calculation)
+    iupac_name = smiles_to_iupac(this_calculation.smiles).lower()
 
-    return results
+    data = dict({'iupac_name': iupac_name}, **results)
+    return data
 
 
 @bp.post('/ajax/_submit_quantum')
