@@ -29,7 +29,7 @@ def smiles_to_iupac(smiles):
         if name is None:
             raise TypeError
         return name
-    except Exception(e):
+    except Exception as e:
         _logger.info(f'Attempting IUPAC name search with pubchempy resulted\n'  \
                        ' in Exception {e}')
         pass
@@ -39,7 +39,7 @@ def smiles_to_iupac(smiles):
         if name is None:
             raise TypeError
         return name
-    except Exception(e):
+    except Exception as e:
         _logger.info(f'Attempting IUPAC name search with CACTUS NIC resulted\n' \
                      ' in Exception {e}')
 
