@@ -26,6 +26,8 @@ def smiles_to_iupac_cactus(smiles):
 def smiles_to_iupac(smiles):
     try:
         name = smiles_to_iupac_pubchempy(smiles)
+        if name is None:
+            raise TypeError
         return name
     except Exception(e):
         _logger.info(f'Attempting IUPAC name search with pubchempy resulted\n'  \
@@ -34,6 +36,8 @@ def smiles_to_iupac(smiles):
 
     try:
         name = smiles_to_iupac_cactus(smiles)
+        if name is None:
+            raise TypeError
         return name
     except Exception(e):
         _logger.info(f'Attempting IUPAC name search with CACTUS NIC resulted\n' \
