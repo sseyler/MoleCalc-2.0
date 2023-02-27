@@ -104,6 +104,9 @@ sudo cp ${REPO_PATH}/server/${APP_NAME}.nginx /etc/nginx/sites-enabled/${APP_NAM
 sudo update-rc.d nginx enable
 sudo service nginx restart
 
+# To run MoleCalc MANUALLY
+/apps/env/bin/uwsgi -H /apps/env --master --processes 4 --threads 2 --http :5000 --manage-script-name --python-path /apps/MoleCalc --mount /=wsgi:app
+
 
 # Optionally add SSL support via Let's Encrypt:
 # https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04
