@@ -2,6 +2,8 @@ import numpy as np
 
 from ppqm import misc, units
 
+from molecalc.services.iupac_name_service import smiles_to_iupac
+
 
 def view_calculation(calculation):
     """
@@ -37,10 +39,13 @@ def view_calculation(calculation):
     # Convert model to dictionary
     data = calculation.__dict__
 
+    # Molecule and calculation info (displayed at top of calculation page)
+    # TODO Make service to format theorylvl (b/c may have both upper/lowercase)
     if calculation.name is None:
-        data["name"] = calculation.smiles
+        data['iupac_name'] = smiles_to_iupac(calculation.smiles)
     else:
-        data["name"] = calculation.name
+        data['iupac_name'] = calculation.name
+    data['theorylvl'] = calculation.theorylvl.upper()
 
     fmt = "{:.2f}"
 
@@ -96,7 +101,6 @@ def view_calculation(calculation):
         data["has_solvation"] = False
 
     else:
-
         data["has_solvation"] = True
 
         dipoles = misc.load_array(data["soldipole"])

@@ -16,7 +16,6 @@ from molecalc.infrastructure.settings import SETTINGS
 import molecalc.data.db_session as db_session
 from molecalc.data.gamess_calculation import GamessCalculation
 from molecalc.services.io_file_service import get_calc_io_file
-from molecalc.services.iupac_name_service import smiles_to_iupac
 from molecalc.lib import gamess
 
 from ppqm import chembridge
@@ -63,8 +62,6 @@ def download_gamess_io(hashkey: str, calc: str, iofile: str):
 @bp.route('/calculations/<string:hashkey>')
 @response(template_file='calculation/calculation.html')
 def calculation(hashkey: str):
-
-    # Look up the key
     session = db_session.create_session()
     try:
         this_calculation = session.query(GamessCalculation) \
@@ -73,21 +70,13 @@ def calculation(hashkey: str):
     finally:
         session.close()
 
-    print(20 * '>')
-    print('calculation: ', this_calculation)
-    print('hashkey: ', hashkey)
-    print(20 * '>')
-
     if this_calculation is None:
         raise flask.abort(404)
     if hashkey == "404":
         raise flask.abort(404)
 
     results = gamess.results.view_calculation(this_calculation)
-    iupac_name = smiles_to_iupac(this_calculation.smiles).lower()
-
-    data = dict({'iupac_name': iupac_name}, **results)
-    return data
+    return results
 
 
 @bp.post('/ajax/_submit_quantum')
