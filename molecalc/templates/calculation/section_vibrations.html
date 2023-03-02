@@ -25,8 +25,10 @@ var vibInfo1 = {
 
 waitForElement('#jmolVib_appletdiv', function() {
     jsmolSetMol(jmolVib, vibMolecule);
-
     Jmol.script(jmolVib, 'color echo black; font echo 20 serif;fsize=20;set echo top right;echo echo test;');
+    Jmol.script(jmolVib, 'echo "{{ iupac_name }} ({{theorylvl}})"');
+
+    Jmol.script(jmolVib, 'color echo black; font echo 20 serif;fsize=20;set echo bottom right;echo echo test;');
     Jmol.script(jmolVib, 'echo "{{vibfreq | first}} cm<sup>-1</sup>"');
     Jmol.script(jmolVib, 'vibration on');
 
@@ -48,12 +50,10 @@ $(function()
     {
         var checked = $(this).prop('checked');
         var rel;
-        if(checked)
-        {
+        if(checked) {
             rel = 'on';
         }
-        else
-        {
+        else {
             rel = 'off';
         }
         Jmol.script(jmolVib, 'vibration '+rel);
@@ -64,12 +64,10 @@ $(function()
     {
         var checked = $(this).prop('checked');
         var rel;
-        if(checked)
-        {
+        if(checked) {
             rel = 'on';
         }
-        else
-        {
+        else {
             rel = 'off';
         }
         Jmol.script(jmolVib, 'vectors '+rel+'; color vectors black;');
@@ -81,12 +79,10 @@ $(function()
     {
         var checked = $(this).prop('checked');
         var rel;
-        if(checked)
-        {
+        if(checked) {
             rel = 'on; spacefill 24%;';
         }
-        else
-        {
+        else {
             rel = 'off';
         }
         Jmol.script(jmolVib, 'cpk '+rel);
@@ -130,10 +126,10 @@ $(function()
 
 
     <table>
-    <tbody><tr>
+    <tbody>
+    <tr>
       <td width="50%">Vibration</td>
       <td class="center">
-
         <div class="onoffswitch">
             <input autocomplete="off" type="checkbox" class="onoffswitch-checkbox" id="vibration_switch" name="vibration_switch" checked="">
             <label class="onoffswitch-label" for="vibration_switch">
@@ -141,13 +137,11 @@ $(function()
                 <div class="onoffswitch-switch"></div>
             </label>
         </div>
-
       </td>
     </tr>
     <tr>
       <td>Vectors</td>
       <td class="center">
-
         <div class="onoffswitch">
             <input autocomplete="off" type="checkbox" class="onoffswitch-checkbox" id="vector_switch" name="vector_switch">
             <label class="onoffswitch-label" for="vector_switch">
@@ -155,13 +149,11 @@ $(function()
                 <div class="onoffswitch-switch"></div>
             </label>
         </div>
-
       </td>
     </tr>
     <tr>
       <td>Sticks and balls</td>
       <td class="center">
-
         <div class="onoffswitch">
             <input autocomplete="off" type="checkbox" class="onoffswitch-checkbox" id="spacefill_switch" name="spacefill_switch" checked="">
             <label class="onoffswitch-label" for="spacefill_switch">
@@ -169,26 +161,47 @@ $(function()
                 <div class="onoffswitch-switch"></div>
             </label>
         </div>
+      </td>
+    </tr>
 
+     <tr>
+      <td>GAMESS Input</td>
+      <td class="center">
+        <div>
+            <a
+              class="button"
+              href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='vib', iofile='inp') }}">
+              <i class="fa fa-download"></i>
+              vibrations.inp
+            </a>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>GAMESS Output</td>
+      <td class="center">
+        <div>
+            <a
+              class="button"
+              href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='vib', iofile='out') }}">
+              <i class="fa fa-download"></i>
+              vibrations.out
+            </a>
+        </div>
       </td>
     </tr>
   </tbody>
   </table>
 
-
-<ul class="data vibration_level">
-
-{% for energy in vibfreq %}
-
-    <li>
-        <span class="index txt">{{loop.index}}</span>
-        <span class="energy txt">{{ energy }} cm<sup>-1</sup></span>
-        <span class="action"><a href="#!" rel="{{loop.index + viboffset}}"><i class="fas fa-arrow-circle-right"></i></a></span>
-    </li>
-
-{% endfor %}
-
-</ul>
+    <ul class="data vibration_level">
+    {% for energy in vibfreq %}
+        <li>
+            <span class="index txt">{{loop.index}}</span>
+            <span class="energy txt">{{ energy }} cm<sup>-1</sup></span>
+            <span class="action"><a href="#!" rel="{{loop.index + viboffset}}"><i class="fas fa-arrow-circle-right"></i></a></span>
+        </li>
+    {% endfor %}
+    </ul>
 
     </section> <!-- sidebar wrapper -->
 </section>

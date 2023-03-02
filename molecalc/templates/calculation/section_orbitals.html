@@ -18,6 +18,8 @@ var jmolOrb;
 
 waitForElement('#jmolOrb_appletdiv', function() {
     jsmolSetMol(jmolOrb, orbMolecule);
+    Jmol.script(jmolOrb, 'color echo black; font echo 20 serif;fsize=20;set echo top right;echo echo test;');
+    Jmol.script(jmolOrb, 'echo "{{ iupac_name }} ({{theorylvl}})"');
     Jmol.script(jmolOrb, 'frame 1'); // Seems to fix initial display issue
     Jmol.script(jmolOrb, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
 	// Jmol.script(jmolOrb, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
@@ -85,35 +87,57 @@ $(function()
 
     <table>
         <tr>
-            <td>Sticks and balls</td>
-            <td class="center">
+        <td>Sticks and balls</td>
+        <td class="center">
 
-            <div class="onoffswitch">
-            <input autocomplete="off" type="checkbox" class="onoffswitch-checkbox" id="spacefill_switch_orb" name="spacefill_switch_orb" checked="">
-            <label class="onoffswitch-label" for="spacefill_switch_orb">
-            <div class="onoffswitch-inner"></div>
-            <div class="onoffswitch-switch"></div>
-            </label>
-            </div>
+        <div class="onoffswitch">
+        <input autocomplete="off" type="checkbox" class="onoffswitch-checkbox" id="spacefill_switch_orb" name="spacefill_switch_orb" checked="">
+        <label class="onoffswitch-label" for="spacefill_switch_orb">
+        <div class="onoffswitch-inner"></div>
+        <div class="onoffswitch-switch"></div>
+        </label>
+        </div>
 
-            </td>
-        </tr>
+        </td>
+    </tr>
+
+    <tr>
+      <td>GAMESS Input</td>
+      <td class="center">
+        <div>
+            <a
+              class="button"
+              href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='orb', iofile='inp') }}">
+              <i class="fa fa-download"></i>
+              orbitals.inp
+            </a>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>GAMESS Output</td>
+      <td class="center">
+        <div>
+            <a
+              class="button"
+              href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='orb', iofile='out') }}">
+              <i class="fa fa-download"></i>
+              orbitals.out
+            </a>
+        </div>
+      </td>
+    </tr>
     </table>
 
-
-<ul class="data orbital_levels">
-
-{% for energy in orbitals %}
-
-    <li>
-        <span class="index txt">{{loop.index}}</span>
-        <span class="energy txt">{{ energy }} eV</span>
-        <span class="action"><a href="#!" rel="{{loop.index}}"><i class="fas fa-arrow-circle-right"></i></a></span>
-    </li>
-
-{% endfor %}
-
-</ul>
+    <ul class="data orbital_levels">
+    {% for energy in orbitals %}
+        <li>
+            <span class="index txt">{{loop.index}}</span>
+            <span class="energy txt">{{ energy }} eV</span>
+            <span class="action"><a href="#!" rel="{{loop.index}}"><i class="fas fa-arrow-circle-right"></i></a></span>
+        </li>
+    {% endfor %}
+    </ul>
 
     </section> <!-- sidebar wrapper -->
 </section>
