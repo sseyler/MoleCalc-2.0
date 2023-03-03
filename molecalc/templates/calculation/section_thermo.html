@@ -23,8 +23,8 @@
 
     waitForElement('#jmolOpt_appletdiv', function() {
         jsmolSetMol(jmolOpt, optMolecule);
-        Jmol.script(jmolOpt, 'color echo black; font echo 20 serif;fsize=20;set echo top right;echo echo test;');
-        Jmol.script(jmolOpt, 'echo "{{ iupac_name }} ({{theorylvl}})"');
+        Jmol.script(jmolOpt, 'color echo black; font echo 16 sanserif;set echo top right;echo echo test;');
+        Jmol.script(jmolOpt, 'echo "{{ iupac_name }} ({{ theorylvl }})"');
         {#jsmolSetMol(jmolOpt, sdf);#}
         {#Jmol.script(jmolOpt, 'set appendNew true');#}
         {#Jmol.script(jmolOpt, "load append trajectory '"+optMolecule+"';");#}
@@ -145,9 +145,8 @@ $(function() {
       <td>GAMESS Input</td>
       <td class="center">
         <div>
-            <a
-              class="button"
-              href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='opt', iofile='inp') }}">
+            <a class="button"
+               href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='opt', iofile='inp') }}">
               <i class="fa fa-download"></i>
               optimization.inp
             </a>
@@ -158,9 +157,8 @@ $(function() {
       <td>GAMESS Output</td>
       <td class="center">
         <div>
-            <a
-              class="button"
-              href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='opt', iofile='out') }}">
+            <a class="button"
+               href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='opt', iofile='out') }}">
               <i class="fa fa-download"></i>
               optimization.out
             </a>

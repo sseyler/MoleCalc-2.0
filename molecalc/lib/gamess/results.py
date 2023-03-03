@@ -89,9 +89,7 @@ def view_calculation(calculation):
     # Vibrational Frequencies format
     data["vibfreq"] = misc.load_array(data["vibfreq"])
     islinear = int(data["islinear"]) == int(1)
-    offset = 5
-    if not islinear:
-        offset = 6
+    offset = 5 if islinear else 6
     data["vibfreq"] = data["vibfreq"][offset:]
     data["vibfreq"] = [fmt.format(x) for x in data["vibfreq"]]
     data["viboffset"] = offset

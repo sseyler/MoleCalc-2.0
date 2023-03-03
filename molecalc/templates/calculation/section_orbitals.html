@@ -1,64 +1,67 @@
+<script type="text/javascript">
+
+    var sdf = `{{sdf}}`;
+
+    var orbMolecule = `{{orbitalstxt}}`
+
+</script>
 
 <script type="text/javascript">
 
+var jmolOrb;
 var orbInfo1 = {
     height: '100%',
     width: '100%',
     j2sPath: "/static/external/jsmol/j2s",
     use: 'HTML5',
+    console: "jmol_orb_infodiv",
     disableInitialConsole: true,
     allowJavaScript: true,
     debug: false,
 };
 
-
-orbMolecule = `{{orbitalstxt}}`
-
-var jmolOrb;
-
 waitForElement('#jmolOrb_appletdiv', function() {
     jsmolSetMol(jmolOrb, orbMolecule);
-    Jmol.script(jmolOrb, 'color echo black; font echo 20 serif;fsize=20;set echo top right;echo echo test;');
-    Jmol.script(jmolOrb, 'echo "{{ iupac_name }} ({{theorylvl}})"');
-    Jmol.script(jmolOrb, 'frame 1'); // Seems to fix initial display issue
+    Jmol.script(jmolOrb, 'color echo black; font echo 16 sanserif;set echo top right;echo echo test;');
+    Jmol.script(jmolOrb, 'echo "{{ iupac_name }} ({{ theorylvl }})"');
+
+    {#Jmol.script(jmolOrb, 'color echo black; font echo 16 sanserif;set echo bottom right;echo echo test;');#}
+    {#Jmol.script(jmolOrb, 'echo "{{ orbitals | first }} eV"');#}
+
+    Jmol.script(jmolOrb, 'mo TITLEFORMAT ""');
+    Jmol.script(jmolOrb, 'frame 1');
+    Jmol.script(jmolOrb, 'mo 1');
     Jmol.script(jmolOrb, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
-	// Jmol.script(jmolOrb, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
-	Jmol.script(jmolOrb, 'mo TITLEFORMAT ""');
 	Jmol.script(jmolOrb, 'centerAt average 0.0 0.0 0.0');
 });
 
 
-
-$(function()
-{
+$(function() {
     $sidebars = $(".sidebar");
 
-    // View Orbital
-    $('.orbital_levels a').click(function()
-    {
-        // Check for getProperty fileName
-        var orbital = $(this).attr('rel');
-        Jmol.script(jmolOrb, 'mo '+orbital);
-        $sidebars.removeClass("active");
-        return false;
-    });
-
     // Balls on off
-    $('#spacefill_switch_orb').change(function()
-    {
+    $('#spacefill_switch_orb').change(function() {
         var checked = $(this).prop('checked');
         var rel;
-        if(checked)
-        {
+        if(checked) {
             rel = 'on; spacefill 24%;';
         }
-        else
-        {
+        else {
             rel = 'off';
         }
         Jmol.script(jmolOrb, 'cpk '+rel);
     });
 
+    // Show Orbital
+    $('.orbital_levels a').click(function() {
+        // Check for getProperty fileName
+        var orbital = $(this).attr('rel');
+        var rcm = $(this).parent().parent().find('.energy').html();
+        Jmol.script(jmolOrb, 'mo '+orbital);
+        Jmol.script(jmolVib, 'echo "' + rcm + '"');
+        $sidebars.removeClass("active");
+        return false;
+    });
 });
 
 </script>
@@ -70,7 +73,6 @@ $(function()
         Orbitals
     </a>
 </div>
-
 
 <section class="options sidebar" id="calcOrbitals">
 
@@ -89,7 +91,6 @@ $(function()
         <tr>
         <td>Sticks and balls</td>
         <td class="center">
-
         <div class="onoffswitch">
         <input autocomplete="off" type="checkbox" class="onoffswitch-checkbox" id="spacefill_switch_orb" name="spacefill_switch_orb" checked="">
         <label class="onoffswitch-label" for="spacefill_switch_orb">
@@ -97,7 +98,6 @@ $(function()
         <div class="onoffswitch-switch"></div>
         </label>
         </div>
-
         </td>
     </tr>
 
@@ -105,9 +105,8 @@ $(function()
       <td>GAMESS Input</td>
       <td class="center">
         <div>
-            <a
-              class="button"
-              href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='orb', iofile='inp') }}">
+            <a class="button"
+               href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='orb', iofile='inp') }}">
               <i class="fa fa-download"></i>
               orbitals.inp
             </a>
@@ -118,9 +117,8 @@ $(function()
       <td>GAMESS Output</td>
       <td class="center">
         <div>
-            <a
-              class="button"
-              href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='orb', iofile='out') }}">
+            <a class="button"
+               href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='orb', iofile='out') }}">
               <i class="fa fa-download"></i>
               orbitals.out
             </a>
@@ -134,7 +132,8 @@ $(function()
         <li>
             <span class="index txt">{{loop.index}}</span>
             <span class="energy txt">{{ energy }} eV</span>
-            <span class="action"><a href="#!" rel="{{loop.index}}"><i class="fas fa-arrow-circle-right"></i></a></span>
+            <span class="action"><a href="#!" rel="{{loop.index}}"><i
+                    class="fas fa-arrow-circle-right"></i></a></span>
         </li>
     {% endfor %}
     </ul>
@@ -147,6 +146,8 @@ $(function()
     <div class="jsmol" style="width: 100%;height: 100%;">
         <script type="text/javascript">
             jmolOrb = Jmol.getApplet("jmolOrb", orbInfo1);
+            Jmol.script(jmolOrb, 'background "#ffffff"');
+            Jmol.script(jmolOrb, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
         </script>
     </div>
 
