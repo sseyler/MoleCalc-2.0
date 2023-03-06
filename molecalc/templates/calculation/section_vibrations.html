@@ -22,10 +22,10 @@
 
     waitForElement('#jmolVib_appletdiv', function () {
         jsmolSetMol(jmolVib, vibMolecule);
-        Jmol.script(jmolVib, 'color echo black; font echo 16 sanserif; set echo top right;echo echo test;');
+        Jmol.script(jmolVib, 'color echo black; font echo 16 sanserif; set echo top right;');
         Jmol.script(jmolVib, 'echo "{{ iupac_name }} ({{ theorylvl }})"');
 
-        Jmol.script(jmolVib, 'color echo black; font echo 16 sanserif; set echo bottom right;echo echo test;');
+        Jmol.script(jmolVib, 'color echo black; font echo 16 sanserif; set echo bottom right;');
         Jmol.script(jmolVib, 'echo "{{ vibfreq | first }} cm<sup>-1</sup>"');
         Jmol.script(jmolVib, 'vibration on');
 
@@ -40,7 +40,7 @@
         $sidebars = $(".sidebar");
 
         // Animation on off
-        $('#vibration_switch').change(function () {
+        $('#vibration_switch').on('change', function () {
             var checked = $(this).prop('checked');
             var rel;
             if (checked) {
@@ -49,10 +49,10 @@
                 rel = 'off';
             }
             Jmol.script(jmolVib, 'vibration ' + rel);
-        });
+        }).trigger('change');
 
         // Vectors on off
-        $('#vector_switch').change(function () {
+        $('#vector_switch').on('change', function () {
             var checked = $(this).prop('checked');
             var rel;
             if (checked) {
@@ -62,10 +62,10 @@
             }
             Jmol.script(jmolVib, 'vectors ' + rel + '; color vectors black;');
             Jmol.script(jmolVib, 'set vectorScale 3');
-        });
+        }).trigger('change');
 
         // Balls on off
-        $('#spacefill_switch').change(function () {
+        $('#spacefill_switch').on('change', function () {
             var checked = $(this).prop('checked');
             var rel;
             if (checked) {
@@ -74,12 +74,12 @@
                 rel = 'off';
             }
             Jmol.script(jmolVib, 'cpk ' + rel);
-        });
+        }).trigger('change');
 
         // Show Vibration
-        $('.vibration_levels a').click(function () {
+        $('.vibration_levels a').on('click', function () {
             var rel = $(this).attr('rel');
-            var rcm = $(this).parent().parent().find('.energy').html();
+            var rcm = $(this).parent().parent().find('.energy').html(); // IDK what this does
             Jmol.script(jmolVib, 'frame '+rel);
             Jmol.script(jmolVib, 'echo "' + rcm + '"');
             $sidebars.removeClass("active");

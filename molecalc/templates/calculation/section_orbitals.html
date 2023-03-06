@@ -22,15 +22,15 @@ var orbInfo1 = {
 
 waitForElement('#jmolOrb_appletdiv', function() {
     jsmolSetMol(jmolOrb, orbMolecule);
-    Jmol.script(jmolOrb, 'color echo black; font echo 16 sanserif;set echo top right;echo echo test;');
+    Jmol.script(jmolOrb, 'color echo black; font echo 16 sanserif;set echo top right;');
     Jmol.script(jmolOrb, 'echo "{{ iupac_name }} ({{ theorylvl }})"');
 
-    {#Jmol.script(jmolOrb, 'color echo black; font echo 16 sanserif;set echo bottom right;echo echo test;');#}
+    {#Jmol.script(jmolOrb, 'color echo black; font echo 16 sanserif;set echo bottom right;');#}
     {#Jmol.script(jmolOrb, 'echo "{{ orbitals | first }} eV"');#}
 
     Jmol.script(jmolOrb, 'mo TITLEFORMAT ""');
-    Jmol.script(jmolOrb, 'frame 1');
     Jmol.script(jmolOrb, 'mo 1');
+    Jmol.script(jmolOrb, 'frame 1');
     Jmol.script(jmolOrb, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
 	Jmol.script(jmolOrb, 'centerAt average 0.0 0.0 0.0');
 });
@@ -40,7 +40,7 @@ $(function() {
     $sidebars = $(".sidebar");
 
     // Balls on off
-    $('#spacefill_switch_orb').change(function() {
+    $('#spacefill_switch_orb').on('change', function() {
         var checked = $(this).prop('checked');
         var rel;
         if(checked) {
@@ -50,15 +50,20 @@ $(function() {
             rel = 'off';
         }
         Jmol.script(jmolOrb, 'cpk '+rel);
-    });
+    }).trigger('change');
 
     // Show Orbital
-    $('.orbital_levels a').click(function() {
+    $('.orbital_levels a').on('click', function() {
         // Check for getProperty fileName
         var orbital = $(this).attr('rel');
-        var rcm = $(this).parent().parent().find('.energy').html();
+        // TODO Sean: the rcm thing is what's responsible for the orbital energy
+        // TODO  being displayed in JSmol window when vibrations tab is clicked
+        // TODO  after having selected an orbital (energy) just prior...
+        {#var rcm = $(this).parent().parent().find('.energy').html(); #}
         Jmol.script(jmolOrb, 'mo '+orbital);
-        Jmol.script(jmolVib, 'echo "' + rcm + '"');
+        Jmol.script(jmolOrb, 'frame 1');
+        {#Jmol.script(jmolVib, 'echo "' + rcm + '"');#}
+        {#Jmol.script(jmolVib, 'echo "10"');#}
         $sidebars.removeClass("active");
         return false;
     });

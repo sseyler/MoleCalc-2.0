@@ -40,40 +40,33 @@ $(function() {
     $sidebars = $(".sidebar");
 
     // Animation on off
-    $('#optimization_switch').change(function()
-    {
+    $('#optimization_switch').on('change', function() {
         var checked = $(this).prop('checked');
         var rel;
-        if(checked)
-        {
+        if(checked) {
             rel = 'on';
         }
-        else
-        {
+        else {
             rel = 'off';
         }
         Jmol.script(jmolOpt, 'animation '+rel);
-    });
+    }).trigger('change');
 
     // Balls on off
-    $('#spacefill_switch_opt').change(function()
-    {
+    $('#spacefill_switch_opt').on('change', function() {
         var checked = $(this).prop('checked');
         var rel;
-        if(checked)
-        {
+        if(checked) {
             rel = 'on; spacefill 24%;';
         }
-        else
-        {
+        else {
             rel = 'off';
         }
         Jmol.script(jmolOpt, 'cpk '+rel);
-    });
+    }).trigger('change');
 
     // View optimization animation
-    $('.optmol_level a').click(function()
-    {
+    $('.optmol_level a').on('click', function() {
         // Check for getProperty fileName
         var optmol = $(this).attr('rel');
         Jmol.script(jmolOpt, 'animation '+optmol);

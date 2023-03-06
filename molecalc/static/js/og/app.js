@@ -35,15 +35,13 @@ function ciEquals(a, b) {
 
 // AJAX wrapper
 
-function request(url, data, successFunction, failedFunction, timeout=6000)
-{
+function request(url, data, successFunction, failedFunction, timeout=6000) {
     let $xhr = $.ajax({
         type: "POST",
         url: url,
         data: data,
         timeout: timeout,
-        error: function(xhr, textStatus, errorThrown)
-        {
+        error: function(xhr, textStatus, errorThrown) {
             // Frontend error
             var promptError= new $.Prompt();
             promptError.addCancelBtn("Okay");
@@ -69,11 +67,8 @@ function request(url, data, successFunction, failedFunction, timeout=6000)
             }
 
         },
-        success: function(data)
-        {
-
-            if(data['error'])
-            {
+        success: function(data) {
+            if(data['error']) {
                 // Backend error
                 console.log(data["error"]);
 
@@ -87,12 +82,10 @@ function request(url, data, successFunction, failedFunction, timeout=6000)
                     failedFunction();
                 }
             }
-            else
-            {
+            else {
                 // Success
                 successFunction(data);
             }
-
         }
     });
 
@@ -100,8 +93,7 @@ function request(url, data, successFunction, failedFunction, timeout=6000)
 }
 
 
-function requestCactus(from, to, successFunction, failedFunction)
-{
+function requestCactus(from, to, successFunction, failedFunction) {
 
     // for example
     // https://cactus.nci.nih.gov/chemical/structure/butanol/smiles
@@ -123,17 +115,14 @@ function requestCactus(from, to, successFunction, failedFunction)
         url: url,
         timeout: 5000,
         error: function(xhr, textStatus, errorThrown) {
-
             // Error
             var status = xhr.status;
 
-            if(status == 0)
-            {
+            if(status == 0) {
                 // connection problem
                 promptError.setMessage("Connection problems to cactus.nci.nih.gov. Wait a bit and try again");
             }
-            else
-            {
+            else {
                 // unable to find
                 promptError.setMessage("Unable to find molecule in cactus.nci.nih.gov database");
             }
@@ -145,13 +134,12 @@ function requestCactus(from, to, successFunction, failedFunction)
             return false;
         },
         success: function(data, status, jqXHR) {
-
             // Success, now check that the result is not html
-            if(jqXHR.getResponseHeader('content-type').indexOf('text/plain') < 0 ) {
+            if (jqXHR.getResponseHeader('content-type').indexOf('text/plain') < 0 ) {
                 promptError.setMessage("Problems reading answer from cactus.nci.nih.gov.");
                 promptError.show();
                 failedFunction();
-            }else{
+            } else {
                 successFunction(data);
             }
 
@@ -164,8 +152,7 @@ function requestCactus(from, to, successFunction, failedFunction)
 
 // functions
 
-$(function()
-{
+$(function() {
     // Prompt function
 
     /*
@@ -196,8 +183,7 @@ $(function()
      * because that is still not possible with
      * CSS only.
      */
-    jQuery.fn.center = function ()
-    {
+    jQuery.fn.center = function () {
         var top_margin = Math.max(($(window).height() - $(this).outerHeight() )/ 2);
         this.css('margin-top',top_margin+'px');
         return this;
@@ -206,8 +192,7 @@ $(function()
     /**
      * Prompt gives the user a prompt message to respond too.
      */
-    jQuery.Prompt = function Prompt()
-    {
+    jQuery.Prompt = function Prompt() {
         // Define the parent block
         var stamp = new Date().getTime();
         this.stamp = stamp;
@@ -236,26 +221,22 @@ $(function()
         this.addClass = function addClass() {}
         this.removeClass = function removeClass() {}
 
-        this.setMessage = function addMessage(message)
-        {
+        this.setMessage = function addMessage(message) {
             this.message = message;
         }
 
-        this.setTitle = function addTitle(title)
-        {
+        this.setTitle = function addTitle(title) {
             this.title = title;
             boxHeader.show();
         }
 
-        this.setType = function setType(type)
-        {
+        this.setType = function setType(type) {
             // Set the type of message, ask-prompt or tell-prompt.
             // Default should be ask.
             box.addClass(type);
         }
 
-        this.addResponseBtn = function addResponseBtn(msg, action)
-        {
+        this.addResponseBtn = function addResponseBtn(msg, action) {
             boxFooter.show();
 
             var btn = $('<a class="button">'+msg+'</a>');
@@ -264,24 +245,20 @@ $(function()
             return btn;
         }
 
-        this.addCancelBtn = function addCancelBtn(msg)
-        {
+        this.addCancelBtn = function addCancelBtn(msg) {
             stamp = this.stamp;
             msg = typeof msg !== 'undefined' ? msg : "Cancel";
-            this.addResponseBtn(msg, function()
-            {
+            this.addResponseBtn(msg, function() {
                 hide();
                 $('#'+stamp).remove();
             });
         }
 
-        this.getStamp = function getStamp()
-        {
+        this.getStamp = function getStamp() {
             return this.stamp;
         }
 
-        this.show = function show()
-        {
+        this.show = function show() {
             //if(this.responselist.find('li').size() > 0)
             //{
             this.response = this.responselist;
@@ -311,10 +288,8 @@ $(function()
 
         }
 
-        function hide()
-        {
-            $('#'+stamp).fadeOut(100, function()
-            {
+        function hide() {
+            $('#'+stamp).fadeOut(100, function() {
                 hideElements.show();
             });
 
@@ -322,8 +297,7 @@ $(function()
             $(window).unbind('resize');
         }
 
-        this.cancel = function cancel()
-        {
+        this.cancel = function cancel() {
             hide();
         }
 
@@ -334,9 +308,7 @@ $(function()
 // RDKit ////////////////////////////////////////////////////////
 
 
-function smilesToSdf(smi)
-{
-
+function smilesToSdf(smi) {
     var mol = RDKit.Molecule.fromSmiles( smi );
 
     mol.addHs();
@@ -347,8 +319,7 @@ function smilesToSdf(smi)
     return mol3d;
 }
 
-function sdfToSmiles(sdf)
-{
+function sdfToSmiles(sdf) {
     /*
         NOTE Seems like removeHs is added automatically
     */
@@ -365,8 +336,7 @@ function sdfToSmiles(sdf)
 
 // JSmol ////////////////////////////////////////////////////////
 
-function jsmolGetMol(canvasObj, includeHydrogen=false)
-{
+function jsmolGetMol(canvasObj, includeHydrogen=false) {
     // returns a JSON object with all the atoms
     // var atominfo = Jmol.getPropertyAsArray(canvasObj, "atominfo", "all");
 
@@ -374,8 +344,7 @@ function jsmolGetMol(canvasObj, includeHydrogen=false)
     // allowing up to 999 atoms and 999 bonds to be "extracted" from the
     // model as an independent structure.
     var sdf;
-    if(includeHydrogen)
-    {
+    if(includeHydrogen) {
         sdf = Jmol.getPropertyAsString(canvasObj, "extractModel", "all");
     }
     else {
@@ -385,8 +354,7 @@ function jsmolGetMol(canvasObj, includeHydrogen=false)
     return sdf;
 }
 
-function jsmolGetSmiles(canvasObj)
-{
+function jsmolGetSmiles(canvasObj) {
     // Get the structure JSmol 14.0.2 syntax
     var smiles = Jmol.evaluateVar(canvasObj, '{*}.find("SMILES/noaromatic")');
 
@@ -399,8 +367,7 @@ function jsmolGetSmiles(canvasObj)
 
 
 // JSmol functions
-function jsmolSetMol(canvasObj, molStr)
-{
+function jsmolSetMol(canvasObj, molStr) {
     // http://wiki.jmol.org/index.php/File_formats/Chemical_Structure
 
     jsmolCmd(canvasObj, "load inline '"+molStr+"'; zoom 50;");
@@ -410,8 +377,7 @@ function jsmolSetMol(canvasObj, molStr)
 }
 
 
-function jsmolSetSmiles(canvasObj, smilesStr)
-{
+function jsmolSetSmiles(canvasObj, smilesStr) {
     // TODO
 
     //load $smilesString
@@ -430,29 +396,25 @@ function jsmolSetSmiles(canvasObj, smilesStr)
 }
 
 
-function jsmolResize(canvasObj)
-{
+function jsmolResize(canvasObj) {
     var dim = getEditorDimensions();
     var width = dim[0];
     var height = dim[1];
 
     // canvas.resize(width, height);
     // chemdoodleClick('#sketcherSingle_button_scale_plus'); // Zoom
-
     return false;
 }
 
 
-function jsmolCmd(jmolObj, cmd)
-{
+function jsmolCmd(jmolObj, cmd) {
     Jmol.script(jmolObj, cmd);
     return false;
 }
 
 // ChemDoodle
 
-function chemdoodleResize(canvas, dim)
-{
+function chemdoodleResize(canvas, dim) {
     var width = dim[0];
     var height = dim[1];
     canvas.resize(width, height);
@@ -461,16 +423,13 @@ function chemdoodleResize(canvas, dim)
     }, 50);
 }
 
-function chemdoodleClick(btnId)
-{
+function chemdoodleClick(btnId) {
     var $btn;
 
-    if (btnId.includes("#"))
-    {
+    if (btnId.includes("#")) {
         $btn = $(btnId)[0];
     }
-    else
-    {
+    else {
         $btn = $('#'+btnId)[0];
     }
 
@@ -478,22 +437,19 @@ function chemdoodleClick(btnId)
     return 1;
 }
 
-function chemdoodleEditorBtn($btn)
-{
+function chemdoodleEditorBtn($btn) {
     var btnId = $btn.attr("href");
     chemdoodleClick(btnId);
     return false;
 }
 
-function chemdoodleGetMol(canvas)
-{
+function chemdoodleGetMol(canvas) {
     var mol = canvas.getMolecule();
     var molFile = ChemDoodle.writeMOL(mol);
     return molFile;
 }
 
-function chemdoodleSetMol(canvas, mol)
-{
+function chemdoodleSetMol(canvas, mol) {
     molcd = ChemDoodle.readMOL(mol);
     canvas.loadMolecule(molcd);
     return false;
@@ -502,26 +458,21 @@ function chemdoodleSetMol(canvas, mol)
 
 // Tools
 
-function setHash(loc)
-{
+function setHash(loc) {
     window.location.hash = "#/"+loc;
 }
 
-function getHash()
-{
+function getHash() {
     return window.location.hash.replace("#/", "");
 }
 
 // Production ///////////////////////////////////////////////////////
 
-$(document).ready(function()
-{
-
+$(document).ready(function() {
 
 // Check storage compatibility
 
-if (storage == undefined)
-{
+if (storage == undefined) {
     // TODO Prompt user to change settings
     // Usually for chrome
 
@@ -540,8 +491,7 @@ var $sidebars = $('.sidebar');
 var $sidebarBtns = $('.btnSidebar');
 var $sidebarCloseBtns = $('.btnCloseSidebar');
 
-$sidebarBtns.click(function(event)
-{
+$sidebarBtns.on('click', function(event) {
     $sidebars.removeClass("active");
     var link = $(this).attr('href');
     $sidebar = $(link);
@@ -555,8 +505,7 @@ $sidebarBtns.click(function(event)
     return false;
 });
 
-$sidebarCloseBtns.click(function(event)
-{
+$sidebarCloseBtns.on('click', function(event) {
     var link = $(this).attr('href');
     $sidebar = $(link);
     $sidebar.removeClass("active");

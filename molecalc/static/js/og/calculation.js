@@ -8,8 +8,7 @@ $menu = $('.mc-content .calc-menu');
 $menu_items = $('.mc-content .calc-menu a');
 $sections = $('.mc-content');
 
-if(firstHash != "")
-{
+if(firstHash != "") {
     $menu.find('a').removeClass('active');
     $menu.find('a.'+firstHash).addClass('active');
 
@@ -21,8 +20,7 @@ if(firstHash != "")
 var $sidebars = $('.sidebar');
 
 // ******************************************************************
-$('.calc-menu ul a').each(function ()
-{
+$('.calc-menu ul a').each(function () {
     var active = "active";
     var that = $(this);
     var type = that.attr('class');
@@ -45,21 +43,6 @@ $('.calc-menu ul a').each(function ()
         return false;
     });
 });
-
-
-// ******************************************************************
-// $('.button.downloadquantum').click(function () {
-//
-//
-//
-// });
-
-
-
-
-
-
-
 
 
 }); // End
