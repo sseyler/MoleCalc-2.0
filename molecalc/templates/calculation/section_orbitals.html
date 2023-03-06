@@ -1,9 +1,6 @@
 <script type="text/javascript">
-
     var sdf = `{{sdf}}`;
-
-    var orbMolecule = `{{orbitalstxt}}`
-
+    var orbMolecule = `{{orbitalstxt}}`;
 </script>
 
 <script type="text/javascript">
@@ -20,13 +17,14 @@ var orbInfo1 = {
     debug: false,
 };
 
+
 waitForElement('#jmolOrb_appletdiv', function() {
     jsmolSetMol(jmolOrb, orbMolecule);
     Jmol.script(jmolOrb, 'color echo black; font echo 16 sanserif;set echo top right;');
     Jmol.script(jmolOrb, 'echo "{{ iupac_name }} ({{ theorylvl }})"');
 
-    {#Jmol.script(jmolOrb, 'color echo black; font echo 16 sanserif;set echo bottom right;');#}
-    {#Jmol.script(jmolOrb, 'echo "{{ orbitals | first }} eV"');#}
+    Jmol.script(jmolOrb, 'color echo black; font echo 16 sanserif;set echo bottom right;');
+    Jmol.script(jmolOrb, 'echo "{{ orbitals | first }} eV"');
 
     Jmol.script(jmolOrb, 'mo TITLEFORMAT ""');
     Jmol.script(jmolOrb, 'mo 1');
@@ -59,10 +57,10 @@ $(function() {
         // TODO Sean: the rcm thing is what's responsible for the orbital energy
         // TODO  being displayed in JSmol window when vibrations tab is clicked
         // TODO  after having selected an orbital (energy) just prior...
-        {#var rcm = $(this).parent().parent().find('.energy').html(); #}
+        var orbEnergy = $(this).parent().parent().find('.energy').html();
         Jmol.script(jmolOrb, 'mo '+orbital);
         Jmol.script(jmolOrb, 'frame 1');
-        {#Jmol.script(jmolVib, 'echo "' + rcm + '"');#}
+        Jmol.script(jmolOrb, 'echo "' + orbEnergy + '"');
         {#Jmol.script(jmolVib, 'echo "10"');#}
         $sidebars.removeClass("active");
         return false;
@@ -94,42 +92,42 @@ $(function() {
 
     <table>
         <tr>
-        <td>Sticks and balls</td>
-        <td class="center">
-        <div class="onoffswitch">
-        <input autocomplete="off" type="checkbox" class="onoffswitch-checkbox" id="spacefill_switch_orb" name="spacefill_switch_orb" checked="">
-        <label class="onoffswitch-label" for="spacefill_switch_orb">
-        <div class="onoffswitch-inner"></div>
-        <div class="onoffswitch-switch"></div>
-        </label>
-        </div>
-        </td>
-    </tr>
+            <td>Sticks and balls</td>
+            <td class="center">
+            <div class="onoffswitch">
+            <input autocomplete="off" type="checkbox" class="onoffswitch-checkbox" id="spacefill_switch_orb" name="spacefill_switch_orb" checked="">
+            <label class="onoffswitch-label" for="spacefill_switch_orb">
+            <div class="onoffswitch-inner"></div>
+            <div class="onoffswitch-switch"></div>
+            </label>
+            </div>
+            </td>
+        </tr>
 
-    <tr>
-      <td>GAMESS Input</td>
-      <td class="center">
-        <div>
-            <a class="button"
-               href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='orb', iofile='inp') }}">
-              <i class="fa fa-download"></i>
-              orbitals.inp
-            </a>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>GAMESS Output</td>
-      <td class="center">
-        <div>
-            <a class="button"
-               href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='orb', iofile='out') }}">
-              <i class="fa fa-download"></i>
-              orbitals.out
-            </a>
-        </div>
-      </td>
-    </tr>
+        <tr>
+          <td>GAMESS Input</td>
+          <td class="center">
+            <div>
+                <a class="button"
+                   href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='orb', iofile='inp') }}">
+                  <i class="fa fa-download"></i>
+                  orbitals.inp
+                </a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>GAMESS Output</td>
+          <td class="center">
+            <div>
+                <a class="button"
+                   href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='orb', iofile='out') }}">
+                  <i class="fa fa-download"></i>
+                  orbitals.out
+                </a>
+            </div>
+          </td>
+        </tr>
     </table>
 
     <ul class="data orbital_levels">

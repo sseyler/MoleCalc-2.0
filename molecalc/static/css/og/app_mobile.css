@@ -85,7 +85,11 @@
         padding: 0 20px;
         position: absolute;
         left:0;
-
+    }
+    .molecalc.calculation .mc-content .calc .options .data li .wavenumber {
+        padding: 0 20px;
+        position: absolute;
+        left:0;
     }
     .molecalc.calculation .mc-content .calc .options .data a {
         /* color: rgb(0, 121, 211); */

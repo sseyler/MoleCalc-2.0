@@ -79,9 +79,9 @@
         // Show Vibration
         $('.vibration_levels a').on('click', function () {
             var rel = $(this).attr('rel');
-            var rcm = $(this).parent().parent().find('.energy').html(); // IDK what this does
+            var wavenumber = $(this).parent().parent().find('.wavenumber').html();
             Jmol.script(jmolVib, 'frame '+rel);
-            Jmol.script(jmolVib, 'echo "' + rcm + '"');
+            Jmol.script(jmolVib, 'echo "' + wavenumber + '"');
             $sidebars.removeClass("active");
             return false;
         });
@@ -184,7 +184,7 @@
             {% for k in vibfreq %}
                 <li>
                     <span class="index txt">{{ loop.index }}</span>
-                    <span class="energy txt">{{ k }} cm<sup>-1</sup></span>
+                    <span class="wavenumber txt">{{ k }} cm<sup>-1</sup></span>
                     <span class="action"><a href="#!" rel="{{ loop.index + viboffset }}"><i
                             class="fas fa-arrow-circle-right"></i></a></span>
                 </li>

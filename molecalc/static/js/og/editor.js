@@ -1,13 +1,11 @@
-$(document).ready(function()
-{
+$(document).ready(function() {
 
 // global
 const $loading = $('<div class="meter"><span style="width: 100%"></span></div>');
 
 // Editor specific wrapper functions
 
-function getEditorDimensions()
-{
+function getEditorDimensions() {
     var $content = $('.mc-content');
     var width = $content.innerWidth();
     var height = $content.innerHeight();
