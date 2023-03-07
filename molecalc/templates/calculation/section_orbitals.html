@@ -54,14 +54,10 @@ $(function() {
     $('.orbital_levels a').on('click', function() {
         // Check for getProperty fileName
         var orbital = $(this).attr('rel');
-        // TODO Sean: the rcm thing is what's responsible for the orbital energy
-        // TODO  being displayed in JSmol window when vibrations tab is clicked
-        // TODO  after having selected an orbital (energy) just prior...
         var orbEnergy = $(this).parent().parent().find('.energy').html();
         Jmol.script(jmolOrb, 'mo '+orbital);
         Jmol.script(jmolOrb, 'frame 1');
         Jmol.script(jmolOrb, 'echo "' + orbEnergy + '"');
-        {#Jmol.script(jmolVib, 'echo "10"');#}
         $sidebars.removeClass("active");
         return false;
     });
