@@ -56,7 +56,6 @@ $(function() {
         var orbital = $(this).attr('rel');
         var orbEnergy = $(this).parent().parent().find('.energy').html();
         Jmol.script(jmolOrb, 'mo '+orbital);
-        Jmol.script(jmolOrb, 'frame 1');
         Jmol.script(jmolOrb, 'echo "' + orbEnergy + '"');
         $sidebars.removeClass("active");
         return false;

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (molecalc)" project-jdk-type="Python SDK" />
+  <component name="PythonCompatibilityInspectionAdvertiser">
+    <option name="version" value="3" />
+  </component>
   <component name="com.itcodebox.notebooks.projectservice.ProjectUIState">
     <option name="selectedNotebookId" value="1" />
     <option name="selectedChapterId" value="1" />
