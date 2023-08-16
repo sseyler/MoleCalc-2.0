@@ -31,13 +31,26 @@
 
         Jmol.script(jmolOpt, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
         Jmol.script(jmolOpt, 'centerAt average 0.0 0.0 0.0');
-        Jmol.script(jmolOpt, 'animation on');
+        Jmol.script(jmolOpt, 'animation off');
         Jmol.script(jmolOpt, 'animation fps 15');
         Jmol.script(jmolOpt, 'animation mode palindrome 0.75 0.25');
     });
 
 $(function() {
     $sidebars = $(".sidebar");
+
+    // Select starting or final structure
+    $('#frame_selector').on('change', function() {
+        var checked = $(this).prop('checked');
+        var rel;
+        if(checked) {
+            rel = '1';
+        }
+        else {
+            rel = 'LAST';
+        }
+        Jmol.script(jmolOpt, 'frame '+rel);
+    }).trigger('change');
 
     // Animation on off
     $('#optimization_switch').on('change', function() {
@@ -65,8 +78,17 @@ $(function() {
         Jmol.script(jmolOpt, 'cpk '+rel);
     }).trigger('change');
 
+    // Display first/last frame of optimization trajectory
+    $('.opt_frame').on('click', function() {
+        // Check for getProperty fileName
+        var optframe = $(this).attr('rel');
+        Jmol.script(jmolOpt, 'frame '+optframe);
+        $sidebars.removeClass("active");
+        return false;
+    });
+
     // View optimization animation
-    $('.optmol_level a').on('click', function() {
+    $('.optmol_traj').on('click', function() {
         // Check for getProperty fileName
         var optmol = $(this).attr('rel');
         Jmol.script(jmolOpt, 'animation '+optmol);
@@ -100,6 +122,23 @@ $(function() {
 
     <table>
     <tbody>
+    <td width="50%">Select Frame</td>
+      <td class="center">
+        <div class="firstlastswitch">
+            <input autocomplete="off"
+                   type="checkbox"
+                   class="firstlastswitch-checkbox"
+                   id="frame_selector"
+                   name="frame_selector"
+                   checked="">
+            <label class="firstlastswitch-label" for="frame_selector">
+                <div class="firstlastswitch-inner"></div>
+                <div class="firstlastswitch-switch"></div>
+            </label>
+        </div>
+      </td>
+    </tr>
+
     <tr><!-- <h3>at 298.15 K and standard pressure</h3> -->
       <td width="50%">Optimization trajectory</td>
       <td class="center">
@@ -108,8 +147,7 @@ $(function() {
                    type="checkbox"
                    class="onoffswitch-checkbox"
                    id="optimization_switch"
-                   name="optimization_switch"
-                   checked="">
+                   name="optimization_switch">
             <label class="onoffswitch-label" for="optimization_switch">
                 <div class="onoffswitch-inner"></div>
                 <div class="onoffswitch-switch"></div>
@@ -117,6 +155,7 @@ $(function() {
         </div>
       </td>
     </tr>
+
     <tr>
       <td>Sticks and balls</td>
       <td class="center">
