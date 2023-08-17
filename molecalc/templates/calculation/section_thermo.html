@@ -34,6 +34,7 @@
         Jmol.script(jmolOpt, 'animation off');
         Jmol.script(jmolOpt, 'animation fps 15');
         Jmol.script(jmolOpt, 'animation mode palindrome 0.75 0.25');
+        Jmol.script(jmolOpt, 'frame LAST');
     });
 
 $(function() {
@@ -45,8 +46,7 @@ $(function() {
         var rel;
         if(checked) {
             rel = '1';
-        }
-        else {
+        } else {
             rel = 'LAST';
         }
         Jmol.script(jmolOpt, 'frame '+rel);
@@ -58,8 +58,7 @@ $(function() {
         var rel;
         if(checked) {
             rel = 'on';
-        }
-        else {
+        } else {
             rel = 'off';
         }
         Jmol.script(jmolOpt, 'animation '+rel);
@@ -71,8 +70,7 @@ $(function() {
         var rel;
         if(checked) {
             rel = 'on; spacefill 24%;';
-        }
-        else {
+        } else {
             rel = 'off';
         }
         Jmol.script(jmolOpt, 'cpk '+rel);
@@ -163,7 +161,8 @@ $(function() {
                    type="checkbox"
                    class="onoffswitch-checkbox"
                    id="spacefill_switch_opt"
-                   name="spacefill_switch_opt" checked="">
+                   name="spacefill_switch_opt"
+                   checked>
             <label class="onoffswitch-label" for="spacefill_switch_opt">
                 <div class="onoffswitch-inner"></div>
                 <div class="onoffswitch-switch"></div>
