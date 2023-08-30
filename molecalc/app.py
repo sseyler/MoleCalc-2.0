@@ -16,7 +16,7 @@ app = flask.Flask(__name__)
 
 def main():
     configure()
-    app.run(debug=True, port=5006)
+    app.run(debug=True, port=8887)
 
 
 def configure():

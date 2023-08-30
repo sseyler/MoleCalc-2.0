@@ -278,8 +278,7 @@ $('.button.quantum').on('click', function () {
 
     var promptQuantum = new $.Prompt();
     promptQuantum.setMessage('Ready to calculate <strong>quantum chemical properties</strong> for the molecule?');
-    promptQuantum.addResponseBtn('Let\'s Go!', function()
-    {
+    promptQuantum.addResponseBtn('Let\'s Go!', function() {
         var $loading = $('<div class="meter"><span style="width: 100%"></span></div>');
         var promptCalculation = new $.Prompt();
         promptCalculation.setMessage($loading);

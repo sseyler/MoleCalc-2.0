@@ -45,4 +45,14 @@ $('.calc-menu ul a').each(function () {
 });
 
 
+
+// Jsmol
+// var $jsmolMinimizeBtn = $('.action.minimize .button');
+// $jsmolMinimizeBtn.on('click', function() {
+//     jsmolCmd(myJmol1, 'refresh');
+//     return false;
+// });
+
+
+
 }); // End
