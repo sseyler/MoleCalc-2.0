@@ -505,8 +505,8 @@
     grid-area: content;
     display: grid;
     grid-template-columns: 310px;
-    grid-template-rows: 225px 225px 225px 100px auto;
-    grid-gap: 1em;
+    grid-template-rows: 175px 175px 175px 175px auto;
+    grid-gap: 1ex;
     grid-auto-flow: dense;
     grid-auto-flow: row;
     /*display: NONE;*/
@@ -529,8 +529,8 @@
 }
 .molecalc.calculation .mc-content .calc table td {
     background: #f7f7f7;
-    padding: 10px 10px;
-    line-height: 20px;
+    padding: 10px 0px;
+    line-height: 10px;
     vertical-align: top;
     /* border-width: 0 1px 1px 0; */
     /* border-style: solid; */

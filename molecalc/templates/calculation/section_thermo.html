@@ -212,6 +212,17 @@ $(function() {
 
         <div class="tbl_container">
           <table>
+            <tr><td class="center" colspan="3" style="font-weight:bold">Heat Capacity at Constant Volume</td></tr>
+            <!-- <tr><td class="center" style="width:50%">Property</td><td style="width:25%" class="center">Value</td><td style="width:25%" class="center">Unit</td></tr> -->
+            <tr><td>Translational</td><td class="right">{{cv_trans}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
+            <tr><td>Rotational</td><td class="right">{{cv_rotat}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
+            <tr><td>Vibrational</td><td class="right">{{cv_vibra}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
+            <tr><td>Total</td><td class="right">{{cv_total}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
+          </table>
+        </div>
+
+        <div class="tbl_container">
+          <table>
             <tr><td class="center" colspan="3" style="font-weight:bold">Heat Capacity at Constant Pressure</td></tr>
             <!-- <tr><td class="center" style="width:50%">Property</td><td style="width:25%" class="center">Value</td><td style="width:25%" class="center">Unit</td></tr> -->
             <tr><td>Translational</td><td class="right">{{cp_trans}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
@@ -234,9 +245,11 @@ $(function() {
 
         <div class="tbl_container">
           <table>
-            <tr><td class="center" colspan="3" style="font-weight:bold">Standard Enthalpy of Formation</td></tr>
+            <tr><td class="center" colspan="3" style="font-weight:bold">Miscellaneous</td></tr>
             <!-- <tr><td class="center" style="width:50%">Property</td><td style="width:25%" class="center">Value</td><td style="width:25%" class="center">Unit</td></tr> -->
-            <tr><td>Heat of Formation</td><td class="right">{{enthalpy}}</td><td class="right">kJ mol<sup>-1</sup></td><tr>
+            <tr><td>Std. Enthalpy of Formation</td><td class="right">{{enthalpy}}</td><td class="right">kJ mol<sup>-1</sup></td><tr>
+            <tr><td>Adiabatic Index</td><td class="right">{{adiabatic_index}}</td><td></td><td class="right"></td><tr>
+{#            <tr><td>Speed of Sound</td><td class="right">{{sound_speed}}</td><td class="right">kJ mol<sup>-1</sup></td><tr>#}
           </table>
         </div>
     </div>

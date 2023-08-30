@@ -49,8 +49,7 @@ def view_calculation(calculation):
 
     fmt = "{:.2f}"
 
-    data["enthalpy"] = fmt.format(data["enthalpy"] * units.calories_to_joule)
-
+    # Thermochemistry
     #               E         H         G         CV        CP        S
     #            KJ/MOL    KJ/MOL    KJ/MOL   J/MOL-K   J/MOL-K   J/MOL-K
     #  ELEC.      0.000     0.000     0.000     0.000     0.000     0.000
@@ -69,6 +68,12 @@ def view_calculation(calculation):
     data["h_vibra"] = fmt.format(thermotable[3, 1])
     data["h_total"] = fmt.format(thermotable[4, 1])
 
+    data["cv_elect"] = fmt.format(thermotable[0, 3])
+    data["cv_trans"] = fmt.format(thermotable[1, 3])
+    data["cv_rotat"] = fmt.format(thermotable[2, 3])
+    data["cv_vibra"] = fmt.format(thermotable[3, 3])
+    data["cv_total"] = fmt.format(thermotable[4, 3])
+
     data["cp_elect"] = fmt.format(thermotable[0, 4])
     data["cp_trans"] = fmt.format(thermotable[1, 4])
     data["cp_rotat"] = fmt.format(thermotable[2, 4])
@@ -80,6 +85,14 @@ def view_calculation(calculation):
     data["s_rotat"] = fmt.format(thermotable[2, 5])
     data["s_vibra"] = fmt.format(thermotable[3, 5])
     data["s_total"] = fmt.format(thermotable[4, 5])
+
+    cp_total = float(data["cp_total"])
+    cv_total = float(data["cv_total"])
+    adiabatic_index = fmt.format(cp_total/cv_total)
+
+    data["enthalpy"] = fmt.format(data["enthalpy"] * units.calories_to_joule)
+    data["adiabatic_index"] = adiabatic_index
+    # data["sound_speed"] = sqrt(adiabatic_index * kB * 298.15 / mass)
 
     # Molecular orbitals format
     data["orbitals"] = misc.load_array(data["orbitals"])
