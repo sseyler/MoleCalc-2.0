@@ -201,6 +201,16 @@ $(function() {
     <div class="tbls_container">
         <div class="tbl_container">
           <table>
+            <tr><td class="center" colspan="3" style="font-weight:bold">Ideal Gas at 298.13 K</td></tr>
+            <!-- <tr><td class="center" style="width:50%">Property</td><td style="width:25%" class="center">Value</td><td style="width:25%" class="center">Unit</td></tr> -->
+            <tr><td>Std. Enthalpy of Formation</td><td class="right">{{enthalpy}}</td><td class="right">kJ mol<sup>-1</sup></td><tr></tr>
+            <tr><td>Speed of Sound</td><td class="right">{{sound_speed}}</td><td class="right">m/s</td><tr>
+            <tr><td>Adiabatic Index</td><td class="right">{{adiabatic_index}}</td><td></td><td class="right"></td><tr>
+          </table>
+        </div>
+
+        <div class="tbl_container">
+          <table>
             <tr><td class="center" colspan="3" style="font-weight:bold">Enthalpy</td></tr>
             <!-- <tr><td class="center" style="width:50%">Property</td><td style="width:25%" class="center">Value</td><td style="width:25%" class="center">Unit</td></tr> -->
             <tr><td>Translational</td><td class="right">{{h_trans}}</td><td class="right">kJ mol<sup>-1</sup> </td><tr>
@@ -240,16 +250,6 @@ $(function() {
             <tr><td>Rotational</td><td class="right">{{s_rotat}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
             <tr><td>Vibrational</td><td class="right">{{s_vibra}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
             <tr><td>Total</td><td class="right">{{s_total}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td><tr>
-          </table>
-        </div>
-
-        <div class="tbl_container">
-          <table>
-            <tr><td class="center" colspan="3" style="font-weight:bold">Miscellaneous</td></tr>
-            <!-- <tr><td class="center" style="width:50%">Property</td><td style="width:25%" class="center">Value</td><td style="width:25%" class="center">Unit</td></tr> -->
-            <tr><td>Std. Enthalpy of Formation</td><td class="right">{{enthalpy}}</td><td class="right">kJ mol<sup>-1</sup></td><tr>
-            <tr><td>Adiabatic Index</td><td class="right">{{adiabatic_index}}</td><td></td><td class="right"></td><tr>
-{#            <tr><td>Speed of Sound</td><td class="right">{{sound_speed}}</td><td class="right">kJ mol<sup>-1</sup></td><tr>#}
           </table>
         </div>
     </div>

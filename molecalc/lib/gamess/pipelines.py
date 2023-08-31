@@ -11,7 +11,7 @@ from molecalc.lib.gamess import calculators
 from ppqm import chembridge, misc
 from ppqm.constants import COLUMN_COORDINATES, COLUMN_ENERGY
 
-_logger = logging.getLogger("molecalc:pipe")
+_logger = logging.getLogger('molecalc:pipe')
 
 
 def calculation_pipeline(molinfo, calc_settings):
@@ -26,12 +26,12 @@ def calculation_pipeline(molinfo, calc_settings):
     """
 
     # Read input
-    molobj = molinfo["molobj"]
-    sdfstr = molinfo["sdfstr"]
-    hashkey = molinfo["hashkey"]
+    molobj = molinfo['molobj']
+    sdfstr = molinfo['sdfstr']
+    hashkey = molinfo['hashkey']
     theory_level = calc_settings['theory_level']
 
-    scratch_dir = pathlib.Path(SETTINGS["molecalc.scr"])
+    scratch_dir = pathlib.Path(SETTINGS['molecalc.scr'])
 
     # TODO Get molecule names
 
@@ -42,7 +42,7 @@ def calculation_pipeline(molinfo, calc_settings):
         smiles = chembridge.molobj_to_smiles(molobj)
 
     # Start respond message
-    msg = {"smiles": smiles, "hashkey": hashkey}
+    msg = {'smiles': smiles, 'hashkey': hashkey}
 
     atoms = chembridge.molobj_to_atoms(molobj)
     _logger.info(f"{hashkey} '{smiles}' {atoms}")
@@ -55,11 +55,11 @@ def calculation_pipeline(molinfo, calc_settings):
     hashdir.mkdir(parents=True, exist_ok=True)
 
     gamess_options = {
-        "cmd": SETTINGS["gamess.rungms"],
-        "gamess_scr": SETTINGS["gamess.scr"],
-        "gamess_userscr": SETTINGS["gamess.userscr"],
-        "scr": hashdir,
-        "filename": hashkey,
+        'cmd': SETTINGS['gamess.rungms'],
+        'gamess_scr': SETTINGS['gamess.scr'],
+        'gamess_userscr': SETTINGS['gamess.userscr'],
+        'scr': hashdir,
+        'filename': hashkey,
         'theory_level': theory_level
     }
 
@@ -78,7 +78,7 @@ def calculation_pipeline(molinfo, calc_settings):
             # per exception for easy debugging.
             # TODO Should store SDF of the molecule if exception
             sdfstr = chembridge.molobj_to_sdfstr(molobj)
-            _logger.error(f"{hashkey} OptimizationError", exc_info=True)
+            _logger.error(f'{hashkey} OptimizationError', exc_info=True)
             _logger.error(sdfstr)
             properties = None
             io_files_opt = {'inp': '', 'out': '', 'err': ''}
@@ -90,20 +90,20 @@ def calculation_pipeline(molinfo, calc_settings):
         io_files_opt = {'inp': '', 'out': '', 'err': ''}
     else:
         return {
-            "error": "Error - misc atom count error",
-            "message": "Error. There is not at least one atom.",
+            'error': 'Error - misc atom count error',
+            'message': 'Error. There is not at least one atom.',
         }, None
 
     if properties is None:
         return {
-            "error": "Error g-80 - gamess optimization error",
-            "message": "Optimization Error: properties is None",
+            'error': 'Error g-80 - gamess optimization error',
+            'message': 'Optimization Error: properties is None',
         }, None
 
-    if "error" in properties:
+    if 'error' in properties:
         return {
-            "error": "Error g-93 - gamess optimization error known",
-            "message": properties["error"],
+            'error': 'Error g-93 - gamess optimization error known',
+            'message': properties['error'],
         }, None
 
     if (
@@ -111,11 +111,11 @@ def calculation_pipeline(molinfo, calc_settings):
         or properties[COLUMN_COORDINATES] is None
     ):
         return {
-            "error": "Error g-104 - gamess optimization error",
-            "message": "Optimization Error: no coordinates found in properties",
+            'error': 'Error g-104 - gamess optimization error',
+            'message': 'Optimization Error: no coordinates found in properties',
         }, None
 
-    _logger.info(f"{hashkey} OptimizationSuccess")
+    _logger.info(f'{hashkey} OptimizationSuccess')
 
     # Save and set coordinates
     coord = properties[COLUMN_COORDINATES]
@@ -151,61 +151,61 @@ def calculation_pipeline(molinfo, calc_settings):
     # print(properties_vib)
     # print(80*'=')
     # if n_atoms == 1:
-    #     properties_vib["linear"] = True
-    #     properties_vib["jsmol"] = ''
-    #     properties_vib["freq"] = np.zeros(6)
-    #     properties_vib["intens"] = np.zeros(6)
-    #     properties_vib["thermo"] = np.zeros((5, 6))
-    #     properties_vib["thermo"][0,:] = -1.0
-    #     properties_vib["thermo"][1,:] = -1.0
-    #     properties_vib["thermo"][4,:] = -1.0
+    #     properties_vib['linear'] = True
+    #     properties_vib['jsmol'] = ''
+    #     properties_vib['freq'] = np.zeros(6)
+    #     properties_vib['intens'] = np.zeros(6)
+    #     properties_vib['thermo'] = np.zeros((5, 6))
+    #     properties_vib['thermo'][0,:] = -1.0
+    #     properties_vib['thermo'][1,:] = -1.0
+    #     properties_vib['thermo'][4,:] = -1.0
 
-    if properties_vib is None or "error" in properties_vib:
+    if properties_vib is None or 'error' in properties_vib:
         return {
-            "error": "Error g-104 - gamess vibration error",
-            "message": "Error. Unable to vibrate molecule",
+            'error': 'Error g-104 - gamess vibration error',
+            'message': 'Error. Unable to vibrate molecule',
         }, None
 
-    _logger.info(f"{hashkey} VibrationSuccess")
+    _logger.info(f'{hashkey} VibrationSuccess')
 
     # TODO Make a custom reader and move this out of ppqm
-    calculation.islinear = properties_vib["linear"]
-    calculation.vibjsmol = properties_vib["jsmol"]
-    calculation.vibfreq = misc.save_array(properties_vib["freq"])
-    calculation.vibintens = misc.save_array(properties_vib["intens"])
-    calculation.thermo = misc.save_array(properties_vib["thermo"])
+    calculation.islinear = properties_vib['linear']
+    calculation.vibjsmol = properties_vib['jsmol']
+    calculation.vibfreq = misc.save_array(properties_vib['freq'])
+    calculation.vibintens = misc.save_array(properties_vib['intens'])
+    calculation.thermo = misc.save_array(properties_vib['thermo'])
 
     # Molecular Orbitals
-    if properties_orb is None or "error" in properties_orb:
+    if properties_orb is None or 'error' in properties_orb:
         return {
-            "error": "Error g-128 - gamess orbital error",
-            "message": "Error. Unable to calculate molecular orbitals",
+            'error': 'Error g-128 - gamess orbital error',
+            'message': 'Error. Unable to calculate molecular orbitals',
         }, None
 
-    _logger.info(f"{hashkey} OrbitalsSuccess")
-    calculation.orbitals = misc.save_array(properties_orb["orbitals"])
-    calculation.orbitalstxt = properties_orb["stdout"]
+    _logger.info(f'{hashkey} OrbitalsSuccess')
+    calculation.orbitals = misc.save_array(properties_orb['orbitals'])
+    calculation.orbitalstxt = properties_orb['stdout']
 
     # Solvation and Polarity
-    # if properties_sol is None or "error" in properties_sol:
+    # if properties_sol is None or 'error' in properties_sol:
     #
     #     # Is okay solvation didn't converge, just warn.
-    #     _logger.warning(f"{hashkey} SolvationError")
+    #     _logger.warning(f'{hashkey} SolvationError')
     #
     # else:
     #     # 'charges', 'solvation_total', 'solvation_polar',
     #     # 'solvation_nonpolar', 'surface', 'total_charge', 'dipole',
     #     # 'dipole_total'
-    #     _logger.info(f"{hashkey} SolvationSuccess")
+    #     _logger.info(f'{hashkey} SolvationSuccess')
     #
-    #     charges = properties_sol["charges"]
+    #     charges = properties_sol['charges']
     #     calculation.charges = misc.save_array(charges)
-    #     calculation.soltotal = properties_sol["solvation_total"]
-    #     calculation.solpolar = properties_sol["solvation_polar"]
-    #     calculation.solnonpolar = properties_sol["solvation_nonpolar"]
-    #     calculation.solsurface = properties_sol["surface"]
-    #     calculation.soldipole = misc.save_array(properties_sol["dipole"])
-    #     calculation.soldipoletotal = properties_sol["dipole_total"]
+    #     calculation.soltotal = properties_sol['solvation_total']
+    #     calculation.solpolar = properties_sol['solvation_polar']
+    #     calculation.solnonpolar = properties_sol['solvation_nonpolar']
+    #     calculation.solsurface = properties_sol['surface']
+    #     calculation.soldipole = misc.save_array(properties_sol['dipole'])
+    #     calculation.soldipoletotal = properties_sol['dipole_total']
     #
     #     # Save mol2 fmt
     #     mol2 = chembridge.molobj_to_mol2(molobj, charges=charges)
@@ -225,6 +225,11 @@ def calculation_pipeline(molinfo, calc_settings):
     calculation.svg = svgstr
     calculation.theorylvl = theory_level
     calculation.created = datetime.datetime.now()
+
+    # Store SDF file in scratch directory
+    sdf_fname = f'{hashdir}/{hashkey}.sdf'
+    with open(sdf_fname, 'w') as f:
+        f.write(calculation.sdf)
 
     return msg, calculation
 

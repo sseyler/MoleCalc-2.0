@@ -1,8 +1,12 @@
+import pathlib
+
 import numpy as np
 
 from ppqm import misc, units
+from ase.io import read
 
 from molecalc.services.iupac_name_service import smiles_to_iupac
+from molecalc.infrastructure.settings import SETTINGS
 
 
 def view_calculation(calculation):
@@ -35,6 +39,10 @@ def view_calculation(calculation):
     # solsurface = Column(Float)
     # soldipole = Column(String)
     # soldipoletotal = Column(Float)
+
+    # Get hashdir from scratch
+    scratch_dir = pathlib.Path(SETTINGS['molecalc.scr'])
+    hashdir = scratch_dir / calculation.hashkey
 
     # Convert model to dictionary
     data = calculation.__dict__
@@ -86,13 +94,21 @@ def view_calculation(calculation):
     data["s_vibra"] = fmt.format(thermotable[3, 5])
     data["s_total"] = fmt.format(thermotable[4, 5])
 
+    # DASGSDKLGHSDLGHSDGH
+    ag = read(f'{hashdir}/{calculation.hashkey}.sdf')
+    molar_mass = np.sum(ag.get_masses())
     cp_total = float(data["cp_total"])
     cv_total = float(data["cv_total"])
-    adiabatic_index = fmt.format(cp_total/cv_total)
+    adiabatic_index = cp_total/cv_total
+    sound_speed = np.sqrt(adiabatic_index * 8.31446261815324 * 298.15 / (1e-3 * molar_mass))
 
     data["enthalpy"] = fmt.format(data["enthalpy"] * units.calories_to_joule)
-    data["adiabatic_index"] = adiabatic_index
-    # data["sound_speed"] = sqrt(adiabatic_index * kB * 298.15 / mass)
+    data["sound_speed"] = fmt.format(sound_speed)
+    data["adiabatic_index"] = fmt.format(adiabatic_index)
+
+    print(ag.get_masses())
+    print(molar_mass)
+    print(sound_speed)
 
     # Molecular orbitals format
     data["orbitals"] = misc.load_array(data["orbitals"])

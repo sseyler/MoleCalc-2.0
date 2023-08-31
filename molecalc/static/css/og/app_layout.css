@@ -505,7 +505,7 @@
     grid-area: content;
     display: grid;
     grid-template-columns: 310px;
-    grid-template-rows: 175px 175px 175px 175px auto;
+    grid-template-rows: 150px 175px 175px 175px 175px;
     grid-gap: 1ex;
     grid-auto-flow: dense;
     grid-auto-flow: row;

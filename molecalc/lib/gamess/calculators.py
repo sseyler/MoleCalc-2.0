@@ -4,7 +4,7 @@ from multiprocessing import Pipe, Process
 
 import ppqm
 
-_logger = logging.getLogger("molecalc:calc")
+_logger = logging.getLogger('molecalc:calc')
 
 MAX_TIME = 90  # seconds
 
@@ -12,12 +12,12 @@ MAX_TIME = 90  # seconds
 def optimize_coordinates(molobj, gamess_options):
     theory_level = gamess_options.pop('theory_level', 'pm3')
     calculation_options = {
-        "basis": {"gbasis": theory_level},
-        "contrl": {"runtyp": "optimize"},
-        "statpt": {"opttol": 0.00025, "nstep": 500, "projct": False},
+        'basis': {'gbasis': theory_level},
+        'contrl': {'runtyp': 'optimize'},
+        'statpt': {"opttol": 0.00025, 'nstep': 500, 'projct': False},
     }
 
-    gamess_options.get("filename", None)
+    gamess_options.get('filename', None)
 
     calc_obj = ppqm.gamess.GamessCalculator(**gamess_options)
     results, files = calc_obj.calculate(molobj, calculation_options)
@@ -33,20 +33,20 @@ def calculate_vibrations(molobj, gamess_options):
     n_atoms = len( ppqm.chembridge.molobj_to_atoms(molobj) )
     if n_atoms == 1:
         calculation_options = {
-            "contrl": {
-                "runtyp": "hessian",
-                "coord": "cart",
-                "units": "angs",
-                "scftyp": "rhf",
-                "maxit": 60,
+            'contrl': {
+                'runtyp': 'hessian',
+                'coord': 'cart',
+                'units': 'angs',
+                'scftyp': 'rhf',
+                'maxit': 60,
             },
-            "basis": {"gbasis": "sto", "ngauss": 3},
+            'basis': {'gbasis': 'sto', 'ngauss': 3},
         }
     else:
         calculation_options = {
-            "basis": {"gbasis": theory_level},
-            "contrl": {"runtyp": "hessian", "maxit": 60},
-            "force": {"method": "seminum"},
+            'basis': {'gbasis': theory_level},
+            'contrl': {'runtyp': 'hessian', 'maxit': 60},
+            'force': {'method': 'seminum'},
         }
 
     calc_obj = ppqm.gamess.GamessCalculator(**gamess_options)
@@ -62,13 +62,13 @@ def calculate_orbitals(molobj, gamess_options):
     theory_level = gamess_options.pop('theory_level', 'pm3')
 
     calculation_options = {
-        "contrl": {
-            "coord": "cart",
-            "units": "angs",
-            "scftyp": "rhf",
-            "maxit": 60,
+        'contrl': {
+            'coord': 'cart',
+            'units': 'angs',
+            'scftyp': 'rhf',
+            'maxit': 60,
         },
-        "basis": {"gbasis": "sto", "ngauss": 3},
+        'basis': {'gbasis': 'sto', 'ngauss': 3},
     }
 
     calc_obj = ppqm.gamess.GamessCalculator(**gamess_options)
@@ -78,7 +78,7 @@ def calculate_orbitals(molobj, gamess_options):
         gamess_io = files[0]
     except TypeError:
         properties = dict()
-        properties["error"] = "Failed orbital calculation"
+        properties['error'] = 'Failed orbital calculation'
         gamess_io = {'inp': '', 'out': '', 'err': ''}
 
     return properties, gamess_io
@@ -87,15 +87,15 @@ def calculate_orbitals(molobj, gamess_options):
 def calculate_solvation(molobj, gamess_options):
 
     calculation_options = dict()
-    calculation_options["basis"] = {"gbasis": "PM3"}
-    calculation_options["system"] = {"mwords": 125}
-    calculation_options["pcm"] = {
-        "solvnt": "water",
-        "mxts": 15000,
-        "icav": 1,
-        "idisp": 1,
+    calculation_options['basis'] = {'gbasis': 'PM3'}
+    calculation_options['system'] = {'mwords': 125}
+    calculation_options['pcm'] = {
+        'solvnt': 'water',
+        'mxts': 15000,
+        'icav': 1,
+        'idisp': 1,
     }
-    calculation_options["tescav"] = {"mthall": 4, "ntsall": 60}
+    calculation_options['tescav'] = {'mthall': 4, 'ntsall': 60}
 
     calc_obj = ppqm.gamess.GamessCalculator(**gamess_options)
     try:
@@ -104,11 +104,11 @@ def calculate_solvation(molobj, gamess_options):
         gamess_io = files[0]
     except TypeError:
         properties = dict()
-        properties["error"] = "Solvation calculation failed"
+        properties['error'] = 'Solvation calculation failed'
         gamess_io = {'inp': '', 'out': '', 'err': ''}
     if "charges" not in properties:
         properties = dict()
-        properties["error"] = "Solvation calculation failed"
+        properties['error'] = 'Solvation calculation failed'
         gamess_io = {'inp': '', 'out': '', 'err': ''}
 
     return properties, gamess_io
@@ -122,7 +122,7 @@ def calculate_all_properties(molobj, gamess_options, async_calc=False):
         # calculate_solvation,
     ]
 
-    filename = gamess_options.get("filename", "gamess_calc")
+    filename = gamess_options.get('filename', 'gamess_calc')
 
     if async_calc:
         def procfunc(conn, func, *args, **kwargs):
@@ -137,7 +137,7 @@ def calculate_all_properties(molobj, gamess_options, async_calc=False):
 
             # Change scr
             gamess_options = copy.deepcopy(gamess_options)
-            gamess_options["filename"] = filename + "_" + func.__name__
+            gamess_options['filename'] = filename + "_" + func.__name__
 
             parent_conn, child_conn = Pipe()
             p = Process(
@@ -161,7 +161,7 @@ def calculate_all_properties(molobj, gamess_options, async_calc=False):
         for func in funcs:
             # Change scr
             gamess_options = copy.deepcopy(gamess_options)
-            gamess_options["filename"] = filename + "_" + func.__name__
+            gamess_options['filename'] = filename + "_" + func.__name__
             results, files = func(molobj, gamess_options)
             properties.append(results)
             io_files.append(files)
