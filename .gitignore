@@ -47,6 +47,7 @@ pserve
 .python-version
 
 # Enviroment
+molecalc/infrastructure/settings.py  # adjust on per-machine basis unless necessary
 env*/
 logs/
 
