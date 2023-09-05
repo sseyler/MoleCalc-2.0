@@ -228,10 +228,11 @@ def ajax_submit_quantum():
     try:
         msg, new_calculation = gamess.pipelines.calculation_pipeline(
             molecule_info, calc_settings)
-    except Exception:
+    except Exception as e:
         sdfstr = chembridge.molobj_to_sdfstr(molobj)
         _logger.error(f"{hashkey} PipelineError", exc_info=True)
         _logger.error(sdfstr)
+        print(e)
 
         return {
             "error": "293",
