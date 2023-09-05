@@ -4,6 +4,7 @@ dependencies:
   - uwsgi
   - numpy
   - scipy
+  - ase
   - tqdm
   - rdkit=2022.03.5
   - SQLAlchemy=1.3.24
