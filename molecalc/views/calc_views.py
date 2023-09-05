@@ -235,7 +235,7 @@ def ajax_submit_quantum():
 
         return {
             "error": "293",
-            "message": "Internal server error. Uncaught exception",
+            "message": "Internal server error. Uncaught exception in calculation pipeline.",
         }
 
     print(20 * '>')
