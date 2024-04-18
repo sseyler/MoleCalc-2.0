@@ -126,9 +126,9 @@ def calculation_pipeline(molinfo, calc_settings):
 
     # Optimization is finished, do other calculation async-like
     (
-        properties_vib, properties_orb  # properties_sol,
+        properties_vib, properties_orb, properties_sol,
     ), (
-        io_files_vib, io_files_orb  # io_files_sol,
+        io_files_vib, io_files_orb, io_files_sol,
     ) = calculators.calculate_all_properties(molobj, gamess_options)
 
     # Store GAMESS I/O files from optimization
@@ -187,29 +187,29 @@ def calculation_pipeline(molinfo, calc_settings):
     calculation.orbitalstxt = properties_orb['stdout']
 
     # Solvation and Polarity
-    # if properties_sol is None or 'error' in properties_sol:
-    #
-    #     # Is okay solvation didn't converge, just warn.
-    #     _logger.warning(f'{hashkey} SolvationError')
-    #
-    # else:
-    #     # 'charges', 'solvation_total', 'solvation_polar',
-    #     # 'solvation_nonpolar', 'surface', 'total_charge', 'dipole',
-    #     # 'dipole_total'
-    #     _logger.info(f'{hashkey} SolvationSuccess')
-    #
-    #     charges = properties_sol['charges']
-    #     calculation.charges = misc.save_array(charges)
-    #     calculation.soltotal = properties_sol['solvation_total']
-    #     calculation.solpolar = properties_sol['solvation_polar']
-    #     calculation.solnonpolar = properties_sol['solvation_nonpolar']
-    #     calculation.solsurface = properties_sol['surface']
-    #     calculation.soldipole = misc.save_array(properties_sol['dipole'])
-    #     calculation.soldipoletotal = properties_sol['dipole_total']
-    #
-    #     # Save mol2 fmt
-    #     mol2 = chembridge.molobj_to_mol2(molobj, charges=charges)
-    #     calculation.mol2 = mol2
+    if properties_sol is None or 'error' in properties_sol:
+
+        # Is okay solvation didn't converge, just warn.
+        _logger.warning(f'{hashkey} SolvationError')
+
+    else:
+        # 'charges', 'solvation_total', 'solvation_polar',
+        # 'solvation_nonpolar', 'surface', 'total_charge', 'dipole',
+        # 'dipole_total'
+        _logger.info(f'{hashkey} SolvationSuccess')
+
+        charges = properties_sol['charges']
+        calculation.charges = misc.save_array(charges)
+        calculation.soltotal = properties_sol['solvation_total']
+        calculation.solpolar = properties_sol['solvation_polar']
+        calculation.solnonpolar = properties_sol['solvation_nonpolar']
+        calculation.solsurface = properties_sol['surface']
+        calculation.soldipole = misc.save_array(properties_sol['dipole'])
+        calculation.soldipoletotal = properties_sol['dipole_total']
+
+        # Save mol2 fmt
+        mol2 = chembridge.molobj_to_mol2(molobj, charges=charges)
+        calculation.mol2 = mol2
 
     # Saveable sdf and reset title
     sdfstr = chembridge.molobj_to_sdfstr(molobj)
