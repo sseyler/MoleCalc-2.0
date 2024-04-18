@@ -105,6 +105,7 @@ sudo update-rc.d nginx enable
 sudo service nginx restart
 
 # To run MoleCalc MANUALLY
+# env/bin/uwsgi -H <path/to/env> --master --processes 4 --threads 2 --http :5000 --manage-script-name --python-path <path/to/molecalc/app> --mount /=wsgi:app
 /apps/env/bin/uwsgi -H /apps/env --master --processes 4 --threads 2 --http :5000 --manage-script-name --python-path /apps/MoleCalc --mount /=wsgi:app
 
 
