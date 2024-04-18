@@ -119,7 +119,7 @@ def calculate_all_properties(molobj, gamess_options, async_calc=False):
     funcs = [
         calculate_vibrations,
         calculate_orbitals,
-        # calculate_solvation,
+        calculate_solvation,
     ]
 
     filename = gamess_options.get('filename', 'gamess_calc')
