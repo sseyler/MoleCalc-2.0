@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=9.4.0
+VERSION=10.0.0
 
 cd molecalc/static/external
 
@@ -14,5 +14,3 @@ cp -r ChemDoodleWeb-${VERSION}/install/* chemdoodleweb/
 cp -r ChemDoodleWeb-${VERSION}/src/* chemdoodleweb/
 
 rm -r ChemDoodleWeb-${VERSION}*
-
-

@@ -120,4 +120,6 @@ clean:
 
 super-clean:
 	rm -r molecalc/static/external/jquery/jquery.min.js molecalc/static/external/fontawesome molecalc/static/external/jsmol molecalc/static/external/chemdoodleweb
+	rm -r molecalc/static/external
+	rm -r molecalc/db
 
