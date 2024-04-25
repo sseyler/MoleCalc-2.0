@@ -8,6 +8,11 @@ from ase.io import read
 from molecalc.services.iupac_name_service import smiles_to_iupac
 from molecalc.infrastructure.settings import SETTINGS
 
+import pandas as pd
+import json
+import plotly
+import plotly.express as px
+
 
 def view_calculation(calculation):
     """
@@ -57,7 +62,9 @@ def view_calculation(calculation):
 
     fmt = "{:.2f}"
 
+    # ---------------------------------
     # Thermochemistry
+    # ---------------------------------
     #               E         H         G         CV        CP        S
     #            KJ/MOL    KJ/MOL    KJ/MOL   J/MOL-K   J/MOL-K   J/MOL-K
     #  ELEC.      0.000     0.000     0.000     0.000     0.000     0.000
@@ -94,7 +101,6 @@ def view_calculation(calculation):
     data["s_vibra"] = fmt.format(thermotable[3, 5])
     data["s_total"] = fmt.format(thermotable[4, 5])
 
-    # DASGSDKLGHSDLGHSDGH
     ag = read(f'{hashdir}/{calculation.hashkey}.sdf')
     molar_mass = np.sum(ag.get_masses())
     cp_total = float(data["cp_total"])
@@ -105,17 +111,13 @@ def view_calculation(calculation):
     data["enthalpy"] = fmt.format(data["enthalpy"] * units.calories_to_joule)
     data["sound_speed"] = fmt.format(sound_speed)
     data["adiabatic_index"] = fmt.format(adiabatic_index)
+    # print(ag.get_masses())
+    # print(molar_mass)
+    # print(sound_speed)
 
-    print(ag.get_masses())
-    print(molar_mass)
-    print(sound_speed)
-
-    # Molecular orbitals format
-    data["orbitals"] = misc.load_array(data["orbitals"])
-    data["orbitals"] *= units.hartree_to_ev
-    data["orbitals"] = [fmt.format(x) for x in data["orbitals"]]
-
+    # ---------------------------------
     # Vibrational Frequencies format
+    # ---------------------------------
     data["vibfreq"] = misc.load_array(data["vibfreq"])
     islinear = int(data["islinear"]) == int(1)
     offset = 5 if islinear else 6
@@ -123,15 +125,95 @@ def view_calculation(calculation):
     data["vibfreq"] = [fmt.format(x) for x in data["vibfreq"]]
     data["viboffset"] = offset
 
+    # IR Spectrum Plot
+    #  MODE FREQ(CM**-1)  SYMMETRY  RED. MASS  IR INTENS.
+    # 1       0.288    A       14.665479    0.000000
+    # 2       0.253    A       14.665052    0.000000
+    # 3       0.016    A       14.663251    0.000000
+    # 4      16.066    A       15.994910    0.000000
+    # 5      16.319    A       15.994910    0.000000
+    # 6     520.849    A       12.875666    1.239695
+    # 7     520.956    A       12.875989    1.239759
+    # 8    1407.763    A       15.994910    0.000000
+    # 9    2386.390    A       12.877391    1.468959
+
+    def molabscoef(nu, nu0=1, A=1, w=1):
+        return (2*A*w/np.pi) / (4*(nu - nu0)**2 + w**2)
+
+    # Generate IR spectrum with Lorentzian broadening as a function of
+    # frequency, *nu*, from a (discrete) set of spectral lines as input.
+    #   * Note, this implementation uses numpy.ufunc.reduce, specifically
+    #     numpy.add.reduce, in lieu of np.sum, which allows it to accept
+    #     both scalar and array values for nu and so that intensity is a
+    #     properly vectorized function (i.e., a numpy ufunc). Note that
+    #     using np.sum instead does not make intensity vectorized.
+    #   * The input *nu* should be an iterable of frequencies that covers
+    #     the range of the IR spectrum. A dense spacing may be necessary
+    #     if the spectral lines are very narrow but spread apart and the
+    #     values of nu are spaced linearly (e.g., using np.linspace).
+    #     However, one may use a nonlinear spacing that is densest in the
+    #     vicinity of the peaks to reduce the number of plot points.
+    def intensity(nu, lines, areas=1, widths=1):
+        lines = np.atleast_1d(lines)
+        areas = np.atleast_1d(areas)
+        widths = np.atleast_1d(widths)
+
+        n_lines = len(lines)
+        if n_lines > 1:
+            areas = np.repeat(areas, n_lines) if len(areas) == 1 else areas
+            widths = np.repeat(widths, n_lines) if len(widths) == 1 else widths
+            if n_lines != len(areas):
+                raise ValueError('Number of area parameters does not match number of spectral lines!')
+            if n_lines != len(widths):
+                raise ValueError('Number of width parameters does not match number of spectral lines!')
+        gen = [molabscoef(nu, nu0, A, w) for nu0, A, w in zip(lines, areas, widths)]
+        return np.add.reduce(gen)
+
+    CO2_spectral_lines = np.array([520.849, 2386.390])  # CO2
+    # CO2_line_areas = 43.42945 * np.array([1.240, 1.469])  # (wrong vals from PM3 GAMESS + Vojta et al. 2017)
+    CO2_line_areas = 43.42945 * np.array([1.92, 227.72])  # (vals from PM3 Orca + Vojta et al. 2017)
+    CO2_line_widths = 10  # cm^-1  (arbitrarily taken from Vojta et al. 2017)
+    spectrum_min = np.min(CO2_spectral_lines) - 10*CO2_line_widths
+    spectrum_max = np.max(CO2_spectral_lines) + 10*CO2_line_widths
+    n_plot_points = 1000
+
+    freq_data = np.linspace(spectrum_min, spectrum_max, n_plot_points)
+    intens_data = intensity(freq_data, CO2_spectral_lines, CO2_line_areas, CO2_line_widths)
+    df = pd.DataFrame({
+        'Frequency': freq_data,
+        'Intensity': intens_data
+    })
+    layout = {
+        # 'paper_bgcolor': '#f2f2f2',
+        'title': 'IR Spectrum'
+    }
+    fig = px.line(df, x='Frequency', y='Intensity',
+                  title='IR Spectrum',
+                  template='simple_white'
+    )
+
+    data['irPlotJSON'] = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    data['irPlotTitle'] = 'IR Spectrum'
+    data['irPlotDesc'] = f"""
+    Predicted infrared spectrum of {data['iupac_name']} using {data['theorylvl']}.
+    """
+
+    # ---------------------------------
+    # Molecular orbitals format
+    # ---------------------------------
+    data["orbitals"] = misc.load_array(data["orbitals"])
+    data["orbitals"] *= units.hartree_to_ev
+    data["orbitals"] = [fmt.format(x) for x in data["orbitals"]]
+
+    # ---------------------------------
     # Solvation calculations
+    # ---------------------------------
     if data["charges"] is None:
         data["has_solvation"] = False
-
     else:
         data["has_solvation"] = True
 
         dipoles = misc.load_array(data["soldipole"])
-
         data["dipolex"] = dipoles[0]
         data["dipoley"] = dipoles[1]
         data["dipolez"] = dipoles[2]
@@ -152,7 +234,6 @@ def view_calculation(calculation):
         charges = np.array(charges)
         charge = np.sum(charges)
         charge = np.round(charge, decimals=0)
-
         data["charge"] = int(charge)
 
     return data
