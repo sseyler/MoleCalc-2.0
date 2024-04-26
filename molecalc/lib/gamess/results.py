@@ -173,8 +173,10 @@ def view_calculation(calculation):
     # CO2_line_areas = 43.42945 * np.array([1.240, 1.469])  # (wrong vals from PM3 GAMESS + Vojta et al. 2017)
     CO2_line_areas = 43.42945 * np.array([1.92, 227.72])  # (vals from PM3 Orca + Vojta et al. 2017)
     CO2_line_widths = 10  # cm^-1  (arbitrarily taken from Vojta et al. 2017)
-    spectrum_min = np.min(CO2_spectral_lines) - 10*CO2_line_widths
-    spectrum_max = np.max(CO2_spectral_lines) + 10*CO2_line_widths
+    min_line = np.min(CO2_spectral_lines)
+    max_line = np.max(CO2_spectral_lines)
+    spectrum_min = 0  # min_line - np.log10(min_line)*10*CO2_line_widths
+    spectrum_max = max_line + np.log10(max_line)*10*CO2_line_widths
     n_plot_points = 1000
 
     freq_data = np.linspace(spectrum_min, spectrum_max, n_plot_points)
@@ -187,9 +189,15 @@ def view_calculation(calculation):
         # 'paper_bgcolor': '#f2f2f2',
         'title': 'IR Spectrum'
     }
-    fig = px.line(df, x='Frequency', y='Intensity',
-                  title='IR Spectrum',
-                  template='simple_white'
+    fig = px.line(
+        df,
+        x='Frequency',
+        y='Intensity',
+        title='IR Spectrum',
+        template='simple_white'
+    )
+    fig.update_layout(
+        margin=dict(l=20, r=20, t=25, b=20),
     )
 
     data['irPlotJSON'] = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
