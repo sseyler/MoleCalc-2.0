@@ -169,10 +169,11 @@ def view_calculation(calculation):
         gen = [molabscoef(nu, nu0, A, w) for nu0, A, w in zip(lines, areas, widths)]
         return np.add.reduce(gen)
 
-    CO2_spectral_lines = np.array([520.849, 2386.390])  # CO2
-    # CO2_line_areas = 43.42945 * np.array([1.240, 1.469])  # (wrong vals from PM3 GAMESS + Vojta et al. 2017)
-    CO2_line_areas = 43.42945 * np.array([1.92, 227.72])  # (vals from PM3 Orca + Vojta et al. 2017)
-    CO2_line_widths = 10  # cm^-1  (arbitrarily taken from Vojta et al. 2017)
+
+    CO2_spectral_lines = np.array([520.849, 520.849, 2386.390])  # CO2
+    CO2_line_areas = 43.42945 * np.array([1.240, 1.240, 1.469])  # (wrong vals from PM3 GAMESS + Vojta et al. 2017)
+    # CO2_line_areas = 43.42945 * np.array([1.92, 227.72])  # (vals from PM3 Orca + Vojta et al. 2017)
+    CO2_line_widths = 1  # cm^-1  (arbitrarily taken from Vojta et al. 2017)
     min_line = np.min(CO2_spectral_lines)
     max_line = np.max(CO2_spectral_lines)
     spectrum_min = 0  # min_line - np.log10(min_line)*10*CO2_line_widths
