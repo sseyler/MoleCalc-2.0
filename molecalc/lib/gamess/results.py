@@ -118,6 +118,7 @@ def view_calculation(calculation):
     # ---------------------------------
     # Vibrational Frequencies format
     # ---------------------------------
+    data["vibintens"] = misc.load_array(data["vibintens"])
     data["vibfreq"] = misc.load_array(data["vibfreq"])
     islinear = int(data["islinear"]) == int(1)
     offset = 5 if islinear else 6
@@ -169,30 +170,36 @@ def view_calculation(calculation):
         gen = [molabscoef(nu, nu0, A, w) for nu0, A, w in zip(lines, areas, widths)]
         return np.add.reduce(gen)
 
+    # ((6.02200e23 * pi) / (3 * ((2.99800e8 (m / s))^2))) * (1.46900 * ((3.33600e-30 coulomb * m)^2) * (m^(-2)) * (Da^(-1)))
+    # CO2_spectral_lines = np.array([520.849, 520.849, 2386.390])  # CO2
+    # CO2_line_areas = 43.42945 * np.array([1.240, 1.240, 1.469])  # (wrong vals from PM3 GAMESS + Vojta et al. 2017)
+    # CO2_line_widths = 1  # cm^-1  (arbitrarily taken from Vojta et al. 2017)
+    # min_line = np.min(CO2_spectral_lines)
+    # max_line = np.max(CO2_spectral_lines)
+    # spectrum_min = 0  # min_line - np.log10(min_line)*10*CO2_line_widths
+    # spectrum_max = max_line + np.log10(max_line)*10*CO2_line_widths
 
-    CO2_spectral_lines = np.array([520.849, 520.849, 2386.390])  # CO2
-    CO2_line_areas = 43.42945 * np.array([1.240, 1.240, 1.469])  # (wrong vals from PM3 GAMESS + Vojta et al. 2017)
-    # CO2_line_areas = 43.42945 * np.array([1.92, 227.72])  # (vals from PM3 Orca + Vojta et al. 2017)
-    CO2_line_widths = 1  # cm^-1  (arbitrarily taken from Vojta et al. 2017)
-    min_line = np.min(CO2_spectral_lines)
-    max_line = np.max(CO2_spectral_lines)
-    spectrum_min = 0  # min_line - np.log10(min_line)*10*CO2_line_widths
-    spectrum_max = max_line + np.log10(max_line)*10*CO2_line_widths
+    ir_line_freqs = data['vibfreq']
+    ir_line_areas = 43.42945 * data['vibintens']
+    ir_line_width = 1  # cm^-1
+    min_line = np.min(ir_line_freqs)
+    max_line = np.max(ir_line_freqs)
+
     n_plot_points = 1000
+    min_freq = 0
+    max_freq = max_line + np.log10(max_line)*10*ir_line_freqs
 
-    freq_data = np.linspace(spectrum_min, spectrum_max, n_plot_points)
-    intens_data = intensity(freq_data, CO2_spectral_lines, CO2_line_areas, CO2_line_widths)
+    freq_data = np.linspace(min_freq, max_freq, n_plot_points)
+    intens_data = intensity(freq_data, ir_line_freqs, ir_line_areas, ir_line_width)
+    # intens_data = intensity(freq_data, CO2_spectral_lines, CO2_line_areas, CO2_line_widths)
+
     df = pd.DataFrame({
         'Frequency': freq_data,
         'Intensity': intens_data
     })
-    layout = {
-        # 'paper_bgcolor': '#f2f2f2',
-        'title': 'IR Spectrum'
-    }
     fig = px.line(
         df,
-        x='Frequency',
+        x=r'Frequency cm$^{-1}$',
         y='Intensity',
         title='IR Spectrum',
         template='simple_white'
