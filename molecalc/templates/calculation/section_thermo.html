@@ -23,8 +23,7 @@
 
     waitForElement('#jmolOpt_appletdiv', function() {
         jsmolSetMol(jmolOpt, optMolecule);
-        Jmol.script(jmolOpt, 'color echo black; font echo 16 sanserif;set echo top right;echo echo test;');
-        Jmol.script(jmolOpt, 'echo "{{ iupac_name }} ({{ theorylvl }})"');
+        jsmolDisplayText(jmolOpt, '{{iupac_name}} ({{theorylvl}})', 'top right');
         {#jsmolSetMol(jmolOpt, sdf);#}
         {#Jmol.script(jmolOpt, 'set appendNew true');#}
         {#Jmol.script(jmolOpt, "load append trajectory '"+optMolecule+"';");#}

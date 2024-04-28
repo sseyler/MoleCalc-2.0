@@ -19,15 +19,12 @@
 
     waitForElement('#jmolVib_appletdiv', function () {
         jsmolSetMol(jmolVib, vibMolecule);
-        {#Jmol.script(jmolVib, 'color echo black; font echo 16 sanserif; set echo top right;');#}
-        {#Jmol.script(jmolVib, 'echo "{{ iupac_name }} ({{ theorylvl }})"');#}
-        displayCalcInfo(jmolVib, '#000000', '{{iupac_name}}', '{{theorylvl}}')
 
-        Jmol.script(jmolVib, 'color echo black; font echo 16 sanserif; set echo bottom right;');
-        Jmol.script(jmolVib, 'echo "{{ vibfreq | first }} cm<sup>-1</sup>"');
-        Jmol.script(jmolVib, 'vibration on');
+        jsmolDisplayText(jmolVib, '{{iupac_name}} ({{theorylvl}})', 'top right');
+        jsmolDisplayText(jmolVib, '{{ vibfreq | first }} cm<sup>-1</sup>', 'bottom right');
 
         // Switch to the first real vibration
+        Jmol.script(jmolVib, 'vibration on');
         Jmol.script(jmolVib, 'frame {{ viboffset + 1 }}');
         Jmol.script(jmolVib, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
         Jmol.script(jmolVib, 'centerAt average 0.0 0.0 0.0');
@@ -76,10 +73,10 @@
 
         // Show Vibration
         $('.vibration_levels a').on('click', function () {
-            var rel = $(this).attr('rel');
-            var wavenumber = $(this).parent().parent().find('.wavenumber').html();
+            let rel = $(this).attr('rel');
+            let wavenumber = $(this).parent().parent().find('.wavenumber').html();
             Jmol.script(jmolVib, 'frame '+rel);
-            Jmol.script(jmolVib, 'echo "' + wavenumber + '"');
+            jsmolDisplayText(jmolVib, wavenumber, 'bottom right');
             $sidebars.removeClass("active");
             return false;
         });

@@ -20,6 +20,8 @@ waitForElement('#jmolSurf_appletdiv', function() {
     jsmolSetMol(jmolSurf, surfMolecule);
 	// Jmol.script(jmolVib, 'centerAt average 0.0 0.0 0.0');
 
+    {#jsmolDisplayText(jmolSurf, '{{iupac_name}} ({{theorylvl}})', 'top right');#}
+
     // Settings
     Jmol.script(jmolSurf, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
     Jmol.script(jmolSurf, 'set solventProbe 1.4; isosurface molecular map mep');
@@ -38,11 +40,17 @@ waitForElement('#jmolSurf_appletdiv', function() {
     Jmol.script(jmolSurf, 'dx1 = @cx+0.5*(@cx-@dx); dy1 = @cy+0.5*(@cy-@dy); dz1 = @cz+0.5*(@cz-@dz);');
     Jmol.script(jmolSurf, 'dx2 = @dx+0.5*(@cx-@dx); dy2 = @dy+0.5*(@cy-@dy); dz2 = @dz+0.5*(@cz-@dz);');
 
-    // Set text
-    Jmol.script(jmolSurf, 'set echo "surface" 50% 6%; set echo "surface" center; font echo 13; color echo black; echo Blue: Positive, Red: Negative;');
-    Jmol.script(jmolSurf, 'set echo "charge" 50% 0%; set echo "charge" center; font echo 13; color echo black; echo Mouse over atoms for partial charge;');
-    Jmol.script(jmolSurf, 'set echo "plus" {@dx1,@dy1,@dz1}; font echo 25; color echo black; echo "+"; set echo "plus" hidden');
-    Jmol.script(jmolSurf, 'set echo "minus" {@dx2,@dy2,@dz2}; font echo 35; color echo black; echo "-"; set echo "minus" hidden');
+    // Set text for solvation
+    {#setSolvationText(jmolSurf);#}
+    {#Jmol.script(jmolSurf, 'set echo "surface" 50% 6%; set echo "surface" center; font echo 13; echo Blue: Positive, Red: Negative;');#}
+    {#Jmol.script(jmolSurf, 'set echo "charge" 50% 0%; set echo "charge" center; font echo 13; echo Mouse over atoms for partial charge;');#}
+    {#Jmol.script(jmolSurf, 'set echo "plus" {@dx1,@dy1,@dz1}; font echo 25; echo "+"; set echo "plus" hidden');#}
+    {#Jmol.script(jmolSurf, 'set echo "minus" {@dx2,@dy2,@dz2}; font echo 35; echo "-"; set echo "minus" hidden');#}
+    let font_color = getModeFontColor();
+    Jmol.script(jmolSurf, 'set echo "surface" 50% 6%; set echo "surface" center; color echo "' + font_color + '"; font echo 13; echo Blue: Positive, Red: Negative;');
+    Jmol.script(jmolSurf, 'set echo "charge" 50% 0%; set echo "charge" center; color echo "' + font_color + '"; font echo 13; echo Mouse over atoms for partial charge;');
+    Jmol.script(jmolSurf, 'set echo "plus" {@dx1,@dy1,@dz1}; font echo 25; echo "+"; set echo "plus" hidden;');
+    Jmol.script(jmolSurf, 'set echo "minus" {@dx2,@dy2,@dz2}; font echo 35; echo "-"; set echo "minus" hidden;');
 });
 
 

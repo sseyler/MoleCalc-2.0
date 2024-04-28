@@ -3,7 +3,7 @@ var IS_DARK = '{{ is_dark }}' == 'darkmode';
 
 $(function() {
     $('#darkmode').prop('checked', IS_DARK);
-    console.log("Dark Mode " + $('#darkmode').prop('checked'));
+    console.log("Dark Mode toggle is " + $('#darkmode').prop('checked'));
 });
 
 $(function() {
@@ -26,6 +26,9 @@ $(function() {
         });
 
         if (darkmode) {
+            IS_DARK = true;
+            let bg_color = '#222222';
+            let font_color = '#FFFFFF';
             if (!$('body').hasClass('darkmode')) {
                 $('body').addClass('darkmode');
             }
@@ -34,53 +37,70 @@ $(function() {
             $('section').addClass('darkmode');
             $('table').addClass('darkmode');
             if (typeof myJmol1 !== 'undefined') {
-                Jmol.script(myJmol1, 'set backgroundColor "#333333"');
+                jsmolSetBGColor(myJmol1, bg_color);
             }
             if (typeof jmolOpt !== 'undefined') {
-                Jmol.script(jmolOpt, 'set backgroundColor "#333333"');
-                displayCalcInfo(jmolOpt, '#FFFFFF', '{{iupac_name}}', '{{theorylvl}}')
+                jsmolSetBGColor(jmolOpt, bg_color);
+                jsmolDisplayText(jmolOpt, '{{iupac_name}} ({{theorylvl}})', 'top right');
             }
             if (typeof jmolVib !== 'undefined') {
-                Jmol.script(jmolVib, 'set backgroundColor "#333333"');
-                displayCalcInfo(jmolVib, '#FFFFFF', '{{iupac_name}}', '{{theorylvl}}')
+                jsmolSetBGColor(jmolVib, bg_color);
+                jsmolDisplayText(jmolVib, '{{iupac_name}} ({{theorylvl}})', 'top right');
+                jsmolDisplayText(jmolVib, '{{ vibfreq | first }} cm<sup>-1</sup>', 'bottom right');
             }
             if (typeof jmolOrb !== 'undefined') {
-                Jmol.script(jmolOrb, 'set backgroundColor "#333333"');
-                displayCalcInfo(jmolOrb, '#FFFFFF', '{{iupac_name}}', '{{theorylvl}}')
+                jsmolSetBGColor(jmolOrb, bg_color);
+                {#jsmolDisplayText(jmolOrb, '{{iupac_name}} ({{theorylvl}})', 'top right');#}
+                jsmolDisplayText(jmolOrb, '{{ orbitals | first }} eV', 'bottom right');
             }
             if (typeof jmolSurf !== 'undefined') {
-                Jmol.script(jmolSurf, 'set backgroundColor "#333333"');
-                displayCalcInfo(jmolSurf, '#FFFFFF', '{{iupac_name}}', '{{theorylvl}}')
+                jsmolSetBGColor(jmolSurf, bg_color);
+                {#jsmolDisplayText(jmolSurf, '{{iupac_name}} ({{theorylvl}})', 'top right');#}
+                setSolvationText(jmolSurf);
+
             }
         } else {
+            IS_DARK = false;
+            let bg_color = '#FFFFFF';
+            let font_color = '#000000';
             $('body').removeClass('darkmode');
             $('a').removeClass('darkmode');
             $('img').removeClass('darkmode');
             $('section').removeClass('darkmode');
             $('table').removeClass('darkmode');
             if (typeof myJmol1 !== 'undefined') {
-                Jmol.script(myJmol1, 'set backgroundColor "#FFFFFF"');
+                jsmolSetBGColor(myJmol1, bg_color);
             }
             if (typeof jmolOpt !== 'undefined') {
-                Jmol.script(jmolOpt, 'set backgroundColor "#FFFFFF"');
-                displayCalcInfo(jmolOpt, '#000000', '{{iupac_name}}', '{{theorylvl}}')
+                jsmolSetBGColor(jmolOpt, bg_color);
+                jsmolDisplayText(jmolOpt, '{{iupac_name}} ({{theorylvl}})', 'top right');
             }
             if (typeof jmolVib !== 'undefined') {
-                Jmol.script(jmolVib, 'set backgroundColor "#FFFFFF"');
-                displayCalcInfo(jmolVib, '#000000', '{{iupac_name}}', '{{theorylvl}}')
+                jsmolSetBGColor(jmolVib, bg_color);
+                jsmolDisplayText(jmolVib, '{{iupac_name}} ({{theorylvl}})', 'top right');
+                jsmolDisplayText(jmolVib, '{{ vibfreq | first }} cm<sup>-1</sup>', 'bottom right');
             }
             if (typeof jmolOrb !== 'undefined') {
-                Jmol.script(jmolOrb, 'set backgroundColor "#FFFFFF"');
-                displayCalcInfo(jmolOrb, '#000000', '{{iupac_name}}', '{{theorylvl}}')
+                jsmolSetBGColor(jmolOrb, bg_color);
+                {#jsmolDisplayText(jmolOrb, '{{iupac_name}} ({{theorylvl}})', 'top right');#}
+                jsmolDisplayText(jmolOrb, '{{ orbitals | first }} eV', 'bottom right');
             }
             if (typeof jmolSurf !== 'undefined') {
-                Jmol.script(jmolSurf, 'set backgroundColor "#FFFFFF"');
-                displayCalcInfo(jmolSurf, '#000000', '{{iupac_name}}', '{{theorylvl}}')
+                jsmolSetBGColor(jmolSurf, bg_color);
+                {#jsmolDisplayText(jmolSurf, '{{iupac_name}} ({{theorylvl}})', 'top right');#}
+                setSolvationText(jmolSurf);
+
             }
         }
         //console.log("Dark Mode " + $(this).prop('checked'));
     }).trigger('change');
 });
+
+function isDarkMode() {
+    return $('#darkmode').prop('checked');
+}
+
+
 </script>
 
 <section class="mc-navigation sidebar" id="nav">

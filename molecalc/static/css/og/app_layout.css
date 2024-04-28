@@ -661,21 +661,17 @@ a.darkmode {
 }
 .molecalc.calculation .mc-content .calc ul.data li {
     background: #f7f7f7;
-    background: white;
-    border-bottom: 1px solid #fff;
     border-bottom: 1px solid #f4f4f4;;
     display:block;
     padding: 0 20px;
     position: relative;
 }
-.molecalc.calculation .mc-content .calc ul.data li:hover {
-    background: rgb(0, 121, 211);
-    background: #fbfbfb;
-    /* color: #fff; */
-}
+/*.molecalc.calculation .mc-content .calc ul.data li:hover {*/
+/*    background: rgb(0, 121, 211);*/
+/*    background: #fbfbfb;*/
+/*}*/
 .darkmode .molecalc.calculation .mc-content .calc ul.data li {
     background: #222222;
-    border-bottom: 1px solid #333333;
     border-bottom: 1px solid #333333;
     display:block;
     padding: 0 20px;
@@ -704,6 +700,7 @@ a.darkmode {
     position: absolute;
     right: 0;
 }
+/* Hover color of circles (around the arrows) in lists of modes/orbitals */
 .molecalc.calculation .mc-content .calc ul.data li:hover .action a.active,
 .molecalc.calculation .mc-content .calc ul.data li:hover .action a {
     color: rgb(0, 121, 211);
@@ -720,9 +717,9 @@ a.darkmode {
     cursor: pointer;
     outline-style:none;
 }
-/* Color of arrows (inside circles) in lists of modes/orbitals */
+/* Color of circles (around the arrows) in lists of modes/orbitals */
 .molecalc.calculation .mc-content .calc ul.data a {
-    color: rgba(255,255,255, 0.8);
+    color: rgba(175, 175, 175);
     /*color: rgb(140, 29, 64);  !*ASU maroon*!*/
     /*color: rgb(255, 198, 39);  !*ASU gold*!*/
 }

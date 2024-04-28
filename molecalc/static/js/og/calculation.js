@@ -56,7 +56,57 @@ $('.calc-menu ul a').each(function () {
 }); // End
 
 
-function displayCalcInfo(jmolObj, font_color, iupac_name, theorylvl) {
-    Jmol.script(jmolObj, 'color echo "' + font_color + '"; font echo 16 sanserif;set echo top right;');
+
+function jsmolSetBGColor(jmolObj, color) {
+    Jmol.script(jmolObj, 'set backgroundColor "' + color + '"');
+}
+
+function jsmolSetFontColor(jmolObj, color) {
+    Jmol.script(jmolObj, 'color echo "' + color + '";');
+}
+
+function  getModeFontColor() {
+    if (isDarkMode()) {
+        return '#FFFFFF';
+    } else {
+        return '#000000';
+    }
+}
+
+
+function jsmolDispMethodInfo(jmolObj, iupac_name, theorylvl) {
+    let font_color = getModeFontColor();
+    jsmolSetFontColor(jmolObj, font_color);
+    Jmol.script(jmolObj, 'font echo 16 sanserif;');
+    Jmol.script(jmolObj, 'set echo top right;');
     Jmol.script(jmolObj, 'echo "' + iupac_name + ' (' + theorylvl + ')"');
 }
+
+function jsmolDispCalcInfo(jmolObj, text) {
+    let font_color = getModeFontColor();
+    jsmolSetFontColor(jmolObj, font_color);
+    Jmol.script(jmolObj, 'font echo 16 sanserif;');
+    Jmol.script(jmolObj, 'set echo bottom right;');
+    Jmol.script(jmolObj, 'echo "' + text + '";');
+}
+
+function jsmolDisplayText(jmolObj,
+                          text,
+                          loc,
+                          fontsize= 16,
+                          fontstyle = 'sanserif') {
+    let font_color = getModeFontColor();
+    jsmolSetFontColor(jmolObj, font_color);  // Set the font color based on light/dark mode
+    Jmol.script(jmolObj, 'font echo ' + fontsize + ' ' + fontstyle + ';');
+    Jmol.script(jmolObj, 'set echo ' + loc + ';');
+    Jmol.script(jmolObj, 'echo "' + text + '";');
+}
+
+// Specific to the solvation calculation section
+function setSolvationText(jmolObj) {
+    let font_color = getModeFontColor();
+    console.log("The font color is " + font_color)
+    Jmol.script(jmolObj, 'color echo "' + font_color + '"; font echo 13; echo Blue: Positive, Red: Negative;');
+    Jmol.script(jmolObj, 'color echo "' + font_color + '"; font echo 13; echo Mouse over atoms for partial charge;');
+}
+

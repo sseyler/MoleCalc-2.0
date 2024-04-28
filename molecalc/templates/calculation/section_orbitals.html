@@ -20,12 +20,11 @@ var orbInfo1 = {
 
 waitForElement('#jmolOrb_appletdiv', function() {
     jsmolSetMol(jmolOrb, orbMolecule);
-    Jmol.script(jmolOrb, 'color echo black; font echo 16 sanserif;set echo top right;');
-    Jmol.script(jmolOrb, 'echo "{{ iupac_name }} ({{ theorylvl }})"');
 
-    Jmol.script(jmolOrb, 'color echo black; font echo 16 sanserif;set echo bottom right;');
-    Jmol.script(jmolOrb, 'echo "{{ orbitals | first }} eV"');
+    {#jsmolDisplayText(jmolOrb, '{{iupac_name}} ({{theorylvl}})', 'top right');#}
+    jsmolDisplayText(jmolOrb, '{{ orbitals | first }} eV', 'bottom right');
 
+    Jmol.script(jmolOrb, 'font echo 16 sanserif;');
     Jmol.script(jmolOrb, 'mo titleFormat ""');
     Jmol.script(jmolOrb, 'mo 1');
     Jmol.script(jmolOrb, 'frame 1');
@@ -56,7 +55,7 @@ $(function() {
         var orbEnergy = $(this).parent().parent().find('.energy').html();
         Jmol.script(jmolOrb, 'mo '+orbital);
         Jmol.script(jmolOrb, 'frame 1');
-        Jmol.script(jmolOrb, 'echo "' + orbEnergy + '"');
+        jsmolDisplayText(jmolOrb, orbEnergy, 'bottom right');
         $sidebars.removeClass("active");
         return false;
     });
