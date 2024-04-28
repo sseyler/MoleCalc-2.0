@@ -52,7 +52,6 @@ table {
 
 /* default **********************************************************/
 
-
 * {
 	/* box-sizing: border-box; */
 	padding: 0;
@@ -84,6 +83,16 @@ textarea {
 ::selection {
     color:white;
     background:#222;
+    text-shadow:none;
+}
+.darkmode ::-moz-selection {
+    color:black;
+    background:#ddd;
+    text-shadow:none;
+}
+.darkmode ::selection {
+    color:black;
+    background:#ddd;
     text-shadow:none;
 }
 

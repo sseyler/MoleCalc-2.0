@@ -401,6 +401,9 @@
 
         width: 90%;
     }
+    .darkmode .sidebar-cover {
+        background: #333333;
+    }
 
     .sidebar-background {
         background: rgba(0, 0, 0, 0.1);
@@ -410,6 +413,9 @@
         width: 100%;
         height: 100%;
         z-index: -12;
+    }
+    .darkmode .sidebar-background {
+        background: rgba(0, 0, 0, 0.5);
     }
 
 

@@ -29,7 +29,16 @@ def response(*, mimetype: str = None, template_file: str = None):
                     "Invalid return type {}, we expected a dict as the return value.".format(type(response_val)))
 
             if template_file:
-                response_val = flask.render_template(template_file, **response_val)
+                # get dark mode value
+                if 'dark' in flask.session:
+                    dark = flask.session['dark']
+                else:
+                    dark = 'false'
+                    flask.session['dark'] = dark
+                
+                is_dark = 'darkmode' if dark == 'true' else ''
+                
+                response_val = flask.render_template(template_file, is_dark=is_dark, **response_val)
 
             resp = flask.make_response(response_val)
             resp.model = model

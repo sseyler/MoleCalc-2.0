@@ -1,3 +1,48 @@
+<script type="text/javascript">
+var IS_DARK = '{{ is_dark }}' == 'darkmode';
+
+$(function() {
+    $('#darkmode').prop('checked', IS_DARK);
+    console.log("Dark Mode " + $('#darkmode').prop('checked'));
+});
+
+$(function() {
+    $("#darkmode").on('change', function() {
+        let darkmode = $(this).prop('checked');
+
+        // send post request to server
+        $.ajax({
+            url: '/dark',
+            type: 'POST',
+            data: {
+                dark: darkmode
+            },
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+
+        if (darkmode) {
+            if (!$('body').hasClass('darkmode')) {
+                $('body').addClass('darkmode');
+            }
+            $('a').addClass('darkmode');
+            $('img').addClass('darkmode');
+            Jmol.script(myJmol1, 'set backgroundColor "#333333"');
+        } else {
+            $('body').removeClass('darkmode');
+            $('a').removeClass('darkmode');
+            $('img').removeClass('darkmode');
+            Jmol.script(myJmol1, 'set backgroundColor "#FFFFFF"');
+        }
+        //console.log("Dark Mode " + $(this).prop('checked'));
+    }).trigger('change');
+});
+</script>
+
 <section class="mc-navigation sidebar" id="nav">
     <section class="toggle700 section">
         <a class="button icon btnCloseSidebar" href="#nav">
@@ -11,6 +56,19 @@
     <section class="sidebar-wrapper"> <!-- sidebar wrapper -->
         <section class="section">
             <ul>
+                <li>
+                    <div>
+                        Dark Mode
+                        <label class="switch">
+                            {% if is_dark == 'darkmode' %}
+                                <input type="checkbox" id="darkmode" checked>
+                            {% else %}
+                                <input type="checkbox" id="darkmode">
+                            {% endif %}
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </li>
                 <li><a class="" href="/">New Molecule</a></li>
                 <li><a class="" href="/help">Help</a></li>
                 <li><a class="" href="/about">About</a></li>
