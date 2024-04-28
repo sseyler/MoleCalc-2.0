@@ -1,3 +1,4 @@
+import functools
 import pathlib
 
 import numpy as np
@@ -122,7 +123,9 @@ def view_calculation(calculation):
     data["vibfreq"] = misc.load_array(data["vibfreq"])
     islinear = int(data["islinear"]) == int(1)
     offset = 5 if islinear else 6
+    data["vibintens"] = data["vibintens"][offset:]
     data["vibfreq"] = data["vibfreq"][offset:]
+    data["vibintens"] = [fmt.format(x) for x in data["vibintens"]]
     data["vibfreq"] = [fmt.format(x) for x in data["vibfreq"]]
     data["viboffset"] = offset
 
@@ -138,8 +141,13 @@ def view_calculation(calculation):
     # 8    1407.763    A       15.994910    0.000000
     # 9    2386.390    A       12.877391    1.468959
 
-    def molabscoef(nu, nu0=1, A=1, w=1):
-        return (2*A*w/np.pi) / (4*(nu - nu0)**2 + w**2)
+    def molabscoef(nu, nu0=1.0, A=1.0, w=1.0, line_shape='Lorentzian'):
+        if line_shape.lower() == 'lorentzian':
+            return (2*A*w/np.pi) / (4*(nu - nu0)**2 + w**2)
+        elif line_shape.lower() == 'gaussian':
+            return (A/np.sqrt(2*np.pi*w**2))*np.exp(-(nu-nu0)**2/(2*w**2))
+        else:
+            raise ValueError('line_shape must be either "lorentzian" or "gaussian"')
 
     # Generate IR spectrum with Lorentzian broadening as a function of
     # frequency, *nu*, from a (discrete) set of spectral lines as input.
@@ -154,11 +162,12 @@ def view_calculation(calculation):
     #     values of nu are spaced linearly (e.g., using np.linspace).
     #     However, one may use a nonlinear spacing that is densest in the
     #     vicinity of the peaks to reduce the number of plot points.
-    def intensity(nu, lines, areas=1, widths=1):
+    def intensity(nu, lines, areas=1.0, widths=1.0, line_shape='Lorentzian'):
         lines = np.atleast_1d(lines)
         areas = np.atleast_1d(areas)
         widths = np.atleast_1d(widths)
 
+        intens = functools.partial(molabscoef, line_shape=line_shape)
         n_lines = len(lines)
         if n_lines > 1:
             areas = np.repeat(areas, n_lines) if len(areas) == 1 else areas
@@ -167,7 +176,7 @@ def view_calculation(calculation):
                 raise ValueError('Number of area parameters does not match number of spectral lines!')
             if n_lines != len(widths):
                 raise ValueError('Number of width parameters does not match number of spectral lines!')
-        gen = [molabscoef(nu, nu0, A, w) for nu0, A, w in zip(lines, areas, widths)]
+        gen = [intens(nu, nu0, A, w) for nu0, A, w in zip(lines, areas, widths)]
         return np.add.reduce(gen)
 
     # ((6.02200e23 * pi) / (3 * ((2.99800e8 (m / s))^2))) * (1.46900 * ((3.33600e-30 coulomb * m)^2) * (m^(-2)) * (Da^(-1)))
@@ -179,18 +188,21 @@ def view_calculation(calculation):
     # spectrum_min = 0  # min_line - np.log10(min_line)*10*CO2_line_widths
     # spectrum_max = max_line + np.log10(max_line)*10*CO2_line_widths
 
-    ir_line_freqs = data['vibfreq']
-    ir_line_areas = 43.42945 * data['vibintens']
-    ir_line_width = 1  # cm^-1
+    print(data['vibfreq'])
+    print(data['vibintens'])
+    ir_line_freqs = np.asarray(data['vibfreq']).astype(float)
+    ir_line_areas = 43.42945 * np.asarray(data['vibintens']).astype(float)
+    ir_line_width = 10.0  # cm^-1
+    ir_line_shape = 'Gaussian'
     min_line = np.min(ir_line_freqs)
     max_line = np.max(ir_line_freqs)
 
-    n_plot_points = 1000
+    n_plot_points = 5000
     min_freq = 0
-    max_freq = max_line + np.log10(max_line)*10*ir_line_freqs
+    max_freq = max_line + 25*np.log10(max_line)
 
     freq_data = np.linspace(min_freq, max_freq, n_plot_points)
-    intens_data = intensity(freq_data, ir_line_freqs, ir_line_areas, ir_line_width)
+    intens_data = intensity(freq_data, ir_line_freqs, ir_line_areas, ir_line_width, ir_line_shape)
     # intens_data = intensity(freq_data, CO2_spectral_lines, CO2_line_areas, CO2_line_widths)
 
     df = pd.DataFrame({
@@ -199,13 +211,15 @@ def view_calculation(calculation):
     })
     fig = px.line(
         df,
-        x=r'Frequency cm$^{-1}$',
+        x='Frequency',
         y='Intensity',
         title='IR Spectrum',
         template='simple_white'
     )
     fig.update_layout(
         margin=dict(l=20, r=20, t=25, b=20),
+        yaxis_title=None,
+        xaxis_title=None
     )
 
     data['irPlotJSON'] = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)

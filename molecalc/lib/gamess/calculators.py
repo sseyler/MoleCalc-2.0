@@ -14,7 +14,7 @@ def optimize_coordinates(molobj, gamess_options):
     calculation_options = {
         'basis': {'gbasis': theory_level},
         'contrl': {'runtyp': 'optimize'},
-        'statpt': {"opttol": 0.00025, 'nstep': 500, 'projct': False},
+        'statpt': {"opttol": 0.00025, 'nstep': 999, 'projct': False},
     }
 
     gamess_options.get('filename', None)
@@ -45,7 +45,7 @@ def calculate_vibrations(molobj, gamess_options):
     else:
         calculation_options = {
             'basis': {'gbasis': theory_level},
-            'contrl': {'runtyp': 'hessian', 'maxit': 60},
+            'contrl': {'runtyp': 'hessian', 'maxit': 200},
             'force': {'method': 'seminum'},
         }
 
@@ -66,7 +66,7 @@ def calculate_orbitals(molobj, gamess_options):
             'coord': 'cart',
             'units': 'angs',
             'scftyp': 'rhf',
-            'maxit': 60,
+            'maxit': 200,
         },
         'basis': {'gbasis': 'sto', 'ngauss': 3},
     }
