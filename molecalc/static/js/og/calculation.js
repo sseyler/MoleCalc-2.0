@@ -45,7 +45,6 @@ $('.calc-menu ul a').each(function () {
 });
 
 
-
 // Jsmol
 // var $jsmolMinimizeBtn = $('.action.minimize .button');
 // $jsmolMinimizeBtn.on('click', function() {
@@ -54,5 +53,10 @@ $('.calc-menu ul a').each(function () {
 // });
 
 
-
 }); // End
+
+
+function displayCalcInfo(jmolObj, font_color, iupac_name, theorylvl) {
+    Jmol.script(jmolObj, 'color echo "' + font_color + '"; font echo 16 sanserif;set echo top right;');
+    Jmol.script(jmolObj, 'echo "' + iupac_name + ' (' + theorylvl + ')"');
+}

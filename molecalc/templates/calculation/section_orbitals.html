@@ -26,13 +26,12 @@ waitForElement('#jmolOrb_appletdiv', function() {
     Jmol.script(jmolOrb, 'color echo black; font echo 16 sanserif;set echo bottom right;');
     Jmol.script(jmolOrb, 'echo "{{ orbitals | first }} eV"');
 
-    Jmol.script(jmolOrb, 'mo TITLEFORMAT ""');
+    Jmol.script(jmolOrb, 'mo titleFormat ""');
     Jmol.script(jmolOrb, 'mo 1');
     Jmol.script(jmolOrb, 'frame 1');
     Jmol.script(jmolOrb, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
 	Jmol.script(jmolOrb, 'centerAt average 0.0 0.0 0.0');
 });
-
 
 $(function() {
     $sidebars = $(".sidebar");
@@ -150,7 +149,6 @@ $(function() {
     <div class="jsmol" style="width: 100%;height: 100%;">
         <script type="text/javascript">
             jmolOrb = Jmol.getApplet("jmolOrb", orbInfo1);
-            Jmol.script(jmolOrb, 'background "#ffffff"');
             Jmol.script(jmolOrb, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
         </script>
     </div>

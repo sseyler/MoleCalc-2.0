@@ -19,8 +19,9 @@
 
     waitForElement('#jmolVib_appletdiv', function () {
         jsmolSetMol(jmolVib, vibMolecule);
-        Jmol.script(jmolVib, 'color echo black; font echo 16 sanserif; set echo top right;');
-        Jmol.script(jmolVib, 'echo "{{ iupac_name }} ({{ theorylvl }})"');
+        {#Jmol.script(jmolVib, 'color echo black; font echo 16 sanserif; set echo top right;');#}
+        {#Jmol.script(jmolVib, 'echo "{{ iupac_name }} ({{ theorylvl }})"');#}
+        displayCalcInfo(jmolVib, '#000000', '{{iupac_name}}', '{{theorylvl}}')
 
         Jmol.script(jmolVib, 'color echo black; font echo 16 sanserif; set echo bottom right;');
         Jmol.script(jmolVib, 'echo "{{ vibfreq | first }} cm<sup>-1</sup>"');
@@ -210,7 +211,6 @@
     <div class="jsmol" style="width: 100%;height: 100%;">
         <script type="text/javascript">
             jmolVib = Jmol.getApplet("jmolVib", vibInfo1);
-            Jmol.script(jmolVib, 'background "#ffffff"');
             Jmol.script(jmolVib, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
         </script>
     </div>

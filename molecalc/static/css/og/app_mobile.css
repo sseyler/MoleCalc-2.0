@@ -109,6 +109,8 @@
         position: absolute;
         bottom: 0;
     }
+
+
 }
 
 
@@ -272,6 +274,10 @@
         display: block;
         -webkit-transform: translate(0px, 0px); /* iphone hack */
         width: 90%;
+    }
+    .sidebar-wrapper .darkmode {
+        color: #ffffff;
+        background: none;
     }
 
     .mc-navigation.sidebar {

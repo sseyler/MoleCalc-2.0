@@ -463,6 +463,15 @@ a.darkmode {
     margin-right: 20px;
     border-bottom: 2px solid #bbb;
 }
+.darkmode .molecalc.calculation .mc-content .calc-menu ul li a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    line-height: 58px;  /* this value lines up highlight w/ horizontal border */
+    margin-right: 20px;
+    border-bottom: 2px solid #bbb;
+}
 .molecalc.calculation .mc-content .calc-menu ul li a.active,
 .molecalc.calculation .mc-content .calc-menu ul li a:hover {
     border-color: #000;
@@ -500,6 +509,23 @@ a.darkmode {
 .molecalc.calculation .mc-content .calc {
     grid-area: calc;
     background: white;
+    min-height: 100px;
+    padding: 15px;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+ 	grid-template-rows: 40px 10px 1fr 50px;
+    grid-template-areas:
+        "title title"
+        "pad pad"
+        "options view"
+        "data .";
+
+    DISPLAY: NONE; /* Without this, JSmol viewer takes over... */
+}
+.darkmode .molecalc.calculation .mc-content .calc {
+    grid-area: calc;
+    background: #222;
     min-height: 100px;
     padding: 15px;
 
@@ -576,6 +602,15 @@ a.darkmode {
     /* border-style: solid; */
     /* border-color: #bbb; */
 }
+.darkmode .molecalc.calculation .mc-content .calc table td {
+    background: #222;
+    padding: 10px 0px;
+    line-height: 10px;
+    vertical-align: top;
+    /* border-width: 0 1px 1px 0; */
+    /* border-style: solid; */
+    /* border-color: #bbb; */
+}
 
 
 
@@ -597,6 +632,21 @@ a.darkmode {
 
 }
 .molecalc.calculation .mc-content .calc ul.data {
+    background: #FFFFFF;
+
+    width: 100%;
+    line-height: 50px;
+
+    /* min-height: 500px; */
+    max-height: 500px;
+    overflow-y: scroll;
+    direction: rtl;
+
+    border-top: 1px solid #fff;
+    border-top: 1px solid #f4f4f4;
+}
+.darkmode .molecalc.calculation .mc-content .calc ul.data {
+    background: #222222;
 
     width: 100%;
     line-height: 50px;
@@ -622,6 +672,14 @@ a.darkmode {
     background: rgb(0, 121, 211);
     background: #fbfbfb;
     /* color: #fff; */
+}
+.darkmode .molecalc.calculation .mc-content .calc ul.data li {
+    background: #222222;
+    border-bottom: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    display:block;
+    padding: 0 20px;
+    position: relative;
 }
 .molecalc.calculation .mc-content .calc ul.data li .txt {
     font-weight: bold;
