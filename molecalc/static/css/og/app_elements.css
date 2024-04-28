@@ -468,6 +468,9 @@ input[type=text].accept {
     /* background: rgba(150,150,150,0.2); */
 
 }
+.darkmode .prompt-container {
+    background: rgba(0,0,0,0.5);
+}
 
 .prompt-box {
     grid-area:prompt;
@@ -518,4 +521,10 @@ input[type=text].accept {
 	width: 100%;
 	display: block;
     margin: 0 0 0 -5px;
+}
+
+/* prompt darkmode */
+.darkmode .prompt-box {
+    background: #333;
+    color: #fff;
 }

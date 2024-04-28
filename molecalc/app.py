@@ -2,6 +2,7 @@ import os
 import sys
 
 import flask
+import uuid
 
 folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, folder)
@@ -12,7 +13,7 @@ from molecalc.infrastructure.settings import SETTINGS
 # from molecalc.data.extensions import db
 
 app = flask.Flask(__name__)
-
+app.secret_key = uuid.uuid4().hex
 
 def main():
     configure()

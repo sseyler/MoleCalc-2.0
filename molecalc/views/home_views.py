@@ -23,3 +23,12 @@ def about():
 @response(template_file="home/help_page.html")
 def help_page():
     return {}
+
+
+@bp.route('/dark', methods=['POST'])
+def dark():
+    dark = flask.request.form['dark']
+    flask.session['dark'] = dark
+    
+    # return 
+    return flask.make_response(flask.jsonify({'dark': dark}, 200))

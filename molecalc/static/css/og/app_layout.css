@@ -1,3 +1,11 @@
+.darkmode {
+    background: #222;
+    color: #fff;
+}
+a.darkmode {
+    background: none;
+}
+
 .molecalc {
 	width: 100vw;
 	height: 100vh;
@@ -104,6 +112,12 @@
     color: #333;
 }
 
+.darkmode .mc-header h1 a {
+    text-decoration: none;
+    color: #fff;
+    background: none;
+}
+
 .mc-navigation {
 	grid-area: navigation;
 	display:block;
@@ -130,6 +144,14 @@
 .mc-navigation li a:hover {
     color: rgb(0, 121, 211);
 }
+.darkmode .mc-navigation li a {
+    text-decoration: none;
+    color: #fff;
+    background: none;
+}
+.darkmode .mc-navigation li a:hover {
+    color: rgb(0, 121, 211);
+}
 
 .mc-footer {
     grid-area: footer;
@@ -145,6 +167,22 @@
 .mc-footer p {
 	margin: 10px 10px 10px 10px;
 }
+#l-asulogo {
+    display: block;
+    width: 200px;
+    background: none;
+}
+#l-asulogo.darkmode {
+    display: none;
+}
+#d-asulogo {
+    display: none;
+}
+#d-asulogo.darkmode {
+    display: block;
+    width: 200px;
+    background: none;
+}
 
 /* Tuned to approximately match spacing of horiz. border on top of calc. grid */
 #mc-footer-container {
@@ -159,7 +197,6 @@
 }
 #asulogo {
     float: right;
-    margin-top: 10px;
 }
 
 
@@ -212,6 +249,10 @@
     border-radius: 4px;
     border-width: 2px;
     text-align: center;
+}
+.darkmode .mc-editor-searchbar input {
+    background: #222;
+    color: #fff;
 }
 
 .mc-editor-searchbar input[type=text].loading {
@@ -301,7 +342,6 @@
 	display: inline-block;
 	padding: 0 5px 5px 0;
 }
-
 
 /* chemdoodle */
 
