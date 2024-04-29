@@ -591,7 +591,7 @@ a.darkmode {
 .molecalc.calculation .mc-content .calc table {
     border-collapse: separate;
     border-spacing: 2px;
-    margin: 0 0 20px 0;
+    margin: 0 0 20px 0px;
 }
 .molecalc.calculation .mc-content .calc table td {
     background: #f7f7f7;
@@ -627,9 +627,6 @@ a.darkmode {
 }
 
 .molecalc.calculation .mc-content .calc .options .choices {
-
-
-
 }
 .molecalc.calculation .mc-content .calc ul.data {
     background: #FFFFFF;
@@ -642,8 +639,10 @@ a.darkmode {
     overflow-y: scroll;
     direction: rtl;
 
-    border-top: 1px solid #fff;
-    border-top: 1px solid #f4f4f4;
+    border-top: 3px solid #EFEFEF;
+    border-bottom: 3px solid #EFEFEF;
+    /*border-left: 3px solid #EFEFEF;*/
+    /*border-right: 3px solid #EFEFEF;*/
 }
 .darkmode .molecalc.calculation .mc-content .calc ul.data {
     background: #222222;
@@ -656,8 +655,11 @@ a.darkmode {
     overflow-y: scroll;
     direction: rtl;
 
-    border-top: 1px solid #fff;
-    border-top: 1px solid #f4f4f4;
+    /*border-top: 1px solid #fff;*/
+    border-top: 3px solid #333333;
+    border-bottom: 3px solid #333333;
+    /*border-left: 3px solid #333333;*/
+    /*border-right: 3px solid #333333;*/
 }
 .molecalc.calculation .mc-content .calc ul.data li {
     background: #f7f7f7;
@@ -719,7 +721,7 @@ a.darkmode {
 }
 /* Color of circles (around the arrows) in lists of modes/orbitals */
 .molecalc.calculation .mc-content .calc ul.data a {
-    color: rgba(175, 175, 175);
+    color: #9d9d9d;
     /*color: rgb(140, 29, 64);  !*ASU maroon*!*/
     /*color: rgb(255, 198, 39);  !*ASU gold*!*/
 }

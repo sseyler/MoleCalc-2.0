@@ -187,23 +187,20 @@ def view_calculation(calculation):
     # max_line = np.max(CO2_spectral_lines)
     # spectrum_min = 0  # min_line - np.log10(min_line)*10*CO2_line_widths
     # spectrum_max = max_line + np.log10(max_line)*10*CO2_line_widths
+    # freq_data = np.linspace(min_freq, max_freq, n_plot_points)
+    # intens_data = intensity(freq_data, CO2_spectral_lines, CO2_line_areas, CO2_line_widths)
 
-    print(data['vibfreq'])
-    print(data['vibintens'])
     ir_line_freqs = np.asarray(data['vibfreq']).astype(float)
     ir_line_areas = 43.42945 * np.asarray(data['vibintens']).astype(float)
     ir_line_width = 10.0  # cm^-1
     ir_line_shape = 'Gaussian'
-    min_line = np.min(ir_line_freqs)
     max_line = np.max(ir_line_freqs)
 
     n_plot_points = 5000
     min_freq = 0
     max_freq = max_line + 25*np.log10(max_line)
-
     freq_data = np.linspace(min_freq, max_freq, n_plot_points)
     intens_data = intensity(freq_data, ir_line_freqs, ir_line_areas, ir_line_width, ir_line_shape)
-    # intens_data = intensity(freq_data, CO2_spectral_lines, CO2_line_areas, CO2_line_widths)
 
     df = pd.DataFrame({
         'Frequency': freq_data,
@@ -213,20 +210,41 @@ def view_calculation(calculation):
         df,
         x='Frequency',
         y='Intensity',
-        title='IR Spectrum',
-        template='simple_white'
     )
     fig.update_layout(
         margin=dict(l=20, r=20, t=25, b=20),
         yaxis_title=None,
-        xaxis_title=None
+        xaxis_title=None,
+        xaxis={'showgrid': False, 'mirror': True, 'showline': True, 'linewidth': 1.0},
+        yaxis={'showgrid': False, 'mirror': True, 'showline': True, 'linewidth': 1.0},
     )
 
-    data['irPlotJSON'] = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    # Dump light-mode plot to JSON after modifying plotly_white template
+    fig.update_layout(
+        template='plotly_white',
+        paper_bgcolor='#FFFFFF',
+        plot_bgcolor='#FFFFFF'
+    )
+    fig.update_xaxes(linecolor='#222222', zeroline=True, zerolinecolor='#222222')
+    fig.update_yaxes(linecolor='#222222', zeroline=False)
+    data['irPlotJSON_light'] = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+
+    # Dump dark-mode plot to JSON after modifying plotly_dark template
+    fig.update_layout(
+        template='plotly_dark',
+        paper_bgcolor='#222222',
+        plot_bgcolor='#222222'
+    )  # match dark mode bg
+    fig.update_xaxes(linecolor='#444444', zeroline=True, zerolinecolor='#444444')
+    fig.update_yaxes(linecolor='#444444', zeroline=False)
+    data['irPlotJSON_dark'] = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+
     data['irPlotTitle'] = 'IR Spectrum'
-    data['irPlotDesc'] = f"""
-    Predicted infrared spectrum of {data['iupac_name']} using {data['theorylvl']}.
-    """
+    data['irPlotDesc'] = [f"""
+        Predicted IR spectrum (molar absorption coefficient) for
+        {data['iupac_name']} using {data['theorylvl']} assuming a {ir_line_shape}
+        line width of
+        """, f'{ir_line_width} cm']
 
     # ---------------------------------
     # Molecular orbitals format

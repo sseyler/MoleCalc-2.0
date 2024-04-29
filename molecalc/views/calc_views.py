@@ -27,7 +27,7 @@ bp = flask.Blueprint('calc', __name__, template_folder='../templates')
 
 
 @bp.route('/calculations_download/<string:hashkey>/<string:calc>/<string:iofile>',
-          methods=['GET'])
+          methods=['GET', 'POST'])
 # @response(template_file='calculation/calculation.html')
 def download_gamess_io(hashkey: str, calc: str, iofile: str):
     match calc:

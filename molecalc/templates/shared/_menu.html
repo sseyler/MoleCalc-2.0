@@ -28,7 +28,6 @@ $(function() {
         if (darkmode) {
             IS_DARK = true;
             let bg_color = '#222222';
-            let font_color = '#FFFFFF';
             if (!$('body').hasClass('darkmode')) {
                 $('body').addClass('darkmode');
             }
@@ -63,7 +62,6 @@ $(function() {
         } else {
             IS_DARK = false;
             let bg_color = '#FFFFFF';
-            let font_color = '#000000';
             $('body').removeClass('darkmode');
             $('a').removeClass('darkmode');
             $('img').removeClass('darkmode');
@@ -94,7 +92,12 @@ $(function() {
                 setSolvationText(jmolSurf);
             }
         }
-        //console.log("Dark Mode " + $(this).prop('checked'));
+
+        // Plot IR Spectrum
+        drawPlot('irspectrum', IS_DARK);
+        // Plot another thing
+        // drawPlot('alongthing');
+
     }).trigger('change');
 });
 

@@ -198,8 +198,12 @@
             {% endfor %}
         </ul>
 
-        <div id="irspectrum" style="width:400px;height:350px;"></div>
-        <div>{{irPlotDesc}}</div>
+        {# IR spectrum; Plotly JS after <body> in calculation.html #}
+        {#<input type="text" id="fname" name="fname" onchange="callback(this.value)">#}
+        <div id='irspectrum' style="width:375px;height:350px;margin:10px;"></div>
+        <div style="margin: -10px 10px 10px;">
+            {{irPlotDesc[0]}} {{irPlotDesc[1]}}<sup>-1</sup>.
+        </div>
 
     </section> <!-- sidebar wrapper -->
 </section>

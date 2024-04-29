@@ -11,6 +11,12 @@
 
   <script type="text/javascript" src="{{ url_for('static', filename='js/og/calculation.js') }}"></script>
 
+  <script src="https://cdn.plot.ly/plotly-2.31.1.min.js" charset="utf-8"></script>
+  <script>
+    const graph_dark = {{irPlotJSON_dark | safe}};
+    const graph_light = {{irPlotJSON_light | safe}};
+  </script>
+
 </head>
 <body class="{{is_dark}}">
 
@@ -84,11 +90,16 @@
 
 </body>
 
-    <script src="https://cdn.plot.ly/plotly-2.31.1.min.js" charset="utf-8"></script>
+    {# Note that the plotly stuff has to be placed here after <body> and NOT in <head> #}
     <script type="text/javascript">
-        IRSpectrum = document.getElementById('irspectrum');
-        graph = {{irPlotJSON | safe}};
-        Plotly.newPlot(IRSpectrum, graph, {scroll});
+        function drawPlot(divID, isDark) {
+            id = document.getElementById(divID);
+            if (isDark) {
+                Plotly.newPlot(id, graph_dark, {});
+            } else {
+                Plotly.newPlot(id, graph_light, {});
+            }
+        }
     </script>
 
 </html>
