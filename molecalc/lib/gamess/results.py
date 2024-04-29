@@ -240,11 +240,10 @@ def view_calculation(calculation):
     data['irPlotJSON_dark'] = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
     data['irPlotTitle'] = 'IR Spectrum'
-    data['irPlotDesc'] = [f"""
-        Predicted IR spectrum (molar absorption coefficient) for
-        {data['iupac_name']} using {data['theorylvl']} assuming a {ir_line_shape}
-        line width of
-        """, f'{ir_line_width} cm']
+    data['irPlotDesc'] = [f"""Predicted molar absorption coefficient for """ +
+                          f"""{data['iupac_name']} using {data['theorylvl']} """ +
+                          f"""assuming a {ir_line_shape} line width of """,
+                          f'{ir_line_width} cm']
 
     # ---------------------------------
     # Molecular orbitals format

@@ -75,7 +75,8 @@
     .molecalc.calculation .mc-content .calc .options .data {
         width: inherit;
         height: inherit;
-        overflow: visible;
+        overflow-x: visible;
+        overflow-y: scroll;
         margin: 20px 0;
     }
     .molecalc.calculation .mc-content .calc .options .data li {
@@ -95,6 +96,19 @@
         /* color: rgb(0, 121, 211); */
         color: rgb(102, 187, 251);
     }
+
+    .molecalc.calculation .mc-content .calc .options .data .plot {
+        width: inherit;
+    }
+
+    /* IR spectrum plot stuff */
+    .molecalc.calculation .mc-content .calc .options .data .plot #irspectrum {
+        width: inherit;
+    }
+    .molecalc.calculation .mc-content .calc .options .data .plot #irspectrum_caption {
+        width: inherit;
+    }
+
 
     .molecalc.calculation .mc-content .calc .tbls_container {
         grid-area: content;

@@ -575,6 +575,8 @@ a.darkmode {
     grid-gap: 1ex;
     grid-auto-flow: dense;
     grid-auto-flow: row;
+    overflow-y: scroll;
+    max-height: 750px
     /*display: NONE;*/
 }
 .molecalc.calculation .mc-content .calc .tbl_container {
@@ -612,8 +614,6 @@ a.darkmode {
     /* border-color: #bbb; */
 }
 
-
-
 .molecalc.calculation .mc-content .calc .options {
     grid-area: options;
     /* grid-area: options; */
@@ -635,7 +635,7 @@ a.darkmode {
     line-height: 50px;
 
     /* min-height: 500px; */
-    max-height: 500px;
+    max-height: 400px;
     overflow-y: scroll;
     direction: rtl;
 
@@ -651,7 +651,7 @@ a.darkmode {
     line-height: 50px;
 
     /* min-height: 500px; */
-    max-height: 500px;
+    max-height: 400px;
     overflow-y: scroll;
     direction: rtl;
 
@@ -726,6 +726,25 @@ a.darkmode {
     /*color: rgb(255, 198, 39);  !*ASU gold*!*/
 }
 
+/* Controlling the div for (plotly) plots */
+.molecalc.calculation .mc-content .calc .plot {
+    margin: 0px 5px 5px;
+    padding: 0px 0px;
+    vertical-align: bottom;
+    resize: both;
+    overflow: scroll;
+    flex-direction: column;
+    align-items: center;
+    line-height: normal;
+    text-justify: auto;
+}
+.molecalc.calculation .mc-content .calc .plot #irspectrum {
+    max-width: 325px;
+    max-height: 275px;
+}
+.molecalc.calculation .mc-content .calc .plot #irspectrum_caption {
+    max-width: 325px;
+}
 
 
 /* page */
