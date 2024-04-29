@@ -1,6 +1,7 @@
 <script type="text/javascript">
     var sdf = `{{sdf}}`;
     var vibMolecule = `{{vibjsmol}}`;
+    var wavenumber;  // Make this accessible from darkmode functino in _menu.html
 </script>
 
 <script type="text/javascript">// TODO move j2sPath to a BasePath-based url
@@ -74,7 +75,7 @@
         // Show Vibration
         $('.vibration_levels a').on('click', function () {
             let rel = $(this).attr('rel');
-            let wavenumber = $(this).parent().parent().find('.wavenumber').html();
+            wavenumber = $(this).parent().parent().find('.wavenumber').html();
             Jmol.script(jmolVib, 'frame '+rel);
             jsmolDisplayText(jmolVib, wavenumber, 'bottom right');
             $sidebars.removeClass("active");

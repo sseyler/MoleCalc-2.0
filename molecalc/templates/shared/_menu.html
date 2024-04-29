@@ -46,18 +46,19 @@ $(function() {
             if (typeof jmolVib !== 'undefined') {
                 jsmolSetBGColor(jmolVib, bg_color);
                 jsmolDisplayText(jmolVib, '{{iupac_name}} ({{theorylvl}})', 'top right');
-                jsmolDisplayText(jmolVib, '{{ vibfreq | first }} cm<sup>-1</sup>', 'bottom right');
+                if (typeof wavenumber !== 'undefined') {
+                    jsmolDisplayText(jmolVib, wavenumber, 'bottom right');
+                }
             }
             if (typeof jmolOrb !== 'undefined') {
                 jsmolSetBGColor(jmolOrb, bg_color);
-                {#jsmolDisplayText(jmolOrb, '{{iupac_name}} ({{theorylvl}})', 'top right');#}
-                jsmolDisplayText(jmolOrb, '{{ orbitals | first }} eV', 'bottom right');
+                if (typeof orbEnergy !== 'undefined') {
+                    jsmolDisplayText(jmolOrb, orbEnergy, 'bottom right');
+                }
             }
             if (typeof jmolSurf !== 'undefined') {
                 jsmolSetBGColor(jmolSurf, bg_color);
-                {#jsmolDisplayText(jmolSurf, '{{iupac_name}} ({{theorylvl}})', 'top right');#}
                 setSolvationText(jmolSurf);
-
             }
         } else {
             IS_DARK = false;
@@ -78,18 +79,19 @@ $(function() {
             if (typeof jmolVib !== 'undefined') {
                 jsmolSetBGColor(jmolVib, bg_color);
                 jsmolDisplayText(jmolVib, '{{iupac_name}} ({{theorylvl}})', 'top right');
-                jsmolDisplayText(jmolVib, '{{ vibfreq | first }} cm<sup>-1</sup>', 'bottom right');
+                if (typeof wavenumber !== 'undefined') {
+                    jsmolDisplayText(jmolVib, wavenumber, 'bottom right');
+                }
             }
             if (typeof jmolOrb !== 'undefined') {
                 jsmolSetBGColor(jmolOrb, bg_color);
-                {#jsmolDisplayText(jmolOrb, '{{iupac_name}} ({{theorylvl}})', 'top right');#}
-                jsmolDisplayText(jmolOrb, '{{ orbitals | first }} eV', 'bottom right');
+                if (typeof orbEnergy !== 'undefined') {
+                    jsmolDisplayText(jmolOrb, orbEnergy, 'bottom right');
+                }
             }
             if (typeof jmolSurf !== 'undefined') {
                 jsmolSetBGColor(jmolSurf, bg_color);
-                {#jsmolDisplayText(jmolSurf, '{{iupac_name}} ({{theorylvl}})', 'top right');#}
                 setSolvationText(jmolSurf);
-
             }
         }
         //console.log("Dark Mode " + $(this).prop('checked'));

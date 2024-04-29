@@ -56,7 +56,6 @@ $('.calc-menu ul a').each(function () {
 }); // End
 
 
-
 function jsmolSetBGColor(jmolObj, color) {
     Jmol.script(jmolObj, 'set backgroundColor "' + color + '"');
 }
@@ -71,23 +70,6 @@ function  getModeFontColor() {
     } else {
         return '#000000';
     }
-}
-
-
-function jsmolDispMethodInfo(jmolObj, iupac_name, theorylvl) {
-    let font_color = getModeFontColor();
-    jsmolSetFontColor(jmolObj, font_color);
-    Jmol.script(jmolObj, 'font echo 16 sanserif;');
-    Jmol.script(jmolObj, 'set echo top right;');
-    Jmol.script(jmolObj, 'echo "' + iupac_name + ' (' + theorylvl + ')"');
-}
-
-function jsmolDispCalcInfo(jmolObj, text) {
-    let font_color = getModeFontColor();
-    jsmolSetFontColor(jmolObj, font_color);
-    Jmol.script(jmolObj, 'font echo 16 sanserif;');
-    Jmol.script(jmolObj, 'set echo bottom right;');
-    Jmol.script(jmolObj, 'echo "' + text + '";');
 }
 
 function jsmolDisplayText(jmolObj,
