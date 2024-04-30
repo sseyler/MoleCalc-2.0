@@ -75,8 +75,7 @@
     .molecalc.calculation .mc-content .calc .options .data {
         width: inherit;
         height: inherit;
-        overflow-x: visible;
-        overflow-y: scroll;
+        overflow: scroll;
         margin: 20px 0;
     }
     .molecalc.calculation .mc-content .calc .options .data li {
@@ -97,19 +96,6 @@
         color: rgb(102, 187, 251);
     }
 
-    .molecalc.calculation .mc-content .calc .options .data .plot {
-        width: inherit;
-    }
-
-    /* IR spectrum plot stuff */
-    .molecalc.calculation .mc-content .calc .options .data .plot #irspectrum {
-        width: inherit;
-    }
-    .molecalc.calculation .mc-content .calc .options .data .plot #irspectrum_caption {
-        width: inherit;
-    }
-
-
     .molecalc.calculation .mc-content .calc .tbls_container {
         grid-area: content;
         display: grid;
@@ -123,8 +109,6 @@
         position: absolute;
         bottom: 0;
     }
-
-
 }
 
 
@@ -260,7 +244,7 @@
         /* left: -300px; */
 
 
-        overflow-y: auto;
+        overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
 
         z-index:10;
@@ -288,10 +272,6 @@
         display: block;
         -webkit-transform: translate(0px, 0px); /* iphone hack */
         width: 90%;
-    }
-    .sidebar-wrapper .darkmode {
-        color: #ffffff;
-        background: none;
     }
 
     .mc-navigation.sidebar {

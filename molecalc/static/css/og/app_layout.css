@@ -524,21 +524,7 @@ a.darkmode {
     DISPLAY: NONE; /* Without this, JSmol viewer takes over... */
 }
 .darkmode .molecalc.calculation .mc-content .calc {
-    grid-area: calc;
     background: #222;
-    min-height: 100px;
-    padding: 15px;
-
-    display: grid;
-    grid-template-columns: 1fr 2fr;
- 	grid-template-rows: 40px 10px 1fr 50px;
-    grid-template-areas:
-        "title title"
-        "pad pad"
-        "options view"
-        "data .";
-
-    DISPLAY: NONE; /* Without this, JSmol viewer takes over... */
 }
 .molecalc.calculation .mc-content .calc.active {display: grid;}
 
@@ -605,13 +591,7 @@ a.darkmode {
     /* border-color: #bbb; */
 }
 .darkmode .molecalc.calculation .mc-content .calc table td {
-    background: #222;
-    padding: 10px 0px;
-    line-height: 10px;
-    vertical-align: top;
-    /* border-width: 0 1px 1px 0; */
-    /* border-style: solid; */
-    /* border-color: #bbb; */
+    background: #333;
 }
 
 .molecalc.calculation .mc-content .calc .options {
@@ -647,14 +627,6 @@ a.darkmode {
 .darkmode .molecalc.calculation .mc-content .calc ul.data {
     background: #222222;
 
-    width: 100%;
-    line-height: 50px;
-
-    /* min-height: 500px; */
-    max-height: 400px;
-    overflow-y: scroll;
-    direction: rtl;
-
     /*border-top: 1px solid #fff;*/
     border-top: 3px solid #333333;
     border-bottom: 3px solid #333333;
@@ -663,7 +635,7 @@ a.darkmode {
 }
 .molecalc.calculation .mc-content .calc ul.data li {
     background: #f7f7f7;
-    border-bottom: 1px solid #f4f4f4;;
+    border-bottom: 1px solid #f4f4f4;
     display:block;
     padding: 0 20px;
     position: relative;
@@ -675,9 +647,6 @@ a.darkmode {
 .darkmode .molecalc.calculation .mc-content .calc ul.data li {
     background: #222222;
     border-bottom: 1px solid #333333;
-    display:block;
-    padding: 0 20px;
-    position: relative;
 }
 .molecalc.calculation .mc-content .calc ul.data li .txt {
     font-weight: bold;
@@ -728,6 +697,7 @@ a.darkmode {
 
 /* Controlling the div for (plotly) plots */
 .molecalc.calculation .mc-content .calc .plot {
+    background: #FFFFFF;
     margin: 0px 5px 5px;
     padding: 0px 0px;
     vertical-align: bottom;
@@ -738,6 +708,19 @@ a.darkmode {
     line-height: normal;
     text-justify: auto;
 }
+.darkmode .molecalc.calculation .mc-content .calc .plot {
+    background: #222222;
+    margin: 0px 5px 5px;
+    padding: 0px 0px;
+    vertical-align: bottom;
+    resize: both;
+    overflow: scroll;
+    flex-direction: column;
+    align-items: center;
+    line-height: normal;
+    text-justify: auto;
+}
+
 .molecalc.calculation .mc-content .calc .plot #irspectrum {
     max-width: 325px;
     max-height: 275px;
