@@ -188,10 +188,8 @@ def calculation_pipeline(molinfo, calc_settings):
 
     # Solvation and Polarity
     if properties_sol is None or 'error' in properties_sol:
-
         # Is okay solvation didn't converge, just warn.
         _logger.warning(f'{hashkey} SolvationError')
-
     else:
         # 'charges', 'solvation_total', 'solvation_polar',
         # 'solvation_nonpolar', 'surface', 'total_charge', 'dipole',

@@ -38,7 +38,7 @@ def calculate_vibrations(molobj, gamess_options):
                 'coord': 'cart',
                 'units': 'angs',
                 'scftyp': 'rhf',
-                'maxit': 60,
+                'maxit': 200,
             },
             'basis': {'gbasis': 'sto', 'ngauss': 3},
         }
@@ -85,17 +85,19 @@ def calculate_orbitals(molobj, gamess_options):
 
 
 def calculate_solvation(molobj, gamess_options):
+    theory_level = gamess_options.pop('theory_level', 'pm3')
 
-    calculation_options = dict()
-    calculation_options['basis'] = {'gbasis': 'PM3'}
-    calculation_options['system'] = {'mwords': 125}
-    calculation_options['pcm'] = {
-        'solvnt': 'water',
-        'mxts': 15000,
-        'icav': 1,
-        'idisp': 1,
+    calculation_options = {
+        'basis': {'gbasis': theory_level},
+        'system': {'mwords': 125},
+        'pcm': {
+            'solvnt': 'water',
+            'mxts': 15000,
+            'icav': 1,
+            'idisp': 1,
+        },
+        'tescav': {'mthall': 4, 'ntsall': 240}
     }
-    calculation_options['tescav'] = {'mthall': 4, 'ntsall': 60}
 
     calc_obj = ppqm.gamess.GamessCalculator(**gamess_options)
     try:
