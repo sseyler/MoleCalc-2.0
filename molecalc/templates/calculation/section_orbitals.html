@@ -32,6 +32,7 @@ waitForElement('#jmolOrb_appletdiv', function() {
     Jmol.script(jmolOrb, 'frame 1');
     Jmol.script(jmolOrb, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
 	Jmol.script(jmolOrb, 'centerAt average 0.0 0.0 0.0');
+    jsmolDisplayText(jmolOrb, '{{ orbitals | first }} eV', 'bottom right');
 });
 
 $(function() {

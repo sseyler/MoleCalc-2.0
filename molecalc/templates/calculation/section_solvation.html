@@ -195,19 +195,24 @@ $(function()
         </tr>
   </table>
 
-  <p style="margin-bottom:10px;text-align:center;">Aqueous Solvation Energy at 298.15 K</p>
+  {#<p style="margin-bottom:10px;text-align:center; font-weight: bold">Aqueous Solvation Energy at 298.15 K</p>#}
 
   <table>
-        <tr><td class="center" style="width:50%">Property</td><td style="width:25%" class="center">Value</td><td style="width:25%" class="center">Unit</td><tr>
-        <tr><td>Total Solvation Energy</td><td class="right">{{soltotal}}</td><td class="right">kJ mol<sup>-1</sup></td><tr>
-        <tr><td>Polar Solvation Energy</td><td class="right">{{solpolar}}</td><td class="right">kJ mol<sup>-1</sup></td><tr>
-        <tr><td>Nonpolar Solvation Energy</td><td class="right">{{solnonpolar}}</td><td class="right">kJ mol<sup>-1</sup></td><tr>
+        <tr><td class="center" colspan="3" style="text-align:center; font-weight:bold">Aqueous Solvation Energy at 298.15 K</td></tr>
+        <tr>
+            <td class="center" style="width:50%; font-weight: bold">Property</td>
+            <td style="width:25%; font-weight: bold" class="center">Value</td>
+            <td style="width:25%; font-weight: bold" class="center">Unit</td>
+        </tr>
+        <tr><td>Total Solvation Energy</td><td class="right">{{soltotal}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
+        <tr><td>Polar Solvation Energy</td><td class="right">{{solpolar}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
+        <tr><td>Nonpolar Solvation Energy</td><td class="right">{{solnonpolar}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
   </table>
 
   <table>
-        <tr><td style="width:50%">Surface Area</td><td style="width:25%" class="right">{{solsurface}}</td><td style="width:25%" class="right">Å<sup>2</sup></td><tr>
-        <tr><td>Charge of Molecule</td><td class="right">{{charge}}</td><td class="right"></td><tr>
-        <tr><td>Dipole</td><td class="right">{{soldipoletotal}}</td><td class="right">Debye</td><tr>
+        <tr><td style="width:50%">Surface Area</td><td style="width:25%" class="right">{{solsurface}}</td><td style="width:25%" class="right">Å<sup>2</sup></td></tr>
+        <tr><td>Charge of Molecule</td><td class="right">{{charge}}</td><td class="right"></td></tr>
+        <tr><td>Dipole</td><td class="right">{{soldipoletotal}}</td><td class="right">Debye</td></tr>
   </table>
 
 
