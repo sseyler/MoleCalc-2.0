@@ -57,6 +57,7 @@ $(function() {
             }
             if (typeof jmolSurf !== 'undefined') {
                 jsmolSetBGColor(jmolSurf, bg_color);
+                jsmolDisplayText(jmolSurf, '{{iupac_name}} ({{theorylvl}})', 'top right');
                 setSolvationText(jmolSurf);
             }
         } else {
@@ -89,6 +90,7 @@ $(function() {
             }
             if (typeof jmolSurf !== 'undefined') {
                 jsmolSetBGColor(jmolSurf, bg_color);
+                jsmolDisplayText(jmolSurf, '{{iupac_name}} ({{theorylvl}})', 'top right');
                 setSolvationText(jmolSurf);
             }
         }

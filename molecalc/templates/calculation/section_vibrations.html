@@ -21,8 +21,9 @@
     waitForElement('#jmolVib_appletdiv', function () {
         jsmolSetMol(jmolVib, vibMolecule);
 
+        wavenumber = '{{ vibfreq | first }} cm<sup>-1</sup>';
         jsmolDisplayText(jmolVib, '{{iupac_name}} ({{theorylvl}})', 'top right');
-        jsmolDisplayText(jmolVib, '{{ vibfreq | first }} cm<sup>-1</sup>', 'bottom right');
+        jsmolDisplayText(jmolVib, wavenumber, 'bottom right');
 
         // Switch to the first real vibration
         Jmol.script(jmolVib, 'vibration on');

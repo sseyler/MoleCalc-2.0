@@ -42,15 +42,12 @@ waitForElement('#jmolSurf_appletdiv', function() {
 
     // Set text for solvation
     {#setSolvationText(jmolSurf);#}
-    {#Jmol.script(jmolSurf, 'set echo "surface" 50% 6%; set echo "surface" center; font echo 13; echo Blue: Positive, Red: Negative;');#}
-    {#Jmol.script(jmolSurf, 'set echo "charge" 50% 0%; set echo "charge" center; font echo 13; echo Mouse over atoms for partial charge;');#}
+    {#Jmol.script(jmolSurf, 'set echo "surface" 50% 6%; set echo "surface" center; font echo 13; echo "Blue: Positive, Red: Negative";');#}
+    {#Jmol.script(jmolSurf, 'set echo "charge" 50% 0%; set echo "charge" center; font echo 13; echo "Mouse over atoms for partial charge";');#}
     {#Jmol.script(jmolSurf, 'set echo "plus" {@dx1,@dy1,@dz1}; font echo 25; echo "+"; set echo "plus" hidden');#}
     {#Jmol.script(jmolSurf, 'set echo "minus" {@dx2,@dy2,@dz2}; font echo 35; echo "-"; set echo "minus" hidden');#}
-    let font_color = getModeFontColor();
-    Jmol.script(jmolSurf, 'set echo "surface" 50% 6%; set echo "surface" center; color echo "' + font_color + '"; font echo 13; echo Blue: Positive, Red: Negative;');
-    Jmol.script(jmolSurf, 'set echo "charge" 50% 0%; set echo "charge" center; color echo "' + font_color + '"; font echo 13; echo Mouse over atoms for partial charge;');
-    Jmol.script(jmolSurf, 'set echo "plus" {@dx1,@dy1,@dz1}; font echo 25; echo "+"; set echo "plus" hidden;');
-    Jmol.script(jmolSurf, 'set echo "minus" {@dx2,@dy2,@dz2}; font echo 35; echo "-"; set echo "minus" hidden;');
+    jsmolDisplayText(jmolSurf, '{{iupac_name}} ({{theorylvl}})', 'top right');
+    setSolvationText(jmolSurf);
 });
 
 
@@ -225,8 +222,8 @@ $(function()
         <div class="editor-jsmol" style="width: 100%;height: 100%;">
 
 <script type="text/javascript">
-jmolSurf = Jmol.getApplet("jmolSurf", surfInfo1);
-Jmol.script(jmolSurf, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
+    jmolSurf = Jmol.getApplet("jmolSurf", surfInfo1);
+    Jmol.script(jmolSurf, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
 </script>
 
         </div>

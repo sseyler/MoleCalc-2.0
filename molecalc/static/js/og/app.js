@@ -155,6 +155,7 @@ function jsmolSetBGColor(jmolObj, color) {
 }
 
 function jsmolSetFontColor(jmolObj, color) {
+    // console.log("The font color in jsmolSetFontColor() is " + color);
     Jmol.script(jmolObj, 'color echo "' + color + '";');
 }
 
@@ -181,9 +182,9 @@ function jsmolDisplayText(jmolObj,
 // Specific to the solvation calculation section
 function setSolvationText(jmolObj) {
     let font_color = getModeFontColor();
-    console.log("The font color is " + font_color)
-    Jmol.script(jmolObj, 'color echo "' + font_color + '"; font echo 13; echo Blue: Positive, Red: Negative;');
-    Jmol.script(jmolObj, 'color echo "' + font_color + '"; font echo 13; echo Mouse over atoms for partial charge;');
+    jsmolSetFontColor(jmolObj, font_color);
+    Jmol.script(jmolObj, 'set echo bottom center; echo "Blue: Positive, Red: Negative|Mouse over atoms for partial charge";');
+
 }
 
 
