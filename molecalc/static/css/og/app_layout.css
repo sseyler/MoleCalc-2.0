@@ -317,12 +317,19 @@ a.darkmode {
 .mc-editor-tools .toolset {
 	margin: 10px;
 }
+.mc-editor-tools .toolset h1 {
+	margin:0 0 10px 0;
+    font-weight: bold;
+}
 .mc-editor-tools .toolset h2 {
 	margin:0 0 10px 0;
+    font-weight: bold;
 }
 .mc-editor-tools .toolset h3 {
-	margin:0 0 20px 0;
-    font-weight: bold;
+	margin: 0 0 5px 0;
+}
+.mc-editor-tools .toolset h4 {
+	margin: 0 0 5px 0;
 }
 .mc-editor-tools .toolset ul {
 	margin: 0 0 10px 0;
@@ -334,7 +341,7 @@ a.darkmode {
 .mc-editor-tools .toolset.quantum {
 	margin: 10px 10px;
 }
-.mc-editor-tools .toolset.quantum h2 {
+.mc-editor-tools .toolset.quantum h1 {
 	text-align: left;
 }
 

@@ -129,7 +129,7 @@ def ajax_submit_quantum():
     add_hydrogens = add_hydrogens == "1"
 
     # Get theory level
-    theory_level = request.form.get('theory_level', 'pm3')
+    theory_level = request.form.get('theory_level', 'pm6')
     _logger.info(f'Selected theory level: "{theory_level}"')
 
     # TODO Use ChemSpider and RDKit/MolVS for chemical name things

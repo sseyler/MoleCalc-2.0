@@ -10,7 +10,7 @@ MAX_TIME = 90  # seconds
 
 
 def optimize_coordinates(molobj, gamess_options):
-    theory_level = gamess_options.pop('theory_level', 'pm3')
+    theory_level = gamess_options.pop('theory_level', 'pm6')
     calculation_options = {
         'basis': {'gbasis': theory_level},
         'contrl': {'runtyp': 'optimize'},
@@ -29,7 +29,7 @@ def optimize_coordinates(molobj, gamess_options):
 
 
 def calculate_vibrations(molobj, gamess_options):
-    theory_level = gamess_options.pop('theory_level', 'pm3')
+    theory_level = gamess_options.pop('theory_level', 'pm6')
     n_atoms = len( ppqm.chembridge.molobj_to_atoms(molobj) )
     if n_atoms == 1:
         calculation_options = {
@@ -59,7 +59,7 @@ def calculate_vibrations(molobj, gamess_options):
 
 def calculate_orbitals(molobj, gamess_options):
     #TODO Fix theory_level placeholder here
-    theory_level = gamess_options.pop('theory_level', 'pm3')
+    theory_level = gamess_options.pop('theory_level', 'pm6')
 
     calculation_options = {
         'contrl': {
@@ -85,7 +85,7 @@ def calculate_orbitals(molobj, gamess_options):
 
 
 def calculate_solvation(molobj, gamess_options):
-    theory_level = gamess_options.pop('theory_level', 'pm3')
+    theory_level = gamess_options.pop('theory_level', 'pm6')
 
     calculation_options = {
         'basis': {'gbasis': theory_level},

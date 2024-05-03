@@ -118,27 +118,59 @@ $$$$
         <h1>Electronic Structure Calculation</h1>
 
         <section class="toolset quantum">
-            <h2>Theory level</h2>
+
+            <h2>Semi-Empirical Methods</h2>
 
             <ul>
                 <li><a rel="am1" href="#!" class="button theory">AM1</a></li>
-                <li><a rel="rm1" href="#!" class="button theory">RM1</a></li>
-                <li><a rel="pm3" href="#!" class="button theory active">PM3</a></li>
-                <li><a rel="pm6" href="#!" class="button theory">PM6</a></li>
+                {#<li><a rel="rm1" href="#!" class="button theory">RM1</a></li>#}
+                <li><a rel="pm3" href="#!" class="button theory">PM3</a></li>
+                <li><a rel="pm6" href="#!" class="button theory active">PM6</a></li>
             </ul>
 
-            <h2>Run GAMESS</h2>
+            <h2>Advanced Methods (Coming soon!)</h2>
 
-            <ul class="bottombar">
-                <li><a href="#!" class="button quantum highlight">Calculate Properties</a></li>
-                {# <li><a#}
-                {#         download="nice_download_name.png"#}
-                {#         href="../static/img/benzene_v1_5.png"#}
-                {#         class="button">#}
-                {#     <i class="fa fa-download"></i>#}
-                {#     Download Inputs</a>#}
-                {# </li>#}
-            </ul>
+            {#<div style='margin: 0 0 0 10px;'>#}
+            {#<h3>Formalism</h3>#}
+            {##}
+            {#    <div style='margin: 0 0 0 10px;'>#}
+            {#    <h4>Hartree-Fock</h4>#}
+            {##}
+            {#        <ul>#}
+            {#            <li><a rel="rhf" href="#!" class="button theory">RHF</a></li>#}
+            {#            <li><a rel="uhf" href="#!" class="button theory">UHF</a></li>#}
+            {#        </ul>#}
+            {##}
+            {#    <h4>DFT Functionals</h4>#}
+            {##}
+            {#        <ul>#}
+            {#            <li><a rel="b3lyp" href="#!" class="button theory">B3LYP</a></li>#}
+            {#            <li><a rel="pbe0" href="#!" class="button theory">PBE0</a></li>#}
+            {#        </ul>#}
+            {#    </div>#}
+            {#</div>#}
+            {##}
+            {#<div style='margin: 0 0 0 10px;'>#}
+            {#<h3>Basis Set</h3>#}
+            {##}
+            {#    <ul>#}
+            {#        <li><a rel="sto3g" href="#!" class="button theory">STO-3G</a></li>#}
+            {#        <li><a rel="312g" href="#!" class="button theory">3-21G</a></li>#}
+            {#        <li><a rel="631gs" href="#!" class="button theory">6-31G*</a></li>#}
+            {#    </ul>#}
+            {#</div>#}
+
+
+            <h1>Calculate Properties</h1>
+
+                <ul class="bottombar">
+                    <li><a href="#!" class="button quantum highlight">Run GAMESS</a></li>
+                </ul>
+
+                {#<ul class="bottombar">#}
+                {#    <li><a href="#!" class="button quantum highlight">Run Orca</a></li>#}
+                {#</ul>#}
+
         </section>
 
 
