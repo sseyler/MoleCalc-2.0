@@ -184,7 +184,7 @@ table tr td.center {text-align:center;}
 /* Button */
 .button {
     display: inline-block;
-
+    height: inherit;
     line-height:inherit;
     user-select: none;
     cursor:pointer;
@@ -201,6 +201,7 @@ table tr td.center {text-align:center;}
     background: #dadada;
 
     font-weight: 700;
+    text-align: center;
 }
 
 .button:hover {

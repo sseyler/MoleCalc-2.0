@@ -69,8 +69,8 @@ $jsmolMinimizeBtn.on('click', function() {
     return false;
 });
 
-var $jsmolMinimizeBtn = $('.action.undo .button');
-$jsmolMinimizeBtn.on('click', function() {
+var $jsmolUndoBtn = $('.action.undo .button');
+$jsmolUndoBtn.on('click', function() {
     jsmolCmd(myJmol1, 'undo');
     return false;
 });
@@ -99,7 +99,7 @@ $jsmolAtomBtns.on('click', function () {
     return false;
 });
 
-$jsmolBondBtns = $('.toolset.jsmol .action.bond .button')
+var $jsmolBondBtns = $('.toolset.jsmol .action.bond .button')
 $jsmolBondBtns.on('click', function() {
     var bond = $(this).attr('rel');
     $(".toolset.jsmol .action.bond .button.active").removeClass('active');
@@ -176,6 +176,7 @@ swithBtns = $('.toolset.tool-choice .button').click(function () {
 // Load molecules
 $('.toolset .load_benzene').on('click', function () {
     setCurrentSDF(sdfBenzene);
+    setMoleculeScheme();
     return false;
 });
 // $('.toolset .load_methane').click(function () {
@@ -186,6 +187,7 @@ $('.toolset .load_benzene').on('click', function () {
 // });
 $('.toolset .load_water').on('click', function () {
     setCurrentSDF(sdfWater);
+    setMoleculeScheme();
     return false;
 });
 // $('.toolset .load_carbon_dioxide').click(function () {
@@ -203,6 +205,56 @@ $('.toolset .load_water').on('click', function () {
 //     setCurrentSDF(sdfNitrousOxide);
 //     return false;
 // });
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Buttons for controlling simple JSmol molecule representations
+///////////////////////////////////////////////////////////////////////////////
+function getMoleculeScheme() {
+    return $('.toolset.jsmol .button.scheme.active').attr('rel');
+}
+
+function setMoleculeScheme() {
+    let scheme = getMoleculeScheme();
+    let cmd = 'wireframe 0.1; cpk on; spacefill 24%;'; // Default scheme
+    switch(scheme) {
+        case 'bs':
+            cmd = 'wireframe 0.1; cpk on; spacefill 24%;';
+            break;
+        case 'cpk':
+            cmd = 'wireframe 0.1; cpk on; spacefill 90%;';
+            break;
+        case 'stick':
+            cmd = 'wireframe 0.1; cpk on; spacefill 0%;';
+            break;
+        case 'tube':
+            cmd = 'wireframe 0.4; cpk on; spacefill 0%;';
+            break;
+        case 'wf':
+            cmd = 'cpk off; wireframe on;';
+            break;
+        default:
+            break;
+    }
+    jsmolCmd(myJmol1, cmd);
+    return false;
+}
+
+//-----------------------------------------------------------------------------
+// var jsmolThemeBtns = $('.button.scheme');
+$('.button.scheme').on('click', function() {
+    let scheme = $(this).attr('rel');
+
+    if( $(this).hasClass('active') ) {
+        return false;
+    } else {
+        $('.toolset.jsmol .button.scheme.active').removeClass('active');
+        $(this).addClass('active');
+        setMoleculeScheme();
+    }
+    return false;
+});
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Select theory level for quantum chemistry

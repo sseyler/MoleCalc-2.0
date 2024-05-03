@@ -19,7 +19,8 @@ var myInfo1 = {
 myJmol1 = Jmol.getApplet("myJmol1", myInfo1);
 jsmolSetMol(myJmol1, sdfBenzene);
 Jmol.script(myJmol1, 'background "#ffffff"');
-Jmol.script(myJmol1, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3');
+{# set bondRadiusMilliAngstroms 100  is the same as wireframe 0.1 #}
+Jmol.script(myJmol1, 'set bondRadiusMilliAngstroms 100; set multipleBondSpacing -0.3; cpk on; spacefill 24%;');
 Jmol.script(myJmol1, 'set forcefield "MMFF"');
 Jmol.script(myJmol1, 'minimize addHydrogens');
 Jmol.script(myJmol1, 'centerAt average 0.0 0.0 0.0');
