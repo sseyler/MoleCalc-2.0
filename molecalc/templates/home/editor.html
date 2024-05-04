@@ -49,10 +49,27 @@ $$$$
 
 <script type="text/javascript" src="{{ url_for('static', filename='js/og/editor.js') }}"></script>
 
-{#<script>#}
-{#  $SCRIPT_ROOT = {{ request.script_root|tojson }};#}
-{#</script>#}
-
+    {#<style>#}
+    {#    .button.snapshot {#}
+    {#      padding: 16px 32px;#}
+    {#      text-align: center;#}
+    {#      text-decoration: none;#}
+    {#      display: inline-block;#}
+    {#      font-size: 16px;#}
+    {#      margin: 4px 2px;#}
+    {#      transition-duration: 0.1s;#}
+    {#      cursor: pointer;#}
+    {##}
+    {#      background-color: white;#}
+    {#      color: black;#}
+    {#      border: 2px solid #8C1D40;#}
+    {#    }#}
+    {##}
+    {#    .button.snapshot:hover {#}
+    {#      background-color: #8C1D40;#}
+    {#      color: white;#}
+    {#    }#}
+    {#</style>#}
 
 </head>
 <body class="{{is_dark}}">
@@ -87,11 +104,10 @@ $$$$
                 <i class="fas fa-search"></i>
             </a>
             <span class="toggle700 searchbar-close button icon">
-            <i class="fas fa-times"></i>
-        </span>
+                <i class="fas fa-times"></i>
+            </span>
         </form>
     </section>
-
 
     <section class="mc-editor-tools sidebar" id="sidebarEditor">
 
@@ -171,10 +187,17 @@ $$$$
                 {#    <li><a href="#!" class="button quantum highlight">Run Orca</a></li>#}
                 {#</ul>#}
 
-        </section>
+        </section>   {# <section class="toolset quantum"> #}
 
+    </section>  {# <section class="mc-editor-tools sidebar" id="sidebarEditor"> #}
 
-    </section>
+    {#<section>#}
+    {#    <button class="button snapshot"#}
+    {#       href="#!">#}
+    {#        <i class="fa fa-download"></i>#}
+    {#        Save snapshot#}
+    {#    </button>#}
+    {#</section>#}
 
     <section class="mc-content">
         <div id="editor-jsmol">

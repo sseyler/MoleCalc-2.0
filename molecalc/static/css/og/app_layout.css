@@ -228,12 +228,13 @@ a.darkmode {
     top: 0;
 
     display: none;
-
+    transition-duration: 0.2s;
 }
 .mc-editor-searchbar a.button:hover {
     background: none;
     border: none;
     /* color: rgb(0, 121, 211); */
+    transition-duration: 0.2s;
 }
 .mc-editor-searchbar input {
     grid-area: search-bar;
@@ -249,6 +250,8 @@ a.darkmode {
     border-radius: 4px;
     border-width: 2px;
     text-align: center;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.2s;  /* This is specifically necessary for the transition */
 }
 .darkmode .mc-editor-searchbar input {
     background: #222;
@@ -677,11 +680,18 @@ a.darkmode {
     /* display: none; */
     position: absolute;
     right: 0;
+
+    /*transition-timing-function: ease-in-out;*/
+    /*-webkit-transition: 0.2s;*/
+    /*transition-duration: 0.2s;*/
 }
 /* Hover color of circles (around the arrows) in lists of modes/orbitals */
 .molecalc.calculation .mc-content .calc ul.data li:hover .action a.active,
 .molecalc.calculation .mc-content .calc ul.data li:hover .action a {
     color: rgb(0, 121, 211);
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 0.2s;
+    transition-duration: 0.2s;
 }
 .molecalc.calculation .mc-content .calc ul.data a:hover,
 .molecalc.calculation .mc-content .calc ul.data a {

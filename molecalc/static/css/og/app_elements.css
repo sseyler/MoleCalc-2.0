@@ -202,6 +202,9 @@ table tr td.center {text-align:center;}
 
     font-weight: 700;
     text-align: center;
+
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.2s;
 }
 
 .button:hover {
@@ -245,6 +248,7 @@ table tr td.center {text-align:center;}
     /* border-color: #ddd; */
 
     font-weight:bold;
+    /*transition-duration: 0.2s;*/
 }
 
 .button.icon:hover {

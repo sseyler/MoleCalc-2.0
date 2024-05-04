@@ -149,47 +149,6 @@ function requestCactus(from, to, successFunction, failedFunction) {
 }
 
 
-// Functions for dealing with JSmol and dark/light mode
-function jsmolSetBGColor(jmolObj, color) {
-    Jmol.script(jmolObj, 'set backgroundColor "' + color + '"');
-}
-
-function jsmolSetFontColor(jmolObj, color) {
-    // console.log("The font color in jsmolSetFontColor() is " + color);
-    Jmol.script(jmolObj, 'color echo "' + color + '";');
-}
-
-function  getModeFontColor() {
-    if (isDarkMode()) {
-        return '#FFFFFF';
-    } else {
-        return '#000000';
-    }
-}
-
-function jsmolDisplayText(jmolObj,
-                          text,
-                          loc,
-                          fontsize= 16,
-                          fontstyle = 'sanserif') {
-    let font_color = getModeFontColor();
-    jsmolSetFontColor(jmolObj, font_color);  // Set the font color based on light/dark mode
-    Jmol.script(jmolObj, 'font echo ' + fontsize + ' ' + fontstyle + ';');
-    Jmol.script(jmolObj, 'set echo ' + loc + ';');
-    Jmol.script(jmolObj, 'echo "' + text + '";');
-}
-
-// Specific to the solvation calculation section
-function setSolvationText(jmolObj) {
-    let font_color = getModeFontColor();
-    jsmolSetFontColor(jmolObj, font_color);
-    Jmol.script(jmolObj, 'set echo bottom center; echo "Blue: Positive, Red: Negative|Mouse over atoms for partial charge";');
-
-}
-
-
-// functions
-
 $(function() {
     // Prompt function
 
@@ -371,9 +330,73 @@ function sdfToSmiles(sdf) {
     return smi;
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// JSmol //////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
-// JSmol ////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////////
+// Functions for displaying text on JSmol windows
+//   * compatibility with light/dark mode
+///////////////////////////////////////////////////////////////////////////////
+// Functions for dealing with JSmol and dark/light mode
+function jsmolSetBGColor(jmolObj, color) {
+    Jmol.script(jmolObj, 'set backgroundColor "' + color + '"');
+    return false;
+}
+
+function jsmolSetFontColor(jmolObj, color) {
+    // console.log("The font color in jsmolSetFontColor() is " + color);
+    Jmol.script(jmolObj, 'color echo "' + color + '";');
+    return false;
+}
+
+function  getModeFontColor() {
+    if (isDarkMode()) {
+        return '#FFFFFF';
+    } else {
+        return '#000000';
+    }
+}
+
+function jsmolDisplayText(jmolObj,
+                          text,
+                          loc,
+                          fontsize= 16,
+                          fontstyle = 'sanserif') {
+    let font_color = getModeFontColor();
+    jsmolSetFontColor(jmolObj, font_color);  // Set the font color based on light/dark mode
+    Jmol.script(jmolObj, 'font echo ' + fontsize + ' ' + fontstyle + ';');
+    Jmol.script(jmolObj, 'set echo ' + loc + ';');
+    Jmol.script(jmolObj, 'echo "' + text + '";');
+    return false;
+}
+
+// Specific to the solvation calculation section
+function setSolvationText(jmolObj) {
+    let font_color = getModeFontColor();
+    jsmolSetFontColor(jmolObj, font_color);
+    Jmol.script(jmolObj, 'set echo bottom center; echo "Blue: Positive, Red: Negative|Mouse over atoms for partial charge";');
+    return false;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Export functions for snapshots and molecular structures (via JSmol)
+///////////////////////////////////////////////////////////////////////////////
+function jsmolTakeSnapshot(jmolObj, filename) {
+    Jmol.script(jmolObj, 'write image png ' + filename + ';');
+}
+
+$('.molecalc.editor .button.snapshot').on('click', function() {
+    let filename = 'shapshot';
+    jsmolTakeSnapshot(myJmol1, filename);
+    return false;
+});
+
+
+
+///////////////////////////////////////////////////////////////////////////////
 function jsmolGetMol(canvasObj, includeHydrogen=false) {
     // returns a JSON object with all the atoms
     // var atominfo = Jmol.getPropertyAsArray(canvasObj, "atominfo", "all");
