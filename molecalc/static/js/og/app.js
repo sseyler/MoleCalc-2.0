@@ -383,6 +383,7 @@ function setSolvationText(jmolObj) {
 
 ///////////////////////////////////////////////////////////////////////////////
 // Export functions for snapshots and molecular structures (via JSmol)
+//  FIXME
 ///////////////////////////////////////////////////////////////////////////////
 function jsmolTakeSnapshot(jmolObj, filename) {
     Jmol.script(jmolObj, 'write image png ' + filename + ';');
@@ -393,6 +394,39 @@ $('.molecalc.editor .button.snapshot').on('click', function() {
     jsmolTakeSnapshot(myJmol1, filename);
     return false;
 });
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Click and drag wavenumber/energy scroll boxes
+///////////////////////////////////////////////////////////////////////////////
+// const slider = document.querySelector('.items');
+// let isDown = false;
+// let startX;
+// let scrollDown;
+//
+// slider.addEventListener('mousedown', (e) => {
+//   isDown = true;
+//   slider.classList.add('active');
+//   startX = e.pageX - slider.offsetTop;
+//   scrollDown = slider.scrollDown;
+// });
+// slider.addEventListener('mouseleave', () => {
+//   isDown = false;
+//   slider.classList.remove('active');
+// });
+// slider.addEventListener('mouseup', () => {
+//   isDown = false;
+//   slider.classList.remove('active');
+// });
+// slider.addEventListener('mousemove', (e) => {
+//   if(!isDown) return;
+//   e.preventDefault();
+//   const x = e.pageX - slider.offsetTop;
+//   const walk = (x - startX) * 3; //scroll-fast
+//   slider.scrollDown = scrollDown - walk;
+//   console.log(walk);
+// });
 
 
 
