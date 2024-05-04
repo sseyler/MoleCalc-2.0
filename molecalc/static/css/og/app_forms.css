@@ -113,9 +113,8 @@
     background-image: linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
     background:white;
 
-    transition-timing-function: ease-in-out;
-    -webkit-transition: 0.2s;
-    transition: 0.2s;
+    -webkit-transition: all 0.2s ease-out 0s;
+    transition: all 0.2s ease-out 0s;
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
     margin-left: 0px;
@@ -188,9 +187,8 @@
     background-image: linear-gradient(center top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
     background:white;
 
-    transition-timing-function: ease-in-out;
-    -webkit-transition: 0.2s;
-    transition: 0.2s;
+    -webkit-transition: all 0.2s ease-out 0s;
+    transition: all 0.2s ease-out 0s;
 }
 .firstlastswitch-checkbox:checked + .firstlastswitch-label .firstlastswitch-inner {
     margin-left: 0;
@@ -229,9 +227,8 @@
     bottom: 0;
     background-color: #282828;
 
-    transition-timing-function: ease-in-out;
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
+    -webkit-transition: all 0.4s ease-out 0s;
+    transition: all 0.4s ease-out 0s;
 }
 
 .slider:before {
@@ -242,6 +239,9 @@
     left: 2.5px;
     bottom: 2.5px;
     background-color: white;
+
+    -webkit-transition: all 0.4s ease-out 0s;
+    transition: all 0.4s ease-out 0s;
 }
 
 input:checked + .slider {

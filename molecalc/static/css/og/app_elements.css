@@ -203,8 +203,8 @@ table tr td.center {text-align:center;}
     font-weight: 700;
     text-align: center;
 
-    transition-timing-function: ease-in-out;
-    transition-duration: 0.2s;
+    -webkit-transition: all 0.2s ease-out 0s;
+    transition: all 0.2s ease-out 0s;
 }
 
 .button:hover {

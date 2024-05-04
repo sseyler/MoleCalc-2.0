@@ -250,8 +250,8 @@ a.darkmode {
     border-radius: 4px;
     border-width: 2px;
     text-align: center;
-    transition-timing-function: ease-in-out;
-    transition-duration: 0.2s;  /* This is specifically necessary for the transition */
+    -webkit-transition: all 0.2s ease-out 0s;
+    transition: all 0.2s ease-out 0s;  /* This is specifically necessary for the transition */
 }
 .darkmode .mc-editor-searchbar input {
     background: #222;
