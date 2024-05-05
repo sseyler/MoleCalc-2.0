@@ -49,20 +49,15 @@ waitForElement('#jmolSurf_appletdiv', function() {
     setSolvationText(jmolSurf);
 });
 
-
-$(function()
-{
+$(function() {
     // Surface on off
-    $('#surface_switch').change(function()
-    {
+    $('#surface_switch').change(function() {
         var checked = $(this).prop('checked');
         var rel;
-        if(checked)
-        {
+        if(checked) {
             rel = 'on';
         }
-        else
-        {
+        else {
             rel = 'off';
         }
         Jmol.script(jmolSurf, 'isosurface '+rel);
@@ -71,16 +66,13 @@ $(function()
     });
 
     // Dipole on off
-    $('#dipole_switch').change(function()
-    {
+    $('#dipole_switch').change(function() {
         var checked = $(this).prop('checked');
         var rel;
-        if(checked)
-        {
+        if(checked) {
             rel = 'on';
         }
-        else
-        {
+        else {
             rel = 'off';
         }
         Jmol.script(jmolSurf, 'dipole arrow1 {{dipole}} {@dx1,@dy1,@dz1} {@dx2,@dy2,@dz2} NOCROSS width 0.05; color $arrow1 black; dipole arrow1 '+rel+'; draw ctr diameter 0.1 color black {@cx,@cy,@cz} '+rel);
@@ -89,16 +81,13 @@ $(function()
     });
 
     // Translucent Molecule on off
-    $('#translucent_switch').change(function()
-    {
+    $('#translucent_switch').change(function() {
         var checked = $(this).prop('checked');
         var rel;
-        if(checked)
-        {
+        if(checked) {
             rel = 'on';
         }
-        else
-        {
+        else {
             rel = 'off';
         }
         if (rel == 'on' )
@@ -107,7 +96,6 @@ $(function()
         {Jmol.script(jmolSurf, 'color atoms translucent 0; color bonds translucent 0');}
     });
 });
-
 
 </script>
 
@@ -118,103 +106,89 @@ $(function()
     </a>
 </div>
 
-
 {% if not has_solvation %}
-
-<section class="view">
-
-    <strong>Solvation calculation failed</strong>
-
-</section>
-
+    <section class="view">
+        <strong>Solvation calculation failed</strong>
+    </section>
 {% else %}
 
 <section class="options sidebar" id="calcSolvation">
-
-
 
     <section class="sidebar-cover"></section>
     <section class="sidebar-background btnCloseSidebar" href="#calcSolvation"></section>
 
     <section class="sidebar-wrapper"> <!-- sidebar wrapper -->
 
-    <section class="toolset toggle700">
-        <a class="button icon btnCloseSidebar" href="#calcSolvation">
-            <i class="fas fa-times"></i>
-        </a>
-    </section>
+        <section class="toolset toggle700">
+            <a class="button icon btnCloseSidebar" href="#calcSolvation">
+                <i class="fas fa-times"></i>
+            </a>
+        </section>
 
-    <table>
-        <tr>
-            <td style="width:50%">Surface</td>
-            <td class="center">
+        <table>
+            <tr><td style="width:50%">Surface</td>
+                <td class="center">
 
-                <div class="onoffswitch">
-                    <input autocomplete="off" type="checkbox" class="onoffswitch-checkbox" id="surface_switch" name="surface_switch" checked>
-                    <label class="onoffswitch-label" for="surface_switch">
-                        <div class="onoffswitch-inner"></div>
-                        <div class="onoffswitch-switch"></div>
-                    </label>
-                </div>
+                    <div class="onoffswitch">
+                        <input autocomplete="off" type="checkbox" class="onoffswitch-checkbox" id="surface_switch" name="surface_switch" checked>
+                        <label class="onoffswitch-label" for="surface_switch">
+                            <div class="onoffswitch-inner"></div>
+                            <div class="onoffswitch-switch"></div>
+                        </label>
+                    </div>
 
-            </td>
-        </tr>
+                </td>
+            </tr>
+            <tr><td style="width:50%">Dipole</td>
+                <td class="center">
 
-        <tr>
-            <td style="width:50%">Dipole</td>
-            <td class="center">
+                    <div class="onoffswitch">
+                        <input autocomplete="off" type="checkbox" class="onoffswitch-checkbox" id="dipole_switch" name="dipole_switch">
+                        <label class="onoffswitch-label" for="dipole_switch">
+                            <div class="onoffswitch-inner"></div>
+                            <div class="onoffswitch-switch"></div>
+                        </label>
+                    </div>
 
-                <div class="onoffswitch">
-                    <input autocomplete="off" type="checkbox" class="onoffswitch-checkbox" id="dipole_switch" name="dipole_switch">
-                    <label class="onoffswitch-label" for="dipole_switch">
-                        <div class="onoffswitch-inner"></div>
-                        <div class="onoffswitch-switch"></div>
-                    </label>
-                </div>
+                </td>
+            </tr>
+            <tr><td style="width:50%">Translucent Molecule</td>
+                <td class="center">
 
-            </td>
-        </tr>
+                    <div class="onoffswitch">
+                        <input autocomplete="off" type="checkbox" class="onoffswitch-checkbox" id="translucent_switch" name="translucent_switch">
+                        <label class="onoffswitch-label" for="translucent_switch">
+                            <div class="onoffswitch-inner"></div>
+                            <div class="onoffswitch-switch"></div>
+                        </label>
+                    </div>
 
-        <tr>
-            <td style="width:50%">Translucent Molecule</td>
-            <td class="center">
-
-                <div class="onoffswitch">
-                    <input autocomplete="off" type="checkbox" class="onoffswitch-checkbox" id="translucent_switch" name="translucent_switch">
-                    <label class="onoffswitch-label" for="translucent_switch">
-                        <div class="onoffswitch-inner"></div>
-                        <div class="onoffswitch-switch"></div>
-                    </label>
-                </div>
-
-            </td>
-        </tr>
-  </table>
+                </td>
+            </tr>
+        </table>
 
   {#<p style="margin-bottom:10px;text-align:center; font-weight: bold">Aqueous Solvation Energy at 298.15 K</p>#}
 
-  <table>
-        <tr><td class="center" colspan="3" style="text-align:center; font-weight:bold">Aqueous Solvation Energy at 298.15 K</td></tr>
-        <tr>
-            <td class="center" style="width:50%; font-weight: bold">Property</td>
-            <td style="width:25%; font-weight: bold" class="center">Value</td>
-            <td style="width:25%; font-weight: bold" class="center">Unit</td>
-        </tr>
-        <tr><td>Total Solvation Energy</td><td class="right">{{soltotal}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
-        <tr><td>Polar Solvation Energy</td><td class="right">{{solpolar}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
-        <tr><td>Nonpolar Solvation Energy</td><td class="right">{{solnonpolar}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
-  </table>
+        <table>
+            <tr><td class="center" colspan="3" style="text-align:center; font-weight:bold">Aqueous Solvation Energy at 298.15 K</td></tr>
+            <tr>
+                <td class="center" style="width:50%; font-weight: bold">Property</td>
+                <td style="width:25%; font-weight: bold" class="center">Value</td>
+                <td style="width:25%; font-weight: bold" class="center">Unit</td>
+            </tr>
+            <tr><td>Total Solvation Energy</td><td class="right">{{soltotal}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
+            <tr><td>Polar Solvation Energy</td><td class="right">{{solpolar}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
+            <tr><td>Nonpolar Solvation Energy</td><td class="right">{{solnonpolar}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
+        </table>
 
-  <table>
-        <tr><td style="width:50%">Surface Area</td><td style="width:25%" class="right">{{solsurface}}</td><td style="width:25%" class="right">Å<sup>2</sup></td></tr>
-        <tr><td>Charge of Molecule</td><td class="right">{{charge}}</td><td class="right"></td></tr>
-        <tr><td>Dipole</td><td class="right">{{soldipoletotal}}</td><td class="right">Debye</td></tr>
-  </table>
+        <table>
+            <tr><td style="width:50%">Surface Area</td><td style="width:25%" class="right">{{solsurface}}</td><td style="width:25%" class="right">Å<sup>2</sup></td></tr>
+            <tr><td>Charge of Molecule</td><td class="right">{{charge}}</td><td class="right"></td></tr>
+            <tr><td>Dipole</td><td class="right">{{soldipoletotal}}</td><td class="right">Debye</td></tr>
+        </table>
 
-
-
-    </section> <!-- sidebar wrapper -->
-</section> <!-- sidebar -->
+    </section>  {# <section class="sidebar-wrapper"> #}
+</section>      {# <section class="options sidebar"> #}
 
 <section class="view">
 

@@ -80,70 +80,66 @@ $(function() {
 
     <section class="sidebar-wrapper"> <!-- sidebar wrapper -->
 
-    <section class="toolset toggle700">
-        <a class="button icon btnCloseSidebar" href="#calcOrbitals">
-            <i class="fas fa-times"></i>
-        </a>
-    </section>
+        <section class="toolset toggle700">
+            <a class="button icon btnCloseSidebar" href="#calcOrbitals">
+                <i class="fas fa-times"></i>
+            </a>
+        </section>
 
-    <table>
-        <tr>
-            <td>Sticks and balls</td>
-            <td class="center">
-            <div class="onoffswitch">
-            <input autocomplete="off"
-                   type="checkbox"
-                   class="onoffswitch-checkbox"
-                   id="spacefill_switch_orb"
-                   name="spacefill_switch_orb"
-                   checked>
-            <label class="onoffswitch-label" for="spacefill_switch_orb">
-            <div class="onoffswitch-inner"></div>
-            <div class="onoffswitch-switch"></div>
-            </label>
-            </div>
-            </td>
-        </tr>
+        <table>
+            <tr><td>Ball-and-Stick</td>
+                <td class="center">
+                <div class="onoffswitch">
+                <input autocomplete="off"
+                       type="checkbox"
+                       class="onoffswitch-checkbox"
+                       id="spacefill_switch_orb"
+                       name="spacefill_switch_orb"
+                       checked>
+                <label class="onoffswitch-label" for="spacefill_switch_orb">
+                <div class="onoffswitch-inner"></div>
+                <div class="onoffswitch-switch"></div>
+                </label>
+                </div>
+                </td>
+            </tr>
+            <tr><td>GAMESS Input</td>
+              <td class="center">
+                <div>
+                    <a class="button"
+                       href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='orb', iofile='inp') }}">
+                      <i class="fa fa-download"></i>
+                      orbitals.inp
+                    </a>
+                </div>
+              </td>
+            </tr>
+            <tr><td>GAMESS Output</td>
+              <td class="center">
+                <div>
+                    <a class="button"
+                       href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='orb', iofile='out') }}">
+                      <i class="fa fa-download"></i>
+                      orbitals.out
+                    </a>
+                </div>
+              </td>
+            </tr>
+        </table>
 
-        <tr>
-          <td>GAMESS Input</td>
-          <td class="center">
-            <div>
-                <a class="button"
-                   href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='orb', iofile='inp') }}">
-                  <i class="fa fa-download"></i>
-                  orbitals.inp
-                </a>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>GAMESS Output</td>
-          <td class="center">
-            <div>
-                <a class="button"
-                   href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='orb', iofile='out') }}">
-                  <i class="fa fa-download"></i>
-                  orbitals.out
-                </a>
-            </div>
-          </td>
-        </tr>
-    </table>
+        <ul class="data orbital_levels">
+        {% for energy in orbitals %}
+            <li>
+                <span class="index txt">{{loop.index}}</span>
+                <span class="energy txt">{{ energy }} eV</span>
+                <span class="action"><a href="#!" rel="{{loop.index}}"><i
+                        class="fas fa-arrow-circle-right"></i></a></span>
+            </li>
+        {% endfor %}
+        </ul>
 
-    <ul class="data orbital_levels">
-    {% for energy in orbitals %}
-        <li>
-            <span class="index txt">{{loop.index}}</span>
-            <span class="energy txt">{{ energy }} eV</span>
-            <span class="action"><a href="#!" rel="{{loop.index}}"><i
-                    class="fas fa-arrow-circle-right"></i></a></span>
-        </li>
-    {% endfor %}
-    </ul>
-
-    </section> <!-- sidebar wrapper -->
-</section>
+    </section>  {# <section class="sidebar-wrapper"> #}
+</section>      {# <section class="options sidebar"> #}
 
 <section class="view">
 

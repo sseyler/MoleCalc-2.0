@@ -61,7 +61,7 @@
             </section> <!-- sidebar wrapper -->
         </section>
 
-        <section class="calc calc-energies active tab-energies onecol">
+        <section class="calc calc-energies active tab-energies">
             <h2>Ideal Gas Thermochemistry</h2>
             {% include 'calculation/section_thermo.html' %}
         </section>
@@ -76,7 +76,7 @@
             {% include 'calculation/section_orbitals.html' %}
         </section>
 
-        <section class="calc calc-orbitals tab-solvation">
+        <section class="calc calc-solvation tab-solvation">
             <h2>Polarity and Solvation</h2>
             {% include 'calculation/section_solvation.html' %}
         </section>
@@ -92,42 +92,6 @@
 
     {# Note that the plotly stuff has to be placed here after <body> and NOT in <head> #}
     <script type="text/javascript">
-        {#function onPlotlyPlotLoaded() {#}
-        {#   // code/functions to be executed when plot is fully loaded#}
-        {#   console.log('Plotly plot is fully loaded');#}
-        {#   addObserver();#}
-        {#}#}
-        {##}
-        {#//your plot initial generation may differ, doesn't really matter#}
-        {#script.onload = function () {#}
-        {#    var config = {responsive: true}#}
-        {#    //the .then here is a callback to the function after it is done loading.#}
-        {#    drawPlot('irspectrum', IS_DARK);#}
-        {#};#}
-        {##}
-        {#let resizeTimeout;#}
-        {##}
-        {#function addObserver() {#}
-        {#    let observer = new ResizeObserver(function(mutations) {#}
-        {#        console.log('Resized:', mutations);#}
-        {##}
-        {#        // clear any existing timeout#}
-        {#        clearTimeout(resizeTimeout);#}
-        {##}
-        {#        // set a new timeout to trigger Plotly.update after resizing stops#}
-        {#        resizeTimeout = setTimeout(function() {#}
-        {#        console.log('Resizing stopped, updating layout to new height: ', plotlyPlot.clientHeight, "px tall");#}
-        {#        console.log('Resizing stopped, updating layout to new width: ', plotlyPlot.clientWidth, "px wide");#}
-        {#        // Update the layout of the existing Plotly plot#}
-        {#        Plotly.update('irspectrum', {}, { height: plotlyPlot.clientHeight, width: plotlyPlot.clientWidth  });#}
-        {#        }, 500); //  timeout duration, change as needed#}
-        {##}
-        {#    });#}
-        {##}
-        {#    let plotlyPlot = document.querySelector('#irspectrum');#}
-        {#    observer.observe(plotlyPlot, { attributes: true });#}
-        {#}#}
-
         function drawPlot(divID, isDark) {
             id = document.getElementById(divID);
             if (isDark) {

@@ -117,136 +117,128 @@ $(function() {
             </a>
         </section>
 
-    <table>
-    <tbody>
-    <td width="50%">Select Frame</td>
-      <td class="center">
-        <div class="firstlastswitch">
-            <input autocomplete="off"
-                   type="checkbox"
-                   class="firstlastswitch-checkbox"
-                   id="frame_selector"
-                   name="frame_selector">
-            <label class="firstlastswitch-label" for="frame_selector">
-                <div class="firstlastswitch-inner"></div>
-                <div class="firstlastswitch-switch"></div>
-            </label>
-        </div>
-      </td>
-    </tr>
+        <table><tbody>
+            <tr><td>Select Frame</td>
+              <td class="center">
+                <div class="firstlastswitch">
+                    <input autocomplete="off"
+                           type="checkbox"
+                           class="firstlastswitch-checkbox"
+                           id="frame_selector"
+                           name="frame_selector">
+                    <label class="firstlastswitch-label" for="frame_selector">
+                        <div class="firstlastswitch-inner"></div>
+                        <div class="firstlastswitch-switch"></div>
+                    </label>
+                </div>
+              </td>
+            </tr>
+            <tr><td>Optimization trajectory</td>
+              <td class="center">
+                <div class="onoffswitch">
+                    <input autocomplete="off"
+                           type="checkbox"
+                           class="onoffswitch-checkbox"
+                           id="optimization_switch"
+                           name="optimization_switch">
+                    <label class="onoffswitch-label" for="optimization_switch">
+                        <div class="onoffswitch-inner"></div>
+                        <div class="onoffswitch-switch"></div>
+                    </label>
+                </div>
+              </td>
+            </tr>
+            <tr><td>Ball-and-Stick</td>
+              <td class="center">
+                <div class="onoffswitch">
+                    <input autocomplete="off"
+                           type="checkbox"
+                           class="onoffswitch-checkbox"
+                           id="spacefill_switch_opt"
+                           name="spacefill_switch_opt"
+                           checked>
+                    <label class="onoffswitch-label" for="spacefill_switch_opt">
+                        <div class="onoffswitch-inner"></div>
+                        <div class="onoffswitch-switch"></div>
+                    </label>
+                </div>
+              </td>
+            </tr>
+            <tr><td>GAMESS Input</td>
+              <td class="center">
+                <div>
+                    <a class="button"
+                       href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='opt', iofile='inp') }}">
+                      <i class="fa fa-download"></i>
+                      optimization.inp
+                    </a>
+                </div>
+              </td>
+            </tr>
+            <tr><td>GAMESS Output</td>
+              <td class="center">
+                <div>
+                    <a class="button"
+                       href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='opt', iofile='out') }}">
+                      <i class="fa fa-download"></i>
+                      optimization.out
+                    </a>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+        </table>
 
-    <tr><!-- <h3>at 298.15 K and standard pressure</h3> -->
-      <td width="50%">Optimization trajectory</td>
-      <td class="center">
-        <div class="onoffswitch">
-            <input autocomplete="off"
-                   type="checkbox"
-                   class="onoffswitch-checkbox"
-                   id="optimization_switch"
-                   name="optimization_switch">
-            <label class="onoffswitch-label" for="optimization_switch">
-                <div class="onoffswitch-inner"></div>
-                <div class="onoffswitch-switch"></div>
-            </label>
-        </div>
-      </td>
-    </tr>
+        <div class="tbls_container">
+            <div class="tbl_container">
+              <table>
+                <tr><td class="center" colspan="3" style="font-weight:bold">Ideal Gas at 298.13 K</td></tr>
+                <tr><td>Std. Enthalpy of Formation</td><td class="right">{{enthalpy}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
+                <tr><td>Speed of Sound</td><td class="right">{{sound_speed}}</td><td class="right">m/s</td></tr>
+                <tr><td>Adiabatic Index</td><td class="right">{{adiabatic_index}}</td><td class="right"></td></tr>
+              </table>
+            </div>
 
-    <tr>
-      <td>Sticks and balls</td>
-      <td class="center">
-        <div class="onoffswitch">
-            <input autocomplete="off"
-                   type="checkbox"
-                   class="onoffswitch-checkbox"
-                   id="spacefill_switch_opt"
-                   name="spacefill_switch_opt"
-                   checked>
-            <label class="onoffswitch-label" for="spacefill_switch_opt">
-                <div class="onoffswitch-inner"></div>
-                <div class="onoffswitch-switch"></div>
-            </label>
-        </div>
-      </td>
-    </tr>
+            <div class="tbl_container">
+              <table>
+                <tr><td class="center" colspan="3" style="font-weight:bold">Enthalpy</td></tr>
+                <tr><td>Translational</td><td class="right">{{h_trans}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
+                <tr><td>Rotational</td><td class="right">{{h_rotat}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
+                <tr><td>Vibrational</td><td class="right">{{h_vibra}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
+                <tr><td>Total</td><td class="right">{{h_total}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
+              </table>
+            </div>
 
-    <tr>
-      <td>GAMESS Input</td>
-      <td class="center">
-        <div>
-            <a class="button"
-               href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='opt', iofile='inp') }}">
-              <i class="fa fa-download"></i>
-              optimization.inp
-            </a>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>GAMESS Output</td>
-      <td class="center">
-        <div>
-            <a class="button"
-               href="{{ url_for('calc.download_gamess_io', hashkey=hashkey, calc='opt', iofile='out') }}">
-              <i class="fa fa-download"></i>
-              optimization.out
-            </a>
-        </div>
-      </td>
-    </tr>
-    </tbody>
-    </table>
+            <div class="tbl_container">
+              <table>
+                <tr><td class="center" colspan="3" style="font-weight:bold">Heat Capacity at Constant Volume</td></tr>
+                <tr><td>Translational</td><td class="right">{{cv_trans}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
+                <tr><td>Rotational</td><td class="right">{{cv_rotat}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
+                <tr><td>Vibrational</td><td class="right">{{cv_vibra}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
+                <tr><td>Total</td><td class="right">{{cv_total}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
+              </table>
+            </div>
 
-    <div class="tbls_container">
-        <div class="tbl_container">
-          <table>
-            <tr><td class="center" colspan="3" style="font-weight:bold">Ideal Gas at 298.13 K</td></tr>
-            <tr><td>Std. Enthalpy of Formation</td><td class="right">{{enthalpy}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
-            <tr><td>Speed of Sound</td><td class="right">{{sound_speed}}</td><td class="right">m/s</td></tr>
-            <tr><td>Adiabatic Index</td><td class="right">{{adiabatic_index}}</td><td class="right"></td></tr>
-          </table>
-        </div>
+            <div class="tbl_container">
+              <table>
+                <tr><td class="center" colspan="3" style="font-weight:bold">Heat Capacity at Constant Pressure</td></tr>
+                <tr><td>Translational</td><td class="right">{{cp_trans}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
+                <tr><td>Rotational</td><td class="right">{{cp_rotat}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
+                <tr><td>Vibrational</td><td class="right">{{cp_vibra}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
+                <tr><td>Total</td><td class="right">{{cp_total}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
+              </table>
+            </div>
 
-        <div class="tbl_container">
-          <table>
-            <tr><td class="center" colspan="3" style="font-weight:bold">Enthalpy</td></tr>
-            <tr><td>Translational</td><td class="right">{{h_trans}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
-            <tr><td>Rotational</td><td class="right">{{h_rotat}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
-            <tr><td>Vibrational</td><td class="right">{{h_vibra}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
-            <tr><td>Total</td><td class="right">{{h_total}}</td><td class="right">kJ mol<sup>-1</sup></td></tr>
-          </table>
+            <div class="tbl_container">
+              <table>
+                <tr><td class="center" colspan="3" style="font-weight:bold">Entropy</td></tr>
+                <tr><td>Translational</td><td class="right">{{s_trans}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
+                <tr><td>Rotational</td><td class="right">{{s_rotat}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
+                <tr><td>Vibrational</td><td class="right">{{s_vibra}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
+                <tr><td>Total</td><td class="right">{{s_total}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
+              </table>
+            </div>
         </div>
-
-        <div class="tbl_container">
-          <table>
-            <tr><td class="center" colspan="3" style="font-weight:bold">Heat Capacity at Constant Volume</td></tr>
-            <tr><td>Translational</td><td class="right">{{cv_trans}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
-            <tr><td>Rotational</td><td class="right">{{cv_rotat}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
-            <tr><td>Vibrational</td><td class="right">{{cv_vibra}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
-            <tr><td>Total</td><td class="right">{{cv_total}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
-          </table>
-        </div>
-
-        <div class="tbl_container">
-          <table>
-            <tr><td class="center" colspan="3" style="font-weight:bold">Heat Capacity at Constant Pressure</td></tr>
-            <tr><td>Translational</td><td class="right">{{cp_trans}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
-            <tr><td>Rotational</td><td class="right">{{cp_rotat}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
-            <tr><td>Vibrational</td><td class="right">{{cp_vibra}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
-            <tr><td>Total</td><td class="right">{{cp_total}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
-          </table>
-        </div>
-
-        <div class="tbl_container">
-          <table>
-            <tr><td class="center" colspan="3" style="font-weight:bold">Entropy</td></tr>
-            <tr><td>Translational</td><td class="right">{{s_trans}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
-            <tr><td>Rotational</td><td class="right">{{s_rotat}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
-            <tr><td>Vibrational</td><td class="right">{{s_vibra}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
-            <tr><td>Total</td><td class="right">{{s_total}}</td><td class="right">J mol<sup>-1</sup> K<sup>-1</sup></td></tr>
-          </table>
-        </div>
-    </div>
 
     </section> <!-- sidebar wrapper -->
 </section>
