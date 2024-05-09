@@ -193,7 +193,7 @@ table tr td.center {text-align:center;}
 
     border: 1px solid #ddd;
     border-color: #dadada;
-    border-radius: 3px;
+    border-radius: 5px;
 
     text-decoration: none;
     color: #222;
@@ -533,3 +533,157 @@ input[type=text].accept {
     background: #333;
     color: #fff;
 }
+
+
+
+/* Dropdown menu for choosing starting structures */
+/* Adapted from https://blog.logrocket.com/making-dropdown-menus-css/#creating-dropdown-menu-css-javascript */
+
+/* Define the dropdown menu div container */
+.dropdown {
+    max-width: 13em;
+    margin: 0 0 15px 0;
+    position: relative;
+    width: 150px;
+}
+
+/* Define the dropdown button */
+.dropdown-btn {
+    background: #333;
+    width: 100%;
+    border: none;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 7px;  /* To match toolset buttons */
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    -webkit-transition: all 0.2s ease-out 0s;
+    transition: all 0.2s ease-out 0s;
+}
+.darkmode .dropdown-btn {
+    background: #333;
+}
+
+/* Match MoleCalc button hover color */
+.dropdown-btn:hover {
+    background: rgb(0, 121, 211);  /* Match MoleCalc button hover color */
+    border-color: rgb(0, 121, 211);
+}
+.dropdown-btn.active {
+    background: rgb(0, 121, 211);  /* Match MoleCalc button hover color */
+    border-color: rgb(0, 121, 211);
+}
+
+.arrow {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #fff;
+    transition: transform ease-in-out 0.3s;
+}
+
+.dropdown-content {
+    /*background-color: white;*/
+    /*backdrop-filter: blur(10px) brightness(60%);*/
+    border-radius: 5px;
+    padding: 5px 0;  /* No padding L/R b/c added to <a> elements*/
+    list-style: none;
+    position: absolute;
+    top: 3.2em;
+    width: 200px;
+    /*visibility: hidden;*/
+    overflow: hidden;
+}
+
+.dropdown-content li {
+    border-radius: 0;
+    padding: 0;  /* Reset padding from ul li in mc-editor toolset*/
+    position: relative;
+    left: 100%;
+    /*transition: 400ms ease-out 25ms;*/
+    /*transition-delay: calc(25ms * var(--delay));*/
+}
+.dropdown-content.menu-open li {
+    left: 0;
+    transition: 400ms ease-out 0ms;
+    transition-delay: calc(25ms * var(--delay));
+}
+.dropdown-content.menu-close li {
+    left: 100%;
+    transition: 400ms ease-in 0ms;
+    transition-delay: calc(25ms * var(--delay));
+}
+
+.dropdown-content.menu-open {
+    /*visibility: visible;*/
+    animation: blur-in 500ms ease-out 25ms forwards;
+}
+.dropdown-content.menu-close {
+    animation: blur-out 500ms ease-in 25ms forwards;
+}
+/* Define keyframes for transition to background blur */
+/*   Note: the value for visibility appears to take on the correct
+        value for each case. Specifically, when opening the menu, we
+        would want the visibility to be set to visible *immediately*
+        so that the background blurring animation can be seen. And
+        when closing the menu, we would want the visibility to be
+        changed back to hidden *at the very end* once the animation
+        that "de-blurs" the menu has finished.
+*/
+@keyframes blur-in {
+    0% {
+        backdrop-filter: opacity(0%) brightness(100%) blur(0px);
+        visibility: hidden;
+    }
+    1% {
+        backdrop-filter: opacity(1%) brightness(100%) blur(0px);
+        visibility: visible;
+    }
+    100% {
+        backdrop-filter: opacity(100%) brightness(65%) blur(5px);
+        visibility: visible;
+    }
+}
+@keyframes blur-out {
+    0% {
+        backdrop-filter: opacity(100%) brightness(65%) blur(5px);
+        visibility: visible;
+    }
+    99% {
+        backdrop-filter: opacity(1%) brightness(100%) blur(0px);
+        visibility: visible;
+    }
+    100% {
+        backdrop-filter: opacity(0%) brightness(100%) blur(0px);
+        visibility: visible;
+    }
+}
+
+.arrow.arrow-rotate {
+    transform: rotate(180deg);
+}
+
+/*.dropdown-content li:hover {*/
+/*    background: rgb(0, 121, 211);  !* Match MoleCalc button hover color *!*/
+/*    border-color: rgb(0, 121, 211);*/
+/*}*/
+
+.dropdown-content li a {
+    display: block;
+    padding: 0 7px;
+    margin: 0 -5px 0 5px;
+    color: #222;
+    /*margin: 0.1em 0.1em;*/
+    text-decoration: none;
+}
+
+.darkmode .dropdown-content li a {
+    color: #fff;
+    background: #333;
+}
+
+
+
+

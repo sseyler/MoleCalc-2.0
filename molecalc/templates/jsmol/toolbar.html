@@ -1,24 +1,54 @@
-<h2>Starting structures</h2>
+{#<h2>Starting structures</h2>#}
 
-  <ul>
+{#   <ul>
     <li class="action load_benzene"><a rel="" class="button">Benzene</a></li>
     <li class="action load_water"><a rel="" class="button">Water</a></li>
-    {# <li class="action load_carbon_dioxide"><a rel="" class="button">Carbon Dioxide</a></li>#}
-    {# <li class="action load_methane"><a rel="" class="button">Methane</a></li>#}
-    {# <li class="action load_ozone"><a rel="" class="button">Ozone</a></li>#}
-    {# <li class="action load_nitrous_oxide"><a rel="" class="button">Nitrous Oxide</a></li>#}
+     #}{# <li class="action load_carbon_dioxide"><a rel="" class="button">Carbon Dioxide</a></li>#}{#
+     #}{# <li class="action load_methane"><a rel="" class="button">Methane</a></li>#}{#
+     #}{# <li class="action load_ozone"><a rel="" class="button">Ozone</a></li>#}{#
+     #}{# <li class="action load_nitrous_oxide"><a rel="" class="button">Nitrous Oxide</a></li>#}{#
+  </ul> #}
+
+
+<div class="dropdown">
+  <a class="dropdown-btn">
+      <span>Starting Structures</span>
+      <span class="arrow"></span>
+  </a>
+  <ul class="dropdown-content" role="menu" id="dropdown-menu">
+    <li class="action load_benzene" style="--delay: 1;">
+        <a rel="" class="button" href="#">Benzene</a>
+    </li>
+    <li class="action load_water" style="--delay: 2;">
+        <a rel="" class="button" href="#">Water</a>
+    </li>
+    <li class="action load_carbon_dioxide" style="--delay: 3;">
+        <a rel="" class="button" href="#">Carbon Dioxide</a>
+    </li>
+    <li class="action load_methanol" style="--delay: 4;">
+        <a rel="" class="button" href="#">Methanol</a>
+    </li>
+    <li class="action load_ethene" style="--delay: 5;">
+        <a rel="" class="button" href="#">Ethene (Ethylene)</a>
+    </li>
+    <li class="action load_l_alanine" style="--delay: 6;">
+        <a rel="" class="button" href="#">L-Alanine</a>
+    </li>
+    <li class="action load_benzoic_acid" style="--delay: 6;">
+        <a rel="" class="button" href="#">Benzoic Acid</a>
+    </li>
+    <li class="action load_d_glucose" style="--delay: 8;">
+        <a rel="" class="button" href="#">D-Glucose</a>
+    </li>
+    <li class="action load_adamantane" style="--delay: 9;">
+        <a rel="" class="button" href="#">Adamantane</a>
+    </li>
+    <li class="action load_ethyl_crotonate" style="--delay: 10;">
+        <a rel="" class="button" href="#">Ethyl Crotonate</a>
+    </li>
   </ul>
+</div>
 
-
-{# <h3>3D</h3>#}
-
-  {#<ul>#}
-    {# <li class="action minimize"><a rel="" class="button highlight">Quick Minimize</a></li> #}
-    {# Note: exclamation mark in href="#!" is a hack to bind JS to link. Use <button> instead #}
-    {# <li><a href="#!" class="button getName highlight">Get Molecule Name</a></li>#}
-    {# <li class="action minimize"><a class="button icon"><i class="fas fa&#45;undo"></i></a></li>#}
-    {# <li class="action minimize"><a class="button icon"><i class="fas fa&#45;redo"></i></a></li>#}
-  {#</ul>#}
 
 <h2>Molecular Representation</h2>
 

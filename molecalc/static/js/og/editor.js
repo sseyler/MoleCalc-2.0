@@ -179,22 +179,47 @@ $('.toolset .load_benzene').on('click', function () {
     setMoleculeScheme();
     return false;
 });
-// $('.toolset .load_methane').click(function () {
-//
-//     // Structure defined in html template
-//     setCurrentSDF(sdfMethane);
-//     return false;
-// });
 $('.toolset .load_water').on('click', function () {
     setCurrentSDF(sdfWater);
     setMoleculeScheme();
     return false;
 });
-// $('.toolset .load_carbon_dioxide').click(function () {
-//
-//     setCurrentSDF(sdfCarbonDioxide);
-//     return false;
-// });
+$('.toolset .load_carbon_dioxide').click(function () {
+    setCurrentSDF(sdfCarbonDioxide);
+    setMoleculeScheme();
+    return false;
+});
+$('.toolset .load_methanol').click(function () {
+    setCurrentSDF(sdfMethanol);
+    setMoleculeScheme();
+    return false;
+});
+$('.toolset .load_ethene').click(function () {
+    setCurrentSDF(sdfEthene);
+    setMoleculeScheme();
+    return false;
+});
+$('.toolset .load_l_alanine').click(function () {
+    setCurrentSDF(sdfLAlanine);
+    setMoleculeScheme();
+    return false;
+});$('.toolset .load_benzoic_acid').click(function () {
+    setCurrentSDF(sdfBenzoicAcid);
+    setMoleculeScheme();
+    return false;
+});$('.toolset .load_d_glucose').click(function () {
+    setCurrentSDF(sdfDGlucose);
+    setMoleculeScheme();
+    return false;
+});$('.toolset .load_adamantane').click(function () {
+    setCurrentSDF(sdfAdamatane);
+    setMoleculeScheme();
+    return false;
+});$('.toolset .load_ethyl_crotonate').click(function () {
+    setCurrentSDF(sdfEthylCrotonate);
+    setMoleculeScheme();
+    return false;
+});
 // $('.toolset .load_ozone').click(function () {
 //
 //     setCurrentSDF(sdfOzone);
@@ -253,6 +278,43 @@ $('.button.scheme').on('click', function() {
         setMoleculeScheme();
     }
     return false;
+});
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Custom dropdown menu for selecting input structures
+///////////////////////////////////////////////////////////////////////////////
+const dropdownBtn = document.querySelector(".dropdown-btn");
+const toggleArrow = document.querySelector(".arrow");
+const dropdownMenu = document.querySelector(".dropdown-content");
+
+// Toggle dropdown function
+const toggleDropdown = function () {
+    const dropdownIsActive = dropdownBtn.classList.contains('active');
+    if( !dropdownIsActive ) {
+        dropdownBtn.classList.add("active");
+        dropdownMenu.classList.add("menu-open");
+        dropdownMenu.classList.remove("menu-close");
+    } else {
+        dropdownBtn.classList.remove("active");
+        dropdownMenu.classList.add("menu-close");
+        dropdownMenu.classList.remove("menu-open");
+    }
+    // dropdownMenu.classList.toggle("menu-close");
+    toggleArrow.classList.toggle("arrow-rotate");
+};
+
+// Toggle dropdown open/close when dropdown button is clicked
+dropdownBtn.addEventListener("click", function(e) {
+    e.stopPropagation();
+    toggleDropdown();
+});
+
+// Close dropdown menu when DOM element is clicked
+document.documentElement.addEventListener("click", function () {
+    if (dropdownMenu.classList.contains("menu-open")) {
+        toggleDropdown();
+    }
 });
 
 
