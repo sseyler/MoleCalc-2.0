@@ -20,11 +20,22 @@ function getView() {
 
 function setCurrentSDF(sdf) {
     var view = getView();
-    if (view == "2d") {
+
+   minimizeStructure(); if (view == "2d") {
         mol = chemdoodleSetMol(sketcher, sdf);
     }
     else {
         jsmolSetMol(myJmol1, sdf);
+    }
+    return false;
+}
+
+function minimizeStructure() {
+    var view = getView();
+    if (view == "2d") {
+        return false;
+    }
+    else {
         jsmolCmd(myJmol1, "minimize addHydrogens");
     }
     return false;
@@ -177,47 +188,57 @@ swithBtns = $('.toolset.tool-choice .button').click(function () {
 $('.toolset .load_benzene').on('click', function () {
     setCurrentSDF(sdfBenzene);
     setMoleculeScheme();
+    minimizeStructure();
     return false;
 });
 $('.toolset .load_water').on('click', function () {
     setCurrentSDF(sdfWater);
     setMoleculeScheme();
+    minimizeStructure();
     return false;
 });
 $('.toolset .load_carbon_dioxide').click(function () {
     setCurrentSDF(sdfCarbonDioxide);
     setMoleculeScheme();
+    minimizeStructure();
     return false;
 });
 $('.toolset .load_methanol').click(function () {
     setCurrentSDF(sdfMethanol);
     setMoleculeScheme();
+    minimizeStructure();
     return false;
 });
 $('.toolset .load_ethene').click(function () {
     setCurrentSDF(sdfEthene);
     setMoleculeScheme();
+    minimizeStructure();
     return false;
 });
 $('.toolset .load_l_alanine').click(function () {
     setCurrentSDF(sdfLAlanine);
     setMoleculeScheme();
+    minimizeStructure();
     return false;
 });$('.toolset .load_benzoic_acid').click(function () {
     setCurrentSDF(sdfBenzoicAcid);
     setMoleculeScheme();
+    minimizeStructure();
     return false;
 });$('.toolset .load_d_glucose').click(function () {
     setCurrentSDF(sdfDGlucose);
     setMoleculeScheme();
+    minimizeStructure();
     return false;
 });$('.toolset .load_adamantane').click(function () {
     setCurrentSDF(sdfAdamatane);
     setMoleculeScheme();
+    minimizeStructure();
     return false;
 });$('.toolset .load_ethyl_crotonate').click(function () {
     setCurrentSDF(sdfEthylCrotonate);
     setMoleculeScheme();
+    minimizeStructure();
     return false;
 });
 // $('.toolset .load_ozone').click(function () {
@@ -513,6 +534,7 @@ $searchFrm.submit(function(event) {
         // Convert to sdf
         var sdfstr = smilesToSdf(data);
         setCurrentSDF(sdfstr);
+        minimizeStructure();
 
         promptSearch.cancel();
         onWindowResize();

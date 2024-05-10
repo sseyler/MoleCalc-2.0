@@ -593,7 +593,7 @@ input[type=text].accept {
     position: absolute;
     top: 3.2em;
     width: 200px;
-    /*visibility: hidden;*/
+    visibility: hidden;
     overflow: hidden;
 }
 
@@ -657,7 +657,7 @@ input[type=text].accept {
     }
     100% {
         backdrop-filter: opacity(0%) brightness(100%) blur(0px);
-        visibility: visible;
+        visibility: hidden;
     }
 }
 
