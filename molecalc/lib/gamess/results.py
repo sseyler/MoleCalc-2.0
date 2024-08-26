@@ -194,7 +194,10 @@ def view_calculation(calculation):
     ir_line_areas = 43.42945 * np.asarray(data['vibintens']).astype(float)
     ir_line_width = 10.0  # cm^-1
     ir_line_shape = 'Gaussian'
-    max_line = np.max(ir_line_freqs)
+    if len(ir_line_freqs) > 0:
+        max_line = np.max(ir_line_freqs)
+    else:
+        max_line = 10
 
     n_plot_points = 5000
     min_freq = 0
