@@ -194,6 +194,8 @@ def view_calculation(calculation):
     ir_line_areas = 43.42945 * np.asarray(data['vibintens']).astype(float)
     ir_line_width = 10.0  # cm^-1
     ir_line_shape = 'Gaussian'
+
+    # If there are no IR lines (e.g., one atom), arbitrarily set to 10
     if len(ir_line_freqs) > 0:
         max_line = np.max(ir_line_freqs)
     else:
